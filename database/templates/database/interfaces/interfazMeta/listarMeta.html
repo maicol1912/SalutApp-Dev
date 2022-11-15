@@ -1,0 +1,20 @@
+{% extends "database/baseUsuario.html" %}
+{% load static %}
+
+{% block subtitulo %} Usuario {% endblock %}
+
+{% block contenedor %}
+<div>
+    <label style="color: black;">Tu Tipo de meta</label>
+    <p style="color: black;">{{meta.meta_tipo}}</p>
+</div>
+<div>
+    <label style="color: black;">Tu Descripcion</label>
+    <p style="color: black;">{{meta.meta_desc}}</p>
+</div>
+<div>
+    <label style="color: black;">Tu Peso Ideal</label>
+    <p style="color: black;">{{meta.meta_peso_ideal}}</p>
+</div>
+
+{% endblock %}

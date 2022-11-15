@@ -27,7 +27,7 @@ def login(request):
                     return redirect('index')   
                 if (request.session["logueo"][1] =="usuario"):
                     messages.success(request, "Ha sido logueado con exito")
-                    return redirect('index')   
+                    return redirect('indexUsuario')   
             # ----------------------------
               
 
