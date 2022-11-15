@@ -1,0 +1,33 @@
+{% extends "database/base.html" %}
+{% load static %}
+
+{% block subtitulo %} UsuarioEncuesta {% endblock %}
+
+{% block contenedor %}
+<form action="{% url 'usuarioEncuesta:ingresar' %}" method="post">
+    {% csrf_token %}
+
+    <div class="mb-3">
+        <label for="">Usuario</label>
+        <select class="form-control" name="usuario_user">
+
+            {% for i in usuarios%}
+            <option value="{{i.usuario_id}}">{{i.usuario_nombre}}</option>
+            {% endfor %}
+
+        </select>
+    </div>
+
+    <div class="mb-3">
+        <label for="">Encuesta</label>
+        <select class="form-control" name="usuario_enc">
+    
+            {% for i in encuestas%}
+            <option value="{{i.id}}">{{i.encuesta_desc}}</option>
+            {% endfor %}
+    
+        </select>
+    </div>
+    <button type="submit" class="btn btn-primary">Enviar</button>
+</form>
+{% endblock %}

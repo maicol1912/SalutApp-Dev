@@ -1,0 +1,54 @@
+{% extends "database/base.html" %}
+{% load static %}
+
+{% block subtitulo %} Usuario {% endblock %}
+
+{% block contenedor %}
+<form action="{% url 'usuario:ingresar' %}" method="post">
+    {% csrf_token %}
+    <div class="mb-3">
+        <label for="">Cedula</label>
+        <input type="number" class="form-control" name="usuario_id">
+    </div>
+
+    <div class="mb-3">
+        <label for="">Usuario</label>
+        <input type="text" class="form-control" name="usuario_nombre">
+    </div>
+
+    <div class="mb-3">
+        <label for="">Correo</label>
+        <input type="email" class="form-control" name="usuario_correo">
+    </div>
+
+    <div class="mb-3">
+        <label for="">Password</label>
+        <input type="password" class="form-control" name="usuario_password">
+    </div>
+
+    <div class="mb-3">
+        <label for="">Peso (Kg)</label>
+        <input type="number" class="form-control" name="usuario_peso">
+    </div>
+
+    <div class="mb-3">
+        <label for="">Altura (Cm) </label>
+        <input type="number" class="form-control" name="usuario_altura">
+    </div>
+
+    <div class="mb-3">
+        <label for="">Edad</label>
+        <input type="number" class="form-control" name="usuario_edad">
+    </div>
+
+    <div class="mb-3">
+        <label for="">Rol</label><br>
+        <select class="form-control" name="usuario_rol">
+            <option value="admin">Administrador</option>
+            <option value="usuario">Usuario</option>
+        </select>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Enviar</button>
+</form>
+{% endblock %}

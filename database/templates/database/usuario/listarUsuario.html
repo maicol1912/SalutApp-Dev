@@ -1,0 +1,92 @@
+{% extends "database/base.html" %}
+{% load static %}
+
+{% block subtitulo %} Usuarios {% endblock %}
+
+{% block contenedor %}
+<h1>Usuario</h1>
+<a class="btn btn-warning" href="{% url 'usuario:formulario' %}">Agregar</a>
+<br>
+<br>
+{% if messages %}
+
+{% for message in messages %}
+<div class="alert alert-{% if message.tags %}{{message.tags}}{% else %}dark{% endif %}" role="alert">
+    {{message}}
+</div>
+{% endfor %}
+
+
+{% endif %}
+
+{% if datos %}
+<div class="contenedor-buscador">
+    <form class="d-flex" role="search" action="{% url 'usuario:buscar' %}" method="post">
+        {% csrf_token %}
+        <input class="form-control" type="search" name="buscar" placeholder="filtre por nombre o correo">
+        <button class="btn btn-outline-success" type="sumbit">Enviar</button>
+    </form>
+</div>
+<div class="contenedor-div">
+    <table class="table table-bordered table-primary">
+        <thead>
+            <tr>
+                <th>Cedula</th>
+                <th>Correo</th>
+                <th>Nombre</th>
+                <th>Password</th>
+                <th>Peso</th>
+                <th>Altura</th>
+                <th>Edad</th>
+                <th>Rol</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+
+        {% for i in datos %}
+        <tr>
+            <td>{{i.usuario_id}}</td>
+            <td>{{i.usuario_correo}}</td>
+            <td>{{i.usuario_nombre}}</td>
+            <td>{{i.usuario_password}}</td>
+            <td>{{i.usuario_peso}}</td>
+            <td>{{i.usuario_altura}}</td>
+            <td>{{i.usuario_edad}}</td>
+            <td>{{i.usuario_rol}}</td>
+            <td><a type="button" class="btn btn-danger" href="{% url 'usuario:eliminar' i.usuario_id %}">Eliminar</a>
+                <a type="button" class="btn btn-success" href="{% url 'usuario:encontrar' i.usuario_id %}">Actualizar</a>
+            </td>
+        </tr>
+
+        {% endfor %}
+    </table>
+
+    <nav aria-label="...">
+        <ul class="pagination">
+            <li class="page-item {% if not datos.has_previous %}disabled{% endif %}">
+                <a class="page-link" href="?page=1">&laquo;</a>
+            </li>
+            <li class="page-item {% if not datos.has_previous %}disabled{% endif %}">
+                <a class="page-link" {% if datos.has_previous %}href="?page={{ datos.previous_page_number }}" {% endif %}>Anterior</a>
+            </li>
+
+            {% for i in "x"|rjust:datos.paginator.num_pages|make_list %}
+            <li class="page-item {% if forloop.counter == datos.number %}active{% endif %}" aria-current="page">
+                <a class="page-link" href="?page={{ forloop.counter }}">{{ forloop.counter }}</a>
+            </li>
+            {% endfor %}
+
+            <li class="page-item {% if not datos.has_next %}disabled{% endif %}">
+                <a class="page-link" {% if datos.has_next %}href="?page={{ datos.next_page_number }}" {% endif %}>Siguiente</a>
+            </li>
+            <li class="page-item {% if not datos.has_next %}disabled{% endif %}">
+                <a class="page-link" {% if datos.has_next %}href="?page={{ datos.paginator.num_pages }}" {% endif %}>&raquo;</a>
+            </li>
+        </ul>
+    </nav>
+    {% else %}
+    No hay datos...
+</div>
+{% endif %}
+
+{% endblock %}

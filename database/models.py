@@ -1,0 +1,125 @@
+from django.db import models
+
+# Create your models here.
+from django.db import models
+
+# Create your models here.
+from django.db import models
+
+# Create your models here.
+
+
+class Encuesta(models.Model):
+    """
+    La siguiente tabla se usa para almacenar encuestas que se le hacen 
+    a los usuarios de la app acerca de opiniones
+    """
+    encuesta_tipo = models.CharField(max_length=200)
+    encuesta_desc = models.TextField()
+
+    def __str__(self):
+        return f"encuesta: {self.encuesta_tipo}"
+
+
+class Usuario(models.Model):
+    """
+    La siguiente tabla se usa para almacenar los datos de las personas que 
+    se registren en nuestra aplicacion y con estos datos poder desdplegar 
+    diferentes herramientas
+    """
+    usuario_id = models.IntegerField(primary_key=True)
+    usuario_nombre = models.CharField(max_length=200)
+    usuario_correo = models.EmailField(max_length=300)
+    usuario_password = models.CharField(max_length=300)
+    usuario_peso = models.FloatField()
+    usuario_altura = models.IntegerField()
+    usuario_edad = models.IntegerField()
+    usuario_rol = models.CharField(max_length=200)
+
+    def __str__(self):
+        return f"cedula: {self.usuario_id} nombre: {self.usuario_nombre} "
+
+
+class Meta(models.Model):
+    """
+    En esta tabla se almacenan los  datos de cada usuario para asi poder
+    definir cual es el plan que este debe llevar , relacionada a :model: `database.Usuario`.
+    """
+    meta_tipo = models.CharField(max_length=200)
+    meta_desc = models.TextField()
+    meta_peso_ideal = models.FloatField()
+    usuario_id = models.ForeignKey(Usuario, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"meta: {self.meta_tipo}"
+
+
+class UsuarioEncuesta(models.Model):
+    """
+    Esta es una tabla intermedia entre la tabla usuario y encuesta,
+    relacionada a :model:`database.Usuario`. y :model:`database.Encuesta`.
+    """
+    usuario_id = models.ForeignKey(Usuario, on_delete=models.CASCADE)
+    encuesta_id = models.ForeignKey(Encuesta, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"usuario-encuesta: {self.encuesta_id}"
+
+
+class Pqr(models.Model):
+    """
+    En esta tabla se contienen todas las peticiones, quejas, y reclamos,
+    relacionada a :model: `database.Usuario`
+    """
+    pqr_tipo = models.CharField(max_length=200)
+    pqr_desc = models.TextField()
+    usuario_id = models.ForeignKey(Usuario, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"pqr: {self.pqr_tipo}"
+
+
+class Especificacion(models.Model):
+    """
+    En esta tabla se contienen dietas especificas predefinidas para recomendar
+    a el usuario dependiendo de sus caracteristicas y esta divida en los 7 dias de la semana
+    """
+    especificacion_id = models.IntegerField(primary_key=True)
+    especificacion_nombre = models.CharField(max_length=200)
+    especificacion_dia_1 = models.TextField()
+    especificacion_dia_2 = models.TextField()
+    especificacion_dia_3 = models.TextField()
+    especificacion_dia_4 = models.TextField()
+    especificacion_dia_5 = models.TextField()
+    especificacion_dia_6 = models.TextField()
+    especificacion_dia_7 = models.TextField()
+
+    def __str__(self):
+        return f"especificacion: {self.especificacion_id}"
+
+
+class Plan(models.Model):
+    """
+    En esta tabla se contiene la descripcion y una introduccion al plan que el usuario
+    va a llevar sin entrar en mucho detalle, relacionada a  :model: `database.Especificacion`
+    """
+    plan_desc = models.TextField()
+    plan_recomendaciones = models.TextField()
+    especificacion_id = models.ForeignKey(
+        Especificacion, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"plan: {self.plan_desc}"
+
+
+class Tarea(models.Model):
+    """
+    En esta tabla se contiene la confirmacion de los usuarios acerca de la realizacion
+    de las actividades asignadas, relacionada a :model: `database.Usuario`
+    """
+    tarea_check = models.BooleanField()
+    especificacion_id = especificacion_id = models.ForeignKey(Especificacion, on_delete=models.CASCADE)
+    usuario_id = models.ForeignKey(Usuario, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"Tarea: {self.tarea_check}"

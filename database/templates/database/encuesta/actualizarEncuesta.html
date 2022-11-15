@@ -1,0 +1,24 @@
+{% extends "database/base.html" %}
+{% load static %}
+
+{% block subtitulo %} Encuesta {% endblock %}
+
+{% block contenedor %}
+<form action="{% url 'encuesta:actualizar' %}" method="post">
+    {% csrf_token %}
+    <input type="hidden" name="id" value="{{encuesta.id}}">
+    <div class="mb-3">
+        <label for="">Tipo</label><br>
+        <select class="form-control" name="encuesta_tipo">
+            <option value="1">Calidad</option>
+            <option value="2">Satisfaccion</option>
+            <option value="3">Sugerencia</option>
+        </select>
+    </div>
+    <div class="mb-3">
+        <label for="">Descripcion</label>
+        <textarea type="text" class="form-control" id="input-formulario" name="encuesta_desc">{{encuesta.encuesta_desc}}</textarea>
+    </div>
+    <button type="submit" class="btn btn-primary">Enviar</button>
+</form>
+{% endblock %}

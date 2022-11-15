@@ -1,0 +1,30 @@
+{% extends "database/base.html" %}
+{% load static %}
+
+{% block subtitulo %} Plan {% endblock %}
+
+{% block contenedor %}
+<form action="{% url 'plan:ingresar' %}" method="post">
+    {% csrf_token %}
+    <div class="mb-3">
+        <label for="">Descripcion</label>
+        <textarea type="text" class="form-control" id="input-formulario" name="plan_desc"></textarea>
+    </div>
+    <div class="mb-3">
+        <label for="">Recomendaciones</label>
+        <textarea type="text" class="form-control" id="input-formulario" name="plan_recomendacion"></textarea>
+    </div>
+
+    <div class="mb-3">
+        <label for="">Especificacion</label>
+        <select class="form-control" name="plan_especificacion">
+
+            {% for i in especificaciones%}
+            <option value="{{i.especificacion_id}}">{{i.especificacion_nombre}}</option>
+            {% endfor %}
+
+        </select>
+    </div>
+    <button type="submit" class="btn btn-primary">Enviar</button>
+</form>
+{% endblock %}

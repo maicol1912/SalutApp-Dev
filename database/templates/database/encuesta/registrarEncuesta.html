@@ -1,0 +1,23 @@
+{% extends "database/base.html" %}
+{% load static %}
+
+{% block subtitulo %} Encuesta {% endblock %}
+
+{% block contenedor %}
+<form action="{% url 'encuesta:ingresar' %}" method="post">
+    {% csrf_token %}
+    <div class="mb-3">
+        <label for="">Tipo</label><br>
+        <select class="form-control" name="encuesta_tipo">
+            <option value="calidad">Calidad</option>
+            <option value="satisfaccion">Satisfaccion</option>
+            <option value="sugerencia">Sugerencia</option>
+        </select>
+    </div>
+    <div class="mb-3">
+        <label for="">Descripcion</label>
+        <textarea type="text" class="form-control" id="input-formulario" name="encuesta_desc"></textarea>
+    </div>
+    <button type="submit" class="btn btn-primary">Enviar</button>
+</form>
+{% endblock %}

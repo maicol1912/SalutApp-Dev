@@ -1,0 +1,94 @@
+{% extends "database/base.html" %}
+{% load static %}
+
+{% block subtitulo %} Especificacion {% endblock %}
+
+{% block contenedor %}
+<h1>Especificacion</h1>
+<a class="btn btn-warning" href="{% url 'especificacion:formulario' %}">Agregar</a>
+<br>
+<br>
+{% if messages %}
+
+{% for message in messages %}
+<div class="alert alert-{% if message.tags %}{{message.tags}}{% else %}dark{% endif %}" role="alert">
+    {{message}}
+</div>
+{% endfor %}
+
+
+{% endif %}
+
+{% if datos %}
+<div class="contenedor-buscador">
+    <form class="d-flex" role="search" action="{% url 'especificacion:buscar' %}" method="post">
+        {% csrf_token %}
+        <input class="form-control" type="search" name="buscar" placeholder="filtre por nombre">
+        <button class="btn btn-outline-success" type="sumbit">Enviar</button>
+    </form>
+</div>
+<div class="contenedor-div">
+    <table class="table table-bordered table-primary">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nombre</th>
+                <th>Dia 1</th>
+                <th>Dia 2</th>
+                <th>Dia 3</th>
+                <th>Dia 4</th>
+                <th>Dia 5</th>
+                <th>Dia 6</th>
+                <th>Dia 7</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+
+        {% for i in datos %}
+        <tr>
+            <td>{{i.especificacion_id}}</td>
+            <td>{{i.especificacion_nombre}}</td>
+            <td>{{i.especificacion_dia_1}}</td>
+            <td>{{i.especificacion_dia_2}}</td>
+            <td>{{i.especificacion_dia_3}}</td>
+            <td>{{i.especificacion_dia_4}}</td>
+            <td>{{i.especificacion_dia_5}}</td>
+            <td>{{i.especificacion_dia_6}}</td>
+            <td>{{i.especificacion_dia_7}}</td>
+            <td><a type="button" class="btn btn-danger" href="{% url 'especificacion:eliminar' i.especificacion_id %}">Eliminar</a>
+                <a type="button" class="btn btn-success" href="{% url 'especificacion:encontrar' i.especificacion_id %}">Actualizar</a>
+            </td>
+        </tr>
+
+        {% endfor %}
+    </table>
+
+    <nav aria-label="...">
+        <ul class="pagination">
+            <li class="page-item {% if not datos.has_previous %}disabled{% endif %}">
+                <a class="page-link" href="?page=1">&laquo;</a>
+            </li>
+            <li class="page-item {% if not datos.has_previous %}disabled{% endif %}">
+                <a class="page-link" {% if datos.has_previous %}href="?page={{ datos.previous_page_number }}"{%endif%}>Anterior</a>
+            </li>
+
+            {% for i in "x"|rjust:datos.paginator.num_pages|make_list %}
+            <li class="page-item {% if forloop.counter == datos.number %}active{% endif %}" aria-current="page">
+                <a class="page-link" href="?page={{ forloop.counter }}">{{ forloop.counter }}</a>
+            </li>
+            {% endfor %}
+
+            <li class="page-item {% if not datos.has_next %}disabled{% endif %}">
+                <a class="page-link" {% if datos.has_next %}href="?page={{ datos.next_page_number }}" {%endif%}>Siguiente</a>
+            </li>
+            <li class="page-item {% if not datos.has_next %}disabled{% endif %}">
+                <a class="page-link" {% if datos.has_next %}href="?page={{ datos.paginator.num_pages }}"{%endif%}>&raquo;</a>
+            </li>
+        </ul>
+    </nav>
+    {% else %}
+    No hay datos...
+</div>
+{% endif %}
+
+{% endblock %}
