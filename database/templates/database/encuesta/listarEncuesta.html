@@ -36,6 +36,7 @@
             <th>ID</th>
             <th>Tipo</th>
             <th>Descripcion</th>
+            <th>Estado</th>
             <th>Acciones</th>
         </tr>
     </thead>
@@ -44,7 +45,8 @@
     <tr>
         <td>{{i.id}}</td>
         <td>{{i.encuesta_tipo}}</td>
-        <td>{{i.encuesta_desc}}</td>
+        <td>{{i.encuesta_desc}}</td>}
+        <td>{{i.encuesta_estado}}</td>
         <td><a type="button" class="btn btn-danger" href="{% url 'encuesta:eliminar' i.id %}">Eliminar</a>
             <a type="button" class="btn btn-success" href="{% url 'encuesta:encontrar' i.id %}">Actualizar</a>
         </td>

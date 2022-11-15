@@ -27,10 +27,30 @@ def ingresar(request):
         if request.method == "POST":
             usuarioP = request.POST["meta_usuario"]
             usuario = Usuario.objects.get(pk=usuarioP)
+            usuarioE = Usuario.objects.get(pk=request.session["logueo"][2])
+            altura = usuarioE.usuario_altura / 100
+            peso = usuarioE.usuario_peso
+            imc = (peso/(altura * altura))
+        
+            tipoMeta = request.POST["meta_tipo"]
 
-            meta = Meta(meta_tipo=request.POST["meta_tipo"],
+            pesoIdeal = int(request.POST["meta_peso"])
+            imcIdeal = (pesoIdeal/(altura * altura))
+            if imc <=18.4 and tipoMeta == "bajar peso":
+                messages.warning(request, "su peso es bajo, no puede bajar mas peso")
+                return ("indexUsuario")
+                
+            if imc >24.9 and tipoMeta == "subir peso":
+                messages.warning(request, "su peso es alto, no puede subir mas peso")
+                return ("indexUsuario")
+
+            if imcIdeal < 18.9 or imcIdeal > 24.9:
+                messages.warning(request, "esta meta no es saludable, esta fuera de los pesos recomendables")
+                return redirect("indexUsuario")
+                
+            meta = Meta(meta_tipo=tipoMeta,
                         meta_desc=request.POST["meta_desc"],
-                        meta_peso_ideal=float(request.POST["meta_peso"]),
+                        meta_peso_ideal=pesoIdeal,
                         usuario_id=usuario
                         )
             meta.save()

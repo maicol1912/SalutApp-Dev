@@ -53,7 +53,8 @@ def ingresar(request):
         try:
             if request.method == "POST":
                 encuesta = Encuesta(encuesta_tipo = request.POST["encuesta_tipo"],
-                                    encuesta_desc = request.POST["encuesta_desc"])
+                                    encuesta_desc = request.POST["encuesta_desc"],
+                                    encuesta_estado=request.POST["encuesta_estado"])
                 encuesta.save()
                 messages.success(request, "Encuesta guardado Correctamente")
             else:
@@ -107,6 +108,7 @@ def actualizar(request):
         encuesta.id = id
         encuesta.encuesta_tipo = request.POST["encuesta_tipo"]
         encuesta.encuesta_desc = request.POST["encuesta_desc"]
+        encuesta.encuesta_estado = request.POST["encuesta_estado"]
         encuesta.save()
         return redirect('encuesta:listar')
     else:

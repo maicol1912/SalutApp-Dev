@@ -8,45 +8,45 @@
     {% csrf_token %}
     <div class="mb-3">
         <label for="">Cedula</label>
-        <input type="number" class="form-control" name="usuario_id">
+        <input type="number" class="form-control" name="usuario_id" required>
     </div>
 
     <div class="mb-3">
         <label for="">Usuario</label>
-        <input type="text" class="form-control" name="usuario_nombre">
+        <input type="text" class="form-control" name="usuario_nombre" required>
     </div>
 
     <div class="mb-3">
         <label for="">Correo</label>
-        <input type="email" class="form-control" name="usuario_correo">
+        <input type="email" class="form-control" name="usuario_correo" required>
     </div>
 
     <div class="mb-3">
         <label for="">Password</label>
-        <input type="password" class="form-control" name="usuario_password">
+        <input type="password" class="form-control" name="usuario_password" required>
     </div>
 
     <div class="mb-3">
         <label for="">Peso (Kg)</label>
-        <input type="number" class="form-control" name="usuario_peso">
+        <input type="number" class="form-control" name="usuario_peso" required>
     </div>
 
     <div class="mb-3">
         <label for="">Altura (Cm) </label>
-        <input type="number" class="form-control" name="usuario_altura">
+        <input type="number" class="form-control" name="usuario_altura" required>
     </div>
 
     <div class="mb-3">
         <label for="">Edad</label>
-        <input type="number" class="form-control" name="usuario_edad">
+        <input type="number" class="form-control" name="usuario_edad" required>
     </div>
 
     <div class="mb-3">
         <label for="">Rol</label><br>
-        <select class="form-control" name="usuario_rol">
+        <select class="form-control" name="usuario_rol" required>
             <option value="admin">Administrador</option>
             <option value="usuario">Usuario</option>
-        </select>
+        </select > 
     </div>
 
     <button type="submit" class="btn btn-primary">Enviar</button>

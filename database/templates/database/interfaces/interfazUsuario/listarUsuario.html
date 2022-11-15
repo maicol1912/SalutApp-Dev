@@ -1,0 +1,34 @@
+{% extends "database/baseUsuario.html" %}
+{% load static %}
+
+{% block subtitulo %} Usuario {% endblock %}
+
+{% block contenedor %}
+
+    
+    <h2 >Tu Informacion</h2>
+    <div>
+        <label for="">Tu Nombre</label>
+        <p>{{datos.usuario_nombre}}</p>
+    </div>
+    <div>
+        <label for="">Tu Correo</label>
+        <p>{{datos.usuario_correo}}</p>
+    </div>
+    
+    <div>
+        <label for="">Tu Peso</label>
+        <p>{{datos.usuario_peso}}</p>
+    </div>
+    
+    <div>
+        <label for=""style="color: black;">Tu Altura</label>
+        <p >{{datos.usuario_altura}}</p>
+    </div>
+
+    <div>
+        <label for="">Tu Edad</label>
+        <p>{{datos.usuario_edad}}</p>
+    </div>
+    <a type="button" class="btn btn-danger" href="{% url 'IUsuario:encontrar'%}">Actualizar Informacion</a>
+{% endblock %}

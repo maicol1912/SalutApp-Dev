@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from database.models import Plan, Especificacion
+from database.models import Plan, Especificacion,Usuario,Meta
 from django.contrib import messages
 from django.core.paginator import Paginator
 
@@ -38,7 +38,9 @@ def formulario(request):
     """
     if request.session["logueo"][1] =="admin":
         especificacion = Especificacion.objects.all()
-        context = {"especificaciones": especificacion}
+        usuario = Usuario.objects.all()
+        meta = Meta.objects.all()
+        context = {"especificaciones": especificacion,"usuarios":usuario,"metas":meta}
         return render(request, 'database/plan/registrarPlan.html', context)
     else:
         messages.warning(request, "usted no tiene acceso a este campo")
@@ -55,10 +57,16 @@ def ingresar(request):
             if request.method == "POST":
                 especificacionP = request.POST["plan_especificacion"]
                 especificacion = Especificacion.objects.get(pk=especificacionP)
+                metaP = request.POST["meta_especificacion"]
+                meta = Meta.objects.get(pk=metaP)
+                usuarioP = request.POST["usuario_especificacion"]
+                usuario = Usuario.objects.get(pk=usuarioP)
 
                 plan = Plan(plan_desc = request.POST["plan_desc"],
                             plan_recomendaciones = request.POST["plan_recomendacion"],
-                            especificacion_id = especificacion
+                            especificacion_id = especificacion,
+                            meta_id = meta,
+                            usuario_id = usuario
                             )
                 plan.save()
                 messages.success(request, "Plan guardada Correctamente")
@@ -95,10 +103,11 @@ def encontrar(request, id):
     :template:`database/plan/actualizarPlan.html`
     """
     if request.session["logueo"][1] =="admin":
-        plan = plan.objects.get(pk=id)
+        plan = Plan.objects.get(pk=id)
         especificacion = Especificacion.objects.all()
-        context = {"datos": plan,
-                "especificaciones": especificacion}
+        usuario = Usuario.objects.all()
+        meta = Meta.objects.all()
+        context = {"datos": plan,"especificaciones": especificacion,"usuarios":usuario,"metas":meta}
         return render(request, "database/plan/actualizarPlan.html", context)
     else:
         messages.warning(request, "usted no tiene acceso a este campo")
@@ -112,6 +121,10 @@ def actualizar(request):
     if request.session["logueo"][1] =="admin":
         especificacionP = request.POST["plan_especificacion"]
         especificacion = Especificacion.objects.get(pk=especificacionP)
+        metaP = request.POST["meta_especificacion"]
+        meta = Meta.objects.get(pk=metaP)
+        usuarioP = request.POST["usuario_especificacion"]
+        usuario = Usuario.objects.get(pk=usuarioP)
         id = request.POST["id"]
 
         plan = Plan.objects.get(pk=id)
@@ -119,6 +132,8 @@ def actualizar(request):
         plan.plan_desc = request.POST["plan_desc"]
         plan.plan_recomendaciones = request.POST["plan_recomendacion"]
         plan.especificacion_id = especificacion
+        plan.meta_id = meta
+        plan.usuario_id = usuario
         plan.save()
         return redirect('plan:listar')
     else:

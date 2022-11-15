@@ -25,6 +25,26 @@
 
         </select>
     </div>
+    <div class="mb-3">
+        <label for="">Meta</label>
+        <select class="form-control" name="meta_especificacion">
+    
+            {% for i in metas%}
+            <option value="{{i.id}}">{{i.meta_desc}}</option>
+            {% endfor %}
+    
+        </select>
+    </div>
+    <div class="mb-3">
+        <label for="">Usuario</label>
+        <select class="form-control" name="usuario_especificacion">
+    
+            {% for i in usuarios%}
+            <option value="{{i.usuario_id}}">{{i.usuario_nombre}}</option>
+            {% endfor %}
+    
+        </select>
+    </div>
     <button type="submit" class="btn btn-primary">Enviar</button>
 </form>
 {% endblock %}

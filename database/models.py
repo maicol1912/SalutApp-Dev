@@ -16,6 +16,7 @@ class Encuesta(models.Model):
     """
     encuesta_tipo = models.CharField(max_length=200)
     encuesta_desc = models.TextField()
+    encuesta_estado = models.CharField(max_length=50)
 
     def __str__(self):
         return f"encuesta: {self.encuesta_tipo}"
@@ -31,7 +32,7 @@ class Usuario(models.Model):
     usuario_nombre = models.CharField(max_length=200)
     usuario_correo = models.EmailField(max_length=300)
     usuario_password = models.CharField(max_length=300)
-    usuario_peso = models.FloatField()
+    usuario_peso = models.IntegerField()
     usuario_altura = models.IntegerField()
     usuario_edad = models.IntegerField()
     usuario_rol = models.CharField(max_length=200)
@@ -105,8 +106,9 @@ class Plan(models.Model):
     """
     plan_desc = models.TextField()
     plan_recomendaciones = models.TextField()
-    especificacion_id = models.ForeignKey(
-        Especificacion, on_delete=models.CASCADE)
+    especificacion_id = models.ForeignKey(Especificacion, on_delete=models.CASCADE)
+    meta_id = models.ForeignKey(Meta, on_delete=models.CASCADE)
+    usuario_id = models.ForeignKey(Usuario, on_delete=models.CASCADE)
 
     def __str__(self):
         return f"plan: {self.plan_desc}"

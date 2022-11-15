@@ -37,22 +37,27 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="{% url 'IMeta:listar' %}">Meta</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="{% url 'IUsuario:listar' %}">Usuario</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="{% url 'IPlan:listar' %}">Plan</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="#"></a>
+          </li>
           <li class="nav-item">
             <a class="nav-link active" aria-current="page" href="{% url 'pqr:listar' %}">Pqr</a>
           </li>
           <li class="nav-item">
             <a class="nav-link active" aria-current="page" href="{% url 'encuesta:listar' %}">Encuesta</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="{% url 'usuario:listar' %}">Usuario</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="{% url 'IMeta:listar' %}">Meta</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="{% url 'plan:listar' %}">Plan</a>
-          </li>
+          
+          
+          
           <li class="nav-item">
             <a class="nav-link active" aria-current="page" href="{% url 'especificacion:listar' %}">Especificacion</a>
           </li>

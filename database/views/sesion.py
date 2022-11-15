@@ -28,9 +28,10 @@ def login(request):
                 if (request.session["logueo"][1] =="usuario"):
                     messages.success(request, "Ha sido logueado con exito")
                     return redirect('indexUsuario')   
-            # ----------------------------
+            else:
+                messages.error(request, "Usuario o contraseña incorrectos...")
+                return redirect('sesion:loginFormulario')
               
-
         except Usuario.DoesNotExist:
             messages.error(request, "Usuario o contraseña incorrectos...")
             return redirect('sesion:loginFormulario')

@@ -51,28 +51,39 @@ def ingresar(request):
     hacer la insercion a :model:`database.Usuario`. si todo esta correcto
     o redirecciona nuevamente al mismo formulario hasta ser valido
     """
-    
     try:
+        
         if request.method == "POST":
-                password = request.POST["usuario_password"]
-                user = request.POST["usuario_nombre"]
-                correo = request.POST["usuario_correo"]
-                if (Usuario.objects.filter(usuario_nombre = user) or Usuario.objects.filter(usuario_nombre = user)):
-                    messages.warning(request, "Este usuario o correo ya esta en uso")
-                    return redirect("indexUsuario")
+                altura = int(request.POST["usuario_altura"])
+                peso = int(request.POST["usuario_peso"])
+                edad = int(request.POST["usuario_edad"])
+                if altura > 140 and peso > 40 and edad >= 15:
+                    password = request.POST["usuario_password"]
+                    user = request.POST["usuario_nombre"]
+                    correo = request.POST["usuario_correo"]
+                    id = request.POST["usuario_id"]
+                    if (Usuario.objects.filter(usuario_nombre=user) or Usuario.objects.filter(usuario_correo=correo) or Usuario.objects.filter(usuario_id=id)):
+                        messages.warning(
+                            request, "Este usuario o correo ya esta en uso")
+                        return redirect("indexUsuario")
+                    else:
+                        passwordEncriptado = encriptador.encriptarPassword(
+                            password)
+                        usuario = Usuario(usuario_id=id,
+                                          usuario_nombre=user,
+                                          usuario_correo=correo,
+                                          usuario_password=passwordEncriptado,
+                                          usuario_peso=peso,
+                                          usuario_altura=altura,
+                                          usuario_edad=edad,
+                                          usuario_rol=request.POST["usuario_rol"]
+                                          )
+                        usuario.save()
+                        messages.success(
+                            request, "Usuario guardado Correctamente")
                 else:
-                    passwordEncriptado = encriptador.encriptarPassword(password)
-                    usuario = Usuario(usuario_id=request.POST["usuario_id"],
-                                    usuario_nombre = user,
-                                    usuario_correo = correo,
-                                    usuario_password =passwordEncriptado ,
-                                    usuario_peso = float(request.POST["usuario_peso"]),
-                                    usuario_altura = int(request.POST["usuario_altura"]),
-                                    usuario_edad = int(request.POST["usuario_edad"]),
-                                    usuario_rol = request.POST["usuario_rol"]
-                            )
-                    usuario.save()
-                    messages.success(request, "Usuario guardado Correctamente")
+                    messages.warning(
+                        request, "Los datos que ingresaste no son validos")
         else:
             messages.warning(request, "usted no ha enviado datos...")
 
@@ -117,7 +128,7 @@ def actualizar(request):
     hacer la actualizacion a :model:`database.Usuario`. si todo esta correcto
     """
     if request.session["logueo"][1] =="admin":
-        id = request.POST["id"]
+        id = request.POST["usuario_id"]
         password = request.POST["usuario_password"]
         passwordEncriptado = encriptador.encriptarPassword(password)
 
@@ -126,7 +137,7 @@ def actualizar(request):
         usuario.usuario_nombre = request.POST["usuario_nombre"]
         usuario.usuario_correo = request.POST["usuario_correo"]
         usuario.usuario_password = passwordEncriptado
-        usuario.usuario_peso = float(request.POST["usuario_peso"])
+        usuario.usuario_peso = int(request.POST["usuario_peso"])
         usuario.usuario_altura = int(request.POST["usuario_altura"])
         usuario.usuario_edad = int(request.POST["usuario_edad"])
         usuario.usuario_rol = request.POST["usuario_rol"]
