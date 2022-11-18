@@ -7,36 +7,73 @@ from django.contrib import messages
 # Create your views here.
 def listar(request):
     if request.session["logueo"][1] == "usuario" or request.session["logueo"][1] == "admin":
-
-        usuarioE = Usuario.objects.get(pk=request.session["logueo"][2])
-        altura = usuarioE.usuario_altura / 100
-        peso = usuarioE.usuario_peso 
-        imc = (usuarioE.usuario_peso/(usuarioE.usuario_altura /100 * usuarioE.usuario_altura/100))
-        imcFormateado = ("%.1f"%imc)
+        usuario = Usuario.objects.get(pk=request.session["logueo"][2])
+        if Meta.objects.filter(usuario_id=usuario):
+            meta = Meta.objects.filter(usuario_id=usuario)[0]
         
-        context = {"datos": usuarioE}
-        return render(request, 'database/interfaces/interfazUsuario/listarUsuario.html', context)
+            if Plan.objects.filter(meta_id=meta.id):
+            
+                meta = Meta.objects.filter(usuario_id = usuario)
+                plan = Plan.objects.filter(meta_id = meta.meta_id)
+            
+                context = {"datos": plan}
+                return render(request, 'database/interfaces/interfazPlan/listarPlan.html', context)
+            else:
+                
+                return redirect("IPlan:ingresar")
+        else:
+            
+            return redirect("IMeta:formulario")
     else:
-        messages.warning(request, "usted no ha enviado datos...")
-        return ("indexUsuario")
+        messages.warning(request, "usted no tiene acceso a este modulo")
+        return redirect("indexUsuario")
 
 
 
 def ingresar(request):
     if request.session["logueo"][1] == "usuario" or request.session["logueo"][1] == "admin":
         idUsuario = request.session["logueo"][2]
-        if (Usuario.objects.get(pk=id) and Meta.objects.filter(id_usuario = idUsuario)):
-            usuario = Usuario.objects.get(pk=id)
+
+        if (Usuario.objects.get(pk=idUsuario) and Meta.objects.filter(usuario_id=idUsuario)):
+    
+            usuario = Usuario.objects.get(pk=idUsuario)
             imc = (usuario.usuario_peso/((usuario.usuario_altura/100) * (usuario.usuario_altura/100)))
-            meta = Meta.objects.filter(id_usuario=idUsuario)[0]
-            if(imc<=15):
-                textoDelgadezExtrema = "Lo que debes realizar es un superavit calorico agresivo ya que estas muy por debajo del peso deseado"
-                recomendacionesDelgadezExtrema = "debes realizar ejercicios de hipertrofia, comer mas veces al dia ademas subir mucho el numero de calorias que ingieres"
-                plan = Plan(plan_desc=textoDelgadezExtrema,
-                            plan_recomendaciones=recomendacionesDelgadezExtrema,
+            
+            meta = Meta.objects.filter(usuario_id=idUsuario)[0]
+            
+            if(meta.meta_tipo == "subir peso"):
+                textoBajoPeso = "Lo que debes realizar es un superavit calorico ya que estas  por debajo del peso deseado"
+                recomendacionesBajoPeso = "debes realizar ejercicios de hipertrofia, comer mas veces al dia ademas subir mucho el numero de calorias que ingieres"
+                plan = Plan(plan_desc=textoBajoPeso,
+                            plan_recomendaciones=recomendacionesBajoPeso,
                             especificacion_id=1,
                             meta_id=meta,
                             usuario_id=usuario )
+                return redirect("IPlan:listar")
+
+            if (meta.meta_tipo == "bajar peso"):
+                textoPesoAlto = "Lo que debes realizar es un deficit calorico ya que estas  por encima del peso deseado"
+                recomendacionesAltoPeso = "debes realizar ejercicios de hipertrofia pero lo debes acompañar con bastante cardio y ejercicios de vascularidad, comer 3 o 4 veces al dia ademas bajar el numero de calorias que consumes en un dia para entrar en un deficit calorico"
+                plan = Plan(plan_desc=textoPesoAlto,
+                            plan_recomendaciones=recomendacionesAltoPeso,
+                            especificacion_id=1,
+                            meta_id=meta,
+                            usuario_id=usuario)
+                return redirect("IPlan:listar")
+
+            if (meta.meta_tipo == "recomposicion"):
+                textoPesoNormal = "Lo que debes realizar es un mantenimiento calorico e ir remplazando poco a poco tu masa corporal por musculo ya que quiere mantener el peso deseado pero disminuir la grasa"
+                recomendacionesPesoNormal = "debes realizar ejercicios de hipertrofia, comer varias veces al dia, comer una cantidad de calorias considerable pero altas en proteinas"
+                plan = Plan(plan_desc=textoPesoNormal,
+                            plan_recomendaciones=recomendacionesPesoNormal,
+                            especificacion_id=1,
+                            meta_id=meta,
+                            usuario_id=usuario)
+                return redirect("IPlan:listar")
+                
+        else:
+            messages.warning(request, "no has rellenado la meta")
+            return redirect("IMeta:formulario")
     else:
-        messages.warning(request, "usted no ha enviado datos...")
-        return ("indexUsuario")
+        messages.warning(request, "No tienes acceso a este modulo")
+        return redirect("indexUsuario")

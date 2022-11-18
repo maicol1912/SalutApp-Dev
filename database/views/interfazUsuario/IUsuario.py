@@ -9,8 +9,12 @@ from database.views.encriptacion import encriptador
 def listar(request):
     if request.session["logueo"][1] == "usuario" or request.session["logueo"][1] == "admin":
         usuarioE = Usuario.objects.get(pk=request.session["logueo"][2])
+
+        imc = (usuarioE.usuario_peso/(usuarioE.usuario_altura /
+               100 * usuarioE.usuario_altura/100))
+        imcFormateado = ("%.1f" % imc)
         print(usuarioE)
-        context = {"datos":usuarioE}
+        context = {"datos":usuarioE,"imc":imcFormateado}
         return render(request, 'database/interfaces/interfazUsuario/listarUsuario.html',context)
     else:
         messages.warning(request, "usted no ha enviado datos...")

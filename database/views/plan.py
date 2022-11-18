@@ -7,14 +7,7 @@ from django.core.paginator import Paginator
 
 
 def listar(request):
-    """
-    Lista todos los registros almacenados de :model:`database.Plan`.
-    en el template
-
-    **Template:**
-
-    :template:`database/plan/listarPlan.html`
-    """
+    
     if request.session["logueo"][1] =="admin":
         plan = Plan.objects.all()
         paginator = Paginator(plan, 5)

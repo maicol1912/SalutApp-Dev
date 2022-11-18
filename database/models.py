@@ -87,6 +87,7 @@ class Especificacion(models.Model):
     """
     especificacion_id = models.IntegerField(primary_key=True)
     especificacion_nombre = models.CharField(max_length=200)
+    especificacion_recomendacion = models.TextField()
     especificacion_dia_1 = models.TextField()
     especificacion_dia_2 = models.TextField()
     especificacion_dia_3 = models.TextField()

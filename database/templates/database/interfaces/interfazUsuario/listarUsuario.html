@@ -30,5 +30,10 @@
         <label for="">Tu Edad</label>
         <p>{{datos.usuario_edad}}</p>
     </div>
+
+    <div>
+        <label for="">Tu IMC</label>
+        <p>{{imc}}</p>
+    </div>
     <a type="button" class="btn btn-danger" href="{% url 'IUsuario:encontrar'%}">Actualizar Informacion</a>
 {% endblock %}

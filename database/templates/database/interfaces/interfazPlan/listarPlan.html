@@ -1,0 +1,18 @@
+{% extends "database/baseUsuario.html" %}
+{% load static %}
+
+{% block subtitulo %} Plan {% endblock %}
+
+{% block contenedor %}
+
+<h2>Tu Plan</h2>
+<div>
+    <label for="">En que consiste tu plan</label>
+    <p>{{datos.plan_desc}}</p>
+</div>
+<div>
+    <label for="">Recomendaciones</label>
+    <p>{{datos.plan_recomendaciones}}</p>
+</div>
+
+{% endblock %}
