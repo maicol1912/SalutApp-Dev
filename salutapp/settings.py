@@ -77,9 +77,9 @@ WSGI_APPLICATION = 'salutapp.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'salutApp-database',
+        'NAME': 'salutapp-database',
         'USER': 'root',
-        'PASSWORD' : '1234',
+        'PASSWORD' : 'maicol123',
         'HOST': 'localhost',
         'PORT': ''
     }

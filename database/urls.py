@@ -21,4 +21,6 @@ urlpatterns = [
     path('i-usuario/', include('database.url_modulos.interfazUsuario')),
     path('i-meta/', include('database.url_modulos.interfazMeta')),
     path('i-plan/', include('database.url_modulos.interfazPlan')),
+    path('i-pqr/', include('database.url_modulos.interfazPqr')),
+    path('i-especificacion/', include('database.url_modulos.interfazEspecificacion')),
 ]

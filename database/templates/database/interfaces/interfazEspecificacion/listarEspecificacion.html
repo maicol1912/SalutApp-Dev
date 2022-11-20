@@ -1,0 +1,47 @@
+{% extends "database/baseUsuario.html" %}
+{% load static %}
+
+{% block subtitulo %} Especificacion {% endblock %}
+
+{% block contenedor %}
+<h2>Tu Dieta-Entreno</h2>
+<div>
+    <label >Tipo</label>
+    <p>{{datos.especificacion_nombre}}</p>
+</div>
+<div>
+    <label >Recomendaciones</label>
+    <p>{{datos.especificacion_recomendacion}}</p>
+</div>
+<div>
+    <label >Dia 1</label>
+    <p>{{datos.especificacion_dia_1}}</p>
+</div>
+<div>
+    <label >Dia 2</label>
+    <p>{{datos.especificacion_dia_2}}</p>
+</div>
+<div>
+    <label >Dia 3</label>
+    <p>{{datos.especificacion_dia_3}}</p>
+</div>
+<div>
+    <label >Dia 4</label>
+    <p>{{datos.especificacion_dia_4}}</p>
+</div>
+<div>
+    <label >Dia 5</label>
+    <p>{{datos.especificacion_dia_5}}</p>
+</div>
+<div>
+    <label >Dia 6</label>
+    <p>{{datos.especificacion_dia_6}}</p>
+</div>
+<div>
+    <label >Dia 7</label>
+    <p>{{datos.especificacion_dia_7}}</p>
+</div>
+
+
+    
+{% endblock %}

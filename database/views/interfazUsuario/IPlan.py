@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
-from database.models import Usuario,Meta,Plan
+from database.models import Usuario,Meta,Plan,Especificacion
 from django.contrib import messages
 
 
@@ -10,16 +10,14 @@ def listar(request):
         usuario = Usuario.objects.get(pk=request.session["logueo"][2])
         if Meta.objects.filter(usuario_id=usuario):
             meta = Meta.objects.filter(usuario_id=usuario)[0]
-        
             if Plan.objects.filter(meta_id=meta.id):
             
-                meta = Meta.objects.filter(usuario_id = usuario)
-                plan = Plan.objects.filter(meta_id = meta.meta_id)
+                metaE = Meta.objects.filter(usuario_id = usuario)[0]
+                plan = Plan.objects.filter(meta_id = metaE.id)[0]
             
                 context = {"datos": plan}
                 return render(request, 'database/interfaces/interfazPlan/listarPlan.html', context)
             else:
-                
                 return redirect("IPlan:ingresar")
         else:
             
@@ -44,31 +42,38 @@ def ingresar(request):
             if(meta.meta_tipo == "subir peso"):
                 textoBajoPeso = "Lo que debes realizar es un superavit calorico ya que estas  por debajo del peso deseado"
                 recomendacionesBajoPeso = "debes realizar ejercicios de hipertrofia, comer mas veces al dia ademas subir mucho el numero de calorias que ingieres"
+                especificacion = Especificacion.objects.get(pk='1131')
+
                 plan = Plan(plan_desc=textoBajoPeso,
                             plan_recomendaciones=recomendacionesBajoPeso,
-                            especificacion_id=1,
+                            especificacion_id=especificacion,
                             meta_id=meta,
                             usuario_id=usuario )
+                plan.save()
                 return redirect("IPlan:listar")
 
             if (meta.meta_tipo == "bajar peso"):
                 textoPesoAlto = "Lo que debes realizar es un deficit calorico ya que estas  por encima del peso deseado"
                 recomendacionesAltoPeso = "debes realizar ejercicios de hipertrofia pero lo debes acompañar con bastante cardio y ejercicios de vascularidad, comer 3 o 4 veces al dia ademas bajar el numero de calorias que consumes en un dia para entrar en un deficit calorico"
+                especificacion = Especificacion.objects.get(pk='1132')
                 plan = Plan(plan_desc=textoPesoAlto,
                             plan_recomendaciones=recomendacionesAltoPeso,
-                            especificacion_id=1,
+                            especificacion_id=especificacion,
                             meta_id=meta,
                             usuario_id=usuario)
+                plan.save()
                 return redirect("IPlan:listar")
 
             if (meta.meta_tipo == "recomposicion"):
                 textoPesoNormal = "Lo que debes realizar es un mantenimiento calorico e ir remplazando poco a poco tu masa corporal por musculo ya que quiere mantener el peso deseado pero disminuir la grasa"
                 recomendacionesPesoNormal = "debes realizar ejercicios de hipertrofia, comer varias veces al dia, comer una cantidad de calorias considerable pero altas en proteinas"
+                especificacion = Especificacion.objects.get(pk='1133')
                 plan = Plan(plan_desc=textoPesoNormal,
                             plan_recomendaciones=recomendacionesPesoNormal,
-                            especificacion_id=1,
+                            especificacion_id=especificacion,
                             meta_id=meta,
                             usuario_id=usuario)
+                plan.save()
                 return redirect("IPlan:listar")
                 
         else:
