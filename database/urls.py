@@ -7,8 +7,6 @@ urlpatterns = [
     path('', views.landing, name='landing'),
     path('index/', views.index, name='index'),
     path('index-usuario/', views.indexUsuario, name='indexUsuario'),
-    
-    path('sesion/', include('database.url_modulos.sesion')),
 
     path('encuesta/', include('database.url_modulos.encuesta')),
     path('especificacion/', include('database.url_modulos.especificacion')),

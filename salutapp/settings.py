@@ -79,7 +79,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'salutapp-database',
         'USER': 'root',
-        'PASSWORD' : 'maicol123',
+        'PASSWORD' : '1234',
         'HOST': 'localhost',
         'PORT': ''
     }
