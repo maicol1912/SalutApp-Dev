@@ -5,6 +5,20 @@
 
 {% block contenedor %}
 
-
+<form action="{% url 'ITarea:ingresar' %}" method="post">
+    {% csrf_token %}
+    <div class="mb-3">
+        <label for="">Realizaste las indicaciones dadas en la semana</label><br>
+        <select class="form-control" name="tarea_check" required>
+            <option value="True">Si las seguí</option>
+            <option value="False">No las seguí</option>
+        </select>
+    </div>
+    <div class="mb-3">
+        <label for="">Tu nuevo peso</label>
+        <input type="number" class="form-control" name="nuevo_peso" required>
+    </div>
+    <button type="submit" class="btn btn-primary">Enviar</button>
+</form>
 
 {% endblock %}

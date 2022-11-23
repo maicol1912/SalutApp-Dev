@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from database.models import Usuario
 from django.contrib import messages
+from datetime import datetime
 from database.views.encriptacion import encriptador
 
 
@@ -53,6 +54,7 @@ def ingresar(request):
                         return redirect("indexUsuario")
                     else:
                         passwordEncriptado = encriptador.encriptarPassword(password)
+                        fechaIngreso = datetime.strftime(datetime.now(), "%d-%m-%Y")
                         usuario = Usuario(usuario_id=request.POST["usuario_id"],
                                         usuario_nombre = user,
                                         usuario_correo = correo,
@@ -60,7 +62,9 @@ def ingresar(request):
                                         usuario_peso = peso,
                                         usuario_altura = altura,
                                         usuario_edad = edad,
-                                        usuario_rol = request.POST["usuario_rol"]
+                                        usuario_rol = request.POST["usuario_rol"],
+                                        usuario_nro_semanas=0,
+                                        usuario_fecha_avance=fechaIngreso
                                 )
                         usuario.save()
                         messages.success(request, "Usuario guardado Correctamente")

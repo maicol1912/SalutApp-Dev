@@ -2,6 +2,7 @@ from django.shortcuts import render,redirect
 # Mensajes tipo cookie temporales
 from django.contrib import messages
 from ..models import Usuario
+from datetime import datetime
 from database.views.encriptacion.encriptador import *
 
 def loginFormulario(request):
@@ -19,7 +20,7 @@ def login(request):
             usuarioObtenido = Usuario.objects.get(usuario_nombre = user)
             verificarContraseña = comparePassword(usuarioObtenido.usuario_password,passw)
             if (usuarioObtenido and verificarContraseña):
-                from datetime import datetime
+                
                 fechaIngreso = datetime.strftime(datetime.now(), "%d-%m-%Y")
                 # crear la sesión
                 request.session["logueo"] = [usuarioObtenido.usuario_nombre, usuarioObtenido.usuario_rol, usuarioObtenido.usuario_id,fechaIngreso]

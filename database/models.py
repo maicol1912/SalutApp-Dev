@@ -36,6 +36,8 @@ class Usuario(models.Model):
     usuario_altura = models.IntegerField()
     usuario_edad = models.IntegerField()
     usuario_rol = models.CharField(max_length=200)
+    usuario_nro_semanas = models.IntegerField()
+    usuario_fecha_avance = models.CharField(max_length=200)
 
     def __str__(self):
         return f"cedula: {self.usuario_id} nombre: {self.usuario_nombre} "
@@ -107,7 +109,8 @@ class Plan(models.Model):
     """
     plan_desc = models.TextField()
     plan_recomendaciones = models.TextField()
-    especificacion_id = models.ForeignKey(Especificacion, on_delete=models.CASCADE)
+    especificacion_id = models.ForeignKey(
+        Especificacion, on_delete=models.CASCADE)
     meta_id = models.ForeignKey(Meta, on_delete=models.CASCADE)
     usuario_id = models.ForeignKey(Usuario, on_delete=models.CASCADE)
 
@@ -120,7 +123,7 @@ class Tarea(models.Model):
     En esta tabla se contiene la confirmacion de los usuarios acerca de la realizacion
     de las actividades asignadas, relacionada a :model: `database.Usuario`
     """
-    tarea_id = models.TextField()
+    tarea_id = models.CharField(primary_key=True, max_length=200)
     tarea_check_1 = models.BooleanField()
     peso_check_1 = models.IntegerField()
     tarea_check_2 = models.BooleanField()
@@ -130,8 +133,8 @@ class Tarea(models.Model):
     tarea_check_4 = models.BooleanField()
     peso_check_4 = models.IntegerField()
 
-
-    especificacion_id = especificacion_id = models.ForeignKey(Especificacion, on_delete=models.CASCADE)
+    especificacion_id = especificacion_id = models.ForeignKey(
+        Especificacion, on_delete=models.CASCADE)
     usuario_id = models.ForeignKey(Usuario, on_delete=models.CASCADE)
 
     def __str__(self):

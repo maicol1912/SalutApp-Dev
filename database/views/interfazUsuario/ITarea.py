@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
-from database.models import Tarea, Usuario
+from database.models import Tarea, Usuario, Plan, Especificacion
 from django.contrib import messages
 from datetime import datetime, timedelta
 
@@ -10,7 +10,8 @@ from datetime import datetime, timedelta
 def listar(request):
     if request.session["logueo"][1] == "usuario" or request.session["logueo"][1] == "admin":
         if Tarea.objects.filter(usuario_id=request.session["logueo"][2]):
-            tarea = Tarea.objects.filter(usuario_id = request.session["logueo"][2])[0]
+            tarea = Tarea.objects.filter(
+                usuario_id=request.session["logueo"][2])[0]
             context = {"datos": tarea}
             return render(request, 'database/interfaces/interfazTarea/listarTarea.html', context)
         else:
@@ -23,36 +24,52 @@ def listar(request):
 def formulario(request):
     if request.session["logueo"][1] == "usuario" or request.session["logueo"][1] == "admin":
         fechaActual = datetime.now()
-        fechaUsuario=datetime.strptime(request.session["logueo"][3], "%d-%m-%Y")
+        usuario = Usuario.objects.get(pk=request.session["logueo"][2])
+        fechaUsuario = datetime.strptime(usuario.usuario_fecha_avance, "%d-%m-%Y")
 
         diferenciaFecha = fechaActual - timedelta(days=7)
 
-        if diferenciaFecha >= fechaUsuario:
-            return render(request, 'database/interfaces/interfazTarea/registrarTarea.html')
-        else:
-            messages.warning(request, "No han pasado los suficientes dias para marcar como realizada una tarea")
-            return redirect("indexUsuario")
+        #if diferenciaFecha >= fechaUsuario:
+        return render(request, 'database/interfaces/interfazTarea/registrarTarea.html')
+        #else:
+        #messages.warning(request, "No han pasado los suficientes dias para marcar como realizada una tarea")
+        #return redirect("indexUsuario")
 
     else:
         messages.warning(request, " No tienes acceso a este modulo")
         return redirect("indexUsuario")
-    
 
 
 def ingresar(request):
     try:
         if request.session["logueo"][1] == "usuario" or request.session["logueo"][1] == "admin":
+            print("entre al 1")
             usuario = Usuario.objects.get(pk=request.session["logueo"][2])
-            pqr = Pqr(pqr_tipo=request.POST["pqr_tipo"],
-                      pqr_desc=request.POST["pqr_desc"],
-                      usuario_id=usuario)
-            pqr.save()
-            messages.warning(
-                request, "Gracias por enviar tu aporte en breves recibiras novedades")
-            return redirect("indexUsuario")
-
+            if Plan.objects.filter(usuario_id=request.session["logueo"][2]):
+                plan = Plan.objects.filter(usuario_id=request.session["logueo"][2])[0]
+                especificacion = Especificacion.objects.get(pk=plan.especificacion_id.especificacion_id)
+                tareaId = str(usuario.usuario_id) + str(usuario.usuario_nro_semanas)
+                if usuario.usuario_nro_semanas == 0:
+                    print("llegue lejos")
+                    tarea = Tarea(tarea_id=tareaId,
+                                  tarea_check_1=True,
+                                  peso_check_1=90,
+                                  tarea_check_2=True,
+                                  peso_check_2=1,
+                                  tarea_check_3=True,
+                                  peso_check_3=1,
+                                  tarea_check_4=True,
+                                  peso_check_4=1,
+                                  especificacion_id=especificacion,
+                                  usuario_id=usuario)
+                    tarea.save()
+                    messages.warning(request, "Guardamos tu avance con exito")
+                    return redirect("usuarioIndex")
+            else:
+                messages.warning(request, " No Encontramos Planes para ti")
+                return redirect("IPlan:listar")
         else:
-            messages.warning(request, " No tienes acceso a este modulo")
+            messages.warning(request, " No Encontramos tareas para ti")
             return redirect("indexUsuario")
 
     except Exception as e:
