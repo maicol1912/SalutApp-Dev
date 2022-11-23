@@ -120,7 +120,17 @@ class Tarea(models.Model):
     En esta tabla se contiene la confirmacion de los usuarios acerca de la realizacion
     de las actividades asignadas, relacionada a :model: `database.Usuario`
     """
-    tarea_check = models.BooleanField()
+    tarea_id = models.TextField()
+    tarea_check_1 = models.BooleanField()
+    peso_check_1 = models.IntegerField()
+    tarea_check_2 = models.BooleanField()
+    peso_check_2 = models.IntegerField()
+    tarea_check_3 = models.BooleanField()
+    peso_check_3 = models.IntegerField()
+    tarea_check_4 = models.BooleanField()
+    peso_check_4 = models.IntegerField()
+
+
     especificacion_id = especificacion_id = models.ForeignKey(Especificacion, on_delete=models.CASCADE)
     usuario_id = models.ForeignKey(Usuario, on_delete=models.CASCADE)
 

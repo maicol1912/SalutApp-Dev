@@ -19,9 +19,10 @@ def login(request):
             usuarioObtenido = Usuario.objects.get(usuario_nombre = user)
             verificarContraseña = comparePassword(usuarioObtenido.usuario_password,passw)
             if (usuarioObtenido and verificarContraseña):
-        
+                from datetime import datetime
+                fechaIngreso = datetime.strftime(datetime.now(), "%d-%m-%Y")
                 # crear la sesión
-                request.session["logueo"] = [usuarioObtenido.usuario_nombre, usuarioObtenido.usuario_rol, usuarioObtenido.usuario_id]
+                request.session["logueo"] = [usuarioObtenido.usuario_nombre, usuarioObtenido.usuario_rol, usuarioObtenido.usuario_id,fechaIngreso]
                 if (request.session["logueo"][1] =="admin"):
                     messages.success(request, "Ha sido logueado con exito")
                     return redirect('index')   
