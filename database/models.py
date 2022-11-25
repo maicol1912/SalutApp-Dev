@@ -133,8 +133,7 @@ class Tarea(models.Model):
     tarea_check_4 = models.BooleanField(null=True)
     peso_check_4 = models.IntegerField(null=True)
 
-    especificacion_id = especificacion_id = models.ForeignKey(
-        Especificacion, on_delete=models.CASCADE)
+    especificacion_id = especificacion_id = models.ForeignKey(Especificacion, on_delete=models.CASCADE)
     usuario_id = models.ForeignKey(Usuario, on_delete=models.CASCADE)
 
     def __str__(self):
