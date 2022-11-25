@@ -124,14 +124,14 @@ class Tarea(models.Model):
     de las actividades asignadas, relacionada a :model: `database.Usuario`
     """
     tarea_id = models.CharField(primary_key=True, max_length=200)
-    tarea_check_1 = models.BooleanField()
-    peso_check_1 = models.IntegerField()
-    tarea_check_2 = models.BooleanField()
-    peso_check_2 = models.IntegerField()
-    tarea_check_3 = models.BooleanField()
-    peso_check_3 = models.IntegerField()
-    tarea_check_4 = models.BooleanField()
-    peso_check_4 = models.IntegerField()
+    tarea_check_1 = models.BooleanField(null=True)
+    peso_check_1 = models.IntegerField(null=True)
+    tarea_check_2 = models.BooleanField(null=True)
+    peso_check_2 = models.IntegerField(null=True)
+    tarea_check_3 = models.BooleanField(null=True)
+    peso_check_3 = models.IntegerField(null=True)
+    tarea_check_4 = models.BooleanField(null=True)
+    peso_check_4 = models.IntegerField(null=True)
 
     especificacion_id = especificacion_id = models.ForeignKey(
         Especificacion, on_delete=models.CASCADE)
