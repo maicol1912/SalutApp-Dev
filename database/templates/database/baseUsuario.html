@@ -56,21 +56,11 @@
             <a class="nav-link active" aria-current="page" href="{% url 'ITarea:listar' %}">Tarea</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#"></a>
+            <a class="nav-link active" aria-current="page" href="{% url 'ITip:listar' %}">Tip</a>
           </li>
-          
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="{% url 'encuesta:listar' %}">Encuesta</a>
-          </li>
-          
-          
-          
-          
           
           {% if request.session.logueo %}
-          <li class="nav-item">
-            <a class="nav-link active"> Bienvenido:{{ request.session.logueo.0 }} Rol:{{ request.session.logueo.1 }} Fecha: {{request.session.logueo.3}}</a>
-          </li>
+          
           <div class="d-flex">
             <a id="btnSi" class="btn btn-primary" href="{% url 'sesion:logout' %}">Logout</a>
           </div>

@@ -31,11 +31,11 @@ def login(request):
                     messages.success(request, "Ha sido logueado con exito")
                     return redirect('indexUsuario')   
             else:
-                messages.error(request, "Usuario o contraseña incorrectos...")
+                messages.warning(request, "Usuario o contraseña incorrectos...")
                 return redirect('sesion:loginFormulario')
               
         except Usuario.DoesNotExist:
-            messages.error(request, "Usuario o contraseña incorrectos...")
+            messages.warning(request, "Usuario o contraseña incorrectos...")
             return redirect('sesion:loginFormulario')
         except Exception as e:
             messages.error(request, f"Error: {e}")

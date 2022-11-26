@@ -4,8 +4,8 @@
 {% block subtitulo %} Encuestas {% endblock %}
 
 {% block contenedor %}
-<h1>Encuesta</h1>
-<a class="btn btn-warning" href="{% url 'encuesta:formulario' %}">Agregar</a>
+<h1>Tip</h1>
+<a class="btn btn-warning" href="{% url 'tip:formulario' %}">Agregar</a>
 <br>
 <br>
 {% if messages %}
@@ -21,7 +21,7 @@
 
 {% if datos %}
 <div class="contenedor-buscador">
-    <form class="d-flex" role="search" action="{% url 'encuesta:buscar' %}" method="post">
+    <form class="d-flex" role="search" action="{% url 'tip:buscar' %}" method="post">
         {% csrf_token %}
         <input class="form-control" type="search" name="buscar" placeholder="filtre por categoria">
         <button class="btn btn-outline-success" type="sumbit">Enviar</button>
@@ -34,9 +34,8 @@
     <thead>
         <tr>
             <th>ID</th>
-            <th>Tipo</th>
+            <th>Encabezado</th>
             <th>Descripcion</th>
-            <th>Estado</th>
             <th>Acciones</th>
         </tr>
     </thead>
@@ -44,11 +43,10 @@
     {% for i in datos %}
     <tr>
         <td>{{i.id}}</td>
-        <td>{{i.encuesta_tipo}}</td>
-        <td>{{i.encuesta_desc}}</td>}
-        <td>{{i.encuesta_estado}}</td>
-        <td><a type="button" class="btn btn-danger" href="{% url 'encuesta:eliminar' i.id %}">Eliminar</a>
-            <a type="button" class="btn btn-success" href="{% url 'encuesta:encontrar' i.id %}">Actualizar</a>
+        <td>{{i.tip_encabezado}}</td>
+        <td>{{i.tip_desc}}</td>
+        <td><a type="button" class="btn btn-danger" href="{% url 'tip:eliminar' i.id %}">Eliminar</a>
+            <a type="button" class="btn btn-success" href="{% url 'tip:encontrar' i.id %}">Actualizar</a>
         </td>
     </tr>
 

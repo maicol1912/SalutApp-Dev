@@ -4,6 +4,7 @@ from database.models import Usuario
 from django.contrib import messages
 from django.core.paginator import Paginator
 from database.views.encriptacion import encriptador
+from datetime import datetime
 
 
 # Create your views here.
@@ -67,8 +68,8 @@ def ingresar(request):
                             request, "Este usuario o correo ya esta en uso")
                         return redirect("indexUsuario")
                     else:
-                        passwordEncriptado = encriptador.encriptarPassword(
-                            password)
+                        passwordEncriptado = encriptador.encriptarPassword(password)
+                        fechaIngreso = datetime.strftime(datetime.now(), "%d-%m-%Y")
                         usuario = Usuario(usuario_id=id,
                                           usuario_nombre=user,
                                           usuario_correo=correo,
@@ -76,7 +77,10 @@ def ingresar(request):
                                           usuario_peso=peso,
                                           usuario_altura=altura,
                                           usuario_edad=edad,
-                                          usuario_rol=request.POST["usuario_rol"]
+                                          usuario_rol=request.POST["usuario_rol"],
+                                          usuario_nro_semanas= 0,
+                                          usuario_fecha_avance=fechaIngreso,
+                                          usuario_nro_tarea = 0
                                           )
                         usuario.save()
                         messages.success(

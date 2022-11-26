@@ -9,15 +9,13 @@ from django.db import models
 # Create your models here.
 
 
-class Encuesta(models.Model):
+class Tip(models.Model):
     """
     La siguiente tabla se usa para almacenar encuestas que se le hacen 
     a los usuarios de la app acerca de opiniones
     """
-    encuesta_tipo = models.CharField(max_length=200)
-    encuesta_desc = models.TextField()
-    encuesta_estado = models.CharField(max_length=50)
-
+    tip_encabezado = models.CharField(max_length=200)
+    tip_desc = models.TextField()
     def __str__(self):
         return f"encuesta: {self.encuesta_tipo}"
 
@@ -38,6 +36,7 @@ class Usuario(models.Model):
     usuario_rol = models.CharField(max_length=200)
     usuario_nro_semanas = models.IntegerField()
     usuario_fecha_avance = models.CharField(max_length=200)
+    usuario_nro_tarea = models.IntegerField()
 
     def __str__(self):
         return f"cedula: {self.usuario_id} nombre: {self.usuario_nombre} "
@@ -55,18 +54,6 @@ class Meta(models.Model):
 
     def __str__(self):
         return f"meta: {self.meta_tipo}"
-
-
-class UsuarioEncuesta(models.Model):
-    """
-    Esta es una tabla intermedia entre la tabla usuario y encuesta,
-    relacionada a :model:`database.Usuario`. y :model:`database.Encuesta`.
-    """
-    usuario_id = models.ForeignKey(Usuario, on_delete=models.CASCADE)
-    encuesta_id = models.ForeignKey(Encuesta, on_delete=models.CASCADE)
-
-    def __str__(self):
-        return f"usuario-encuesta: {self.encuesta_id}"
 
 
 class Pqr(models.Model):
@@ -109,8 +96,7 @@ class Plan(models.Model):
     """
     plan_desc = models.TextField()
     plan_recomendaciones = models.TextField()
-    especificacion_id = models.ForeignKey(
-        Especificacion, on_delete=models.CASCADE)
+    especificacion_id = models.ForeignKey(Especificacion, on_delete=models.CASCADE)
     meta_id = models.ForeignKey(Meta, on_delete=models.CASCADE)
     usuario_id = models.ForeignKey(Usuario, on_delete=models.CASCADE)
 
@@ -124,17 +110,16 @@ class Tarea(models.Model):
     de las actividades asignadas, relacionada a :model: `database.Usuario`
     """
     tarea_id = models.CharField(primary_key=True, max_length=200)
-    tarea_check_1 = models.BooleanField(null=True)
+    tarea_check_1 = models.CharField(null=True,max_length=3)
     peso_check_1 = models.IntegerField(null=True)
-    tarea_check_2 = models.BooleanField(null=True)
+    tarea_check_2 = models.CharField(null=True,max_length=3)
     peso_check_2 = models.IntegerField(null=True)
-    tarea_check_3 = models.BooleanField(null=True)
+    tarea_check_3 = models.CharField(null=True,max_length=3)
     peso_check_3 = models.IntegerField(null=True)
-    tarea_check_4 = models.BooleanField(null=True)
+    tarea_check_4 = models.CharField(null=True,max_length=3)
     peso_check_4 = models.IntegerField(null=True)
-
-    especificacion_id = especificacion_id = models.ForeignKey(Especificacion, on_delete=models.CASCADE)
+    especificacion_id = models.ForeignKey(Especificacion, on_delete=models.CASCADE)
     usuario_id = models.ForeignKey(Usuario, on_delete=models.CASCADE)
 
     def __str__(self):
-        return f"Tarea: {self.tarea_check}"
+        return f"Tarea: {self.tarea_id}"

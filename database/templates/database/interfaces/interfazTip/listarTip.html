@@ -1,7 +1,7 @@
 {% extends "database/baseUsuario.html" %}
 {% load static %}
 
-{% block subtitulo %} Plan {% endblock %}
+{% block subtitulo %} Usuario {% endblock %}
 
 {% block contenedor %}
 
@@ -16,18 +16,22 @@
 
 {% endif %}
 
+<a href="{% url 'ITarea:formulario' %}">Crear Tarea</a>
+<h2>Tips</h2>
 {% if datos %}
-<h2>Tu Plan</h2>
 <div>
-    <label for="">En que consiste tu plan</label>
-    <p>{{datos.plan_desc}}</p>
-</div>
-<div>
-    <label for="">Recomendaciones</label>
-    <p>{{datos.plan_recomendaciones}}</p>
+    {% for i in datos %}
+    <div>
+        <label>{{i.tip_encabezado}}</label>
+        <p>{{i.tip_desc}}</p>
+    </div>
+
+    {% endfor %}
+
     {% else %}
     No hay datos...
 </div>
 {% endif %}
+
 
 {% endblock %}

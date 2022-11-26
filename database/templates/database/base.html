@@ -42,10 +42,7 @@
             <a class="nav-link active" aria-current="page" href="{% url 'pqr:listar' %}">Pqr</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="{% url 'usuarioEncuesta:listar' %}">Usuario_Encuesta</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="{% url 'encuesta:listar' %}">Encuesta</a>
+            <a class="nav-link active" aria-current="page" href="{% url 'tip:listar' %}">Tip</a>
           </li>
           <li class="nav-item">
             <a class="nav-link active" aria-current="page" href="{% url 'usuario:listar' %}">Usuario</a>
@@ -63,13 +60,12 @@
             <a class="nav-link active" aria-current="page" href="{% url 'tarea:listar' %}">Tarea</a>
           </li>
           {% if request.session.logueo %}
-          <li class="nav-item">
-            <a class="nav-link active"> Bienvenido:{{ request.session.logueo.0 }} Rol:{{ request.session.logueo.1 }}</a>
-          </li>
-          {% endif %}
+          
           <div class="d-flex" > 
             <a  id="btnSi" class="btn btn-primary" href="{% url 'sesion:logout' %}">Logout</a>
           </div>
+          {% endif %}
+    
         </ul>
         <!--<div class="d-flex">
               <a class="btn btn-outline-success" href="#">Registrarse</a>

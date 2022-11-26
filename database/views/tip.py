@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
-from database.models import Encuesta
+from database.models import Tip
 from django.core.paginator import Paginator
 
 # Create your views here.
@@ -16,13 +16,13 @@ def listar(request):
     :template:`database/encuesta/listarEncuesta.html`
     """
     if request.session["logueo"][1] =="admin":
-        encuesta = Encuesta.objects.all()
-        paginator = Paginator(encuesta,5)
+        tip = Tip.objects.all()
+        paginator = Paginator(tip,5)
         page_number = request.GET.get('page')
-        encuesta = paginator.get_page(page_number)
+        tip = paginator.get_page(page_number)
 
-        context = {"datos": encuesta}
-        return render(request, 'database/encuesta/listarEncuesta.html', context)
+        context = {"datos": tip}
+        return render(request, 'database/tip/listarTip.html', context)
     else:
         messages.warning(request, "usted no tiene acceso a este campo")
         return redirect("index")
@@ -38,7 +38,7 @@ def formulario(request):
     :template:`database/encuesta/registrarEncuesta.html`
     """
     if request.session["logueo"][1] =="admin":
-        return render(request, 'database/encuesta/registrarEncuesta.html')
+        return render(request, 'database/tip/registrarTip.html')
     else:
         messages.warning(request, "usted no tiene acceso a este campo")
         return redirect("index")
@@ -52,18 +52,17 @@ def ingresar(request):
     if request.session["logueo"][1] =="admin":
         try:
             if request.method == "POST":
-                encuesta = Encuesta(encuesta_tipo = request.POST["encuesta_tipo"],
-                                    encuesta_desc = request.POST["encuesta_desc"],
-                                    encuesta_estado=request.POST["encuesta_estado"])
-                encuesta.save()
-                messages.success(request, "Encuesta guardado Correctamente")
+                tip = Tip(tip_encabezado = request.POST["tip_encabezado"],
+                               tip_desc = request.POST["tip_desc"])
+                tip.save()
+                messages.success(request, "Tip guardado Correctamente")
             else:
                 messages.warning(request, "usted no ha enviado datos...")
 
         except Exception as e:
             messages.error(request, f"Error: {e}")
 
-        return redirect('encuesta:listar')
+        return redirect('tip:listar')
     else:
         messages.warning(request, "usted no tiene acceso a este campo")
         return redirect("index")
@@ -73,9 +72,9 @@ def eliminar(request, id):
     Filtra el registro que se quiere eliminar, y hace el borrado del :model:`database.Encuesta`.
     """
     if request.session["logueo"][1] =="admin":
-        encuesta = Encuesta.objects.get(pk=id)
-        encuesta.delete()
-        return redirect('encuesta:listar')
+        tip = Tip.objects.get(pk=id)
+        tip.delete()
+        return redirect('tip:listar')
     else:
         messages.warning(request, "usted no tiene acceso a este campo")
         return redirect("index")
@@ -90,9 +89,9 @@ def encontrar(request, id):
     :template:`database/encuesta/actualizarEncuesta.html`
     """
     if request.session["logueo"][1] =="admin":
-        encuesta = Encuesta.objects.get(pk=id)
-        context = {"datos": encuesta}
-        return render(request, "database/encuesta/actualizarEncuesta.html",context)
+        tip = Tip.objects.get(pk=id)
+        context = {"datos": tip}
+        return render(request, "database/tip/actualizarTip.html",context)
     else:
         messages.warning(request, "usted no tiene acceso a este campo")
         return redirect("index")
@@ -104,13 +103,13 @@ def actualizar(request):
     """
     if request.session["logueo"][1] =="admin":
         id = request.POST["id"]
-        encuesta = Encuesta.objects.get(pk=id)
-        encuesta.id = id
-        encuesta.encuesta_tipo = request.POST["encuesta_tipo"]
-        encuesta.encuesta_desc = request.POST["encuesta_desc"]
-        encuesta.encuesta_estado = request.POST["encuesta_estado"]
-        encuesta.save()
-        return redirect('encuesta:listar')
+        tip = Tip.objects.get(pk=id)
+
+        tip.id = id
+        tip.tip_encabezado = request.POST["tip_encabezado"]
+        tip.tip_desc = request.POST["tip_desc"]
+        tip.save()
+        return redirect('tip:listar')
     else:
         messages.warning(request, "usted no tiene acceso a este campo")
         return redirect("index")
@@ -129,7 +128,7 @@ def buscar(request):
         
         if request.method == "POST":
             dato = request.POST["buscar"]
-            q = Encuesta.objects.filter(encuesta_tipo__contains = dato)
+            q = Tip.objects.filter(tip_encabezado__contains = dato)
             
             paginator = Paginator(q, 5) # Mostrar 3 registros por página...
 
@@ -138,10 +137,10 @@ def buscar(request):
             q = paginator.get_page(page_number)
             
             contexto = { "datos": q }
-            return render(request, 'database/encuesta/listarEncuesta.html', contexto)
+            return render(request, 'database/tip/listarTip.html', contexto)
         else:
             messages.error(request, "Error no envió datos...")
-            return redirect('encuesta:listar')
+            return redirect('tip:listar')
     else:
         messages.warning(request, "usted no tiene acceso a este campo")
         return redirect("index")

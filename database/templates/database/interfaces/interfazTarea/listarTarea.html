@@ -5,6 +5,83 @@
 
 {% block contenedor %}
 
-<a href="{% url 'ITarea:formulario' %}">Crear Tarea</a>
+{% if messages %}
+
+{% for message in messages %}
+<div class="alert alert-{% if message.tags %}{{message.tags}}{% else %}dark{% endif %}" role="alert">
+    {{message}}
+</div>
+{% endfor %}
+
+
+{% endif %}
+
+<a class="btn btn-warning" href="{% url 'ITarea:formulario' %}">Crear Tarea</a>
+<h2>Tu Plan</h2>
+{% if datos %}
+<div>
+    {% for i in datos %}
+    <div>
+    <h3>Tarea</h3>
+    {% if i.tarea_check_1 == "T"%}
+    <label >Tarea 1</label>
+    <p>✓</p>
+    {% endif %}
+    {% if i.tarea_check_1 == "F"%}
+    <label >Tarea 1</label>
+    <p>X</p>
+    {% endif %}
+    {% if i.tarea_check_1 == None %}
+    <label >Tarea 1</label>
+    <p>Null</p>
+    {% endif %}
+
+
+    
+    {% if i.tarea_check_2 == "T"%}
+    <label >Tarea 1</label>
+    <p>✓</p>
+    {% endif %}
+    {% if i.tarea_check_2 == "F"%}
+    <label >Tarea 1</label>
+    <p>X</p>
+    {% endif %}
+    {% if i.tarea_check_2 == None %}
+    <label >Tarea 1</label>
+    <p>Null</p>
+    {% endif %}
+
+    {% if i.tarea_check_3 == "T"%}
+    <label >Tarea 1</label>
+    <p>✓</p>
+    {% endif %}
+    {% if i.tarea_check_3 == "F"%}
+    <label >Tarea 1</label>
+    <p>X</p>
+    {% endif %}
+    {% if i.tarea_check_3 == None %}
+    <label >Tarea 1</label>
+    <p>Null</p>
+    {% endif %}
+    
+    {% if i.tarea_check_4 == "T"%}
+    <label >Tarea 1</label>
+    <p>✓</p>
+    {% endif %}
+    {% if i.tarea_check_4 == "F"%}
+    <label >Tarea 1</label>
+    <p>X</p>
+    {% endif %}
+    {% if i.tarea_check_4 == None %}
+    <label >Tarea 1</label>
+    <p>Null</p>
+    {% endif %}
+    </div>
+    {% endfor %}
+    {% else %}
+    No hay datos...
+</div>
+{% endif %}
+
 
 {% endblock %}

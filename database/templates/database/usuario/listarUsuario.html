@@ -38,6 +38,9 @@
                 <th>Altura</th>
                 <th>Edad</th>
                 <th>Rol</th>
+                <th>Fecha Avance</th>
+                <th>Numero semanas</th>
+                <th>Numero Tarea</th>
                 <th>Acciones</th>
             </tr>
         </thead>
@@ -51,6 +54,9 @@
             <td>{{i.usuario_altura}}</td>
             <td>{{i.usuario_edad}}</td>
             <td>{{i.usuario_rol}}</td>
+            <td>{{i.usuario_fecha_avance}}</td>
+            <td>{{i.usuario_nro_semanas}}</td>
+            <td>{{i.usuario_nro_tarea}}</td>
             <td><a type="button" class="btn btn-danger" href="{% url 'usuario:eliminar' i.usuario_id %}">Eliminar</a>
                 <a type="button" class="btn btn-success" href="{% url 'usuario:encontrar' i.usuario_id %}">Actualizar</a>
             </td>

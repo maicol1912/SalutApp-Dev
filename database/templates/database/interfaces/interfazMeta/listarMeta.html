@@ -4,6 +4,30 @@
 {% block subtitulo %} Meta {% endblock %}
 
 {% block contenedor %}
+
+{% if messages %}
+
+{% for message in messages %}
+<div class="alert alert-{% if message.tags %}{{message.tags}}{% else %}dark{% endif %}" role="alert">
+    {{message}}
+</div>
+{% endfor %}
+
+
+{% endif %}
+
+{% if messages %}
+
+{% for message in messages %}
+<div class="alert alert-{% if message.tags %}{{message.tags}}{% else %}dark{% endif %}" role="alert">
+    {{message}}
+</div>
+{% endfor %}
+
+
+{% endif %}
+
+{% if meta %}
 <h2>Tu Meta</h2>
 <div>
     <label >Tu Tipo de meta</label>
@@ -16,6 +40,9 @@
 <div>
     <label >Tu Peso Ideal</label>
     <p>{{meta.meta_peso_ideal}}</p>
+    {% else %}
+    No hay datos...
 </div>
+{% endif %}
 
 {% endblock %}

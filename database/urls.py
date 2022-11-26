@@ -8,13 +8,12 @@ urlpatterns = [
     path('index/', views.index, name='index'),
     path('index-usuario/', views.indexUsuario, name='indexUsuario'),
 
-    path('encuesta/', include('database.url_modulos.encuesta')),
+    path('tip/', include('database.url_modulos.tip')),
     path('especificacion/', include('database.url_modulos.especificacion')),
     path('meta/', include('database.url_modulos.meta')),
     path('plan/', include('database.url_modulos.plan')),
     path('pqr/', include('database.url_modulos.pqr')),
     path('tarea/', include('database.url_modulos.tarea')),
-    path('usuario-encuesta/', include('database.url_modulos.usuario_encuesta')),
     path('usuario/', include('database.url_modulos.usuario')),
     path('i-usuario/', include('database.url_modulos.interfazUsuario')),
     path('i-meta/', include('database.url_modulos.interfazMeta')),
@@ -22,4 +21,5 @@ urlpatterns = [
     path('i-pqr/', include('database.url_modulos.interfazPqr')),
     path('i-especificacion/', include('database.url_modulos.interfazEspecificacion')),
     path('i-tarea/', include('database.url_modulos.interfazTarea')),
+    path('i-tip/', include('database.url_modulos.interfazTip')),
 ]

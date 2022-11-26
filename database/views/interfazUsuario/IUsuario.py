@@ -64,7 +64,8 @@ def ingresar(request):
                                         usuario_edad = edad,
                                         usuario_rol = request.POST["usuario_rol"],
                                         usuario_nro_semanas=0,
-                                        usuario_fecha_avance=fechaIngreso
+                                        usuario_fecha_avance=fechaIngreso,
+                                        usuario_nro_tarea = 0
                                 )
                         usuario.save()
                         messages.success(request, "Usuario guardado Correctamente")
