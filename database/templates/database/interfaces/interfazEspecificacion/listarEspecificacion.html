@@ -15,48 +15,84 @@
 
 {% endif %}
 {% if datos %}
+
 <h2>Tu Dieta-Entreno</h2>
-<div>
-<div>
-    <label >Tipo</label>
-    <p>{{datos.especificacion_nombre}}</p>
+
+<div class="dias">
+    <div class="dias1"></div>
+        <div class="card" style="width: 18rem;">
+            <div class="card-body">
+                <h5 class="card-title">Dia 1</h5>
+                <p class="card-text">{{datos.especificacion_dia_1}}</p>
+            </div>
+        </div>
+
+        <div class="card text-center" style="width: 18rem;">
+            <div class="card-body">
+                <h5 class="card-title">Dia 2</h5>
+                <p class="card-text">{{datos.especificacion_dia_2}}</p>
+            </div>
+        </div>
+
+        <div class="card text-end" style="width: 18rem;">
+            <div class="card-body">
+                <h5 class="card-title">Dia 3</h5>
+                <p class="card-text">{{datos.especificacion_dia_3}}</p>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="dias2">
+        <div class="card" style="width: 18rem;">
+            <div class="card-body">
+                <h5 class="card-title">Dia 4</h5>
+                <p class="card-text">{{datos.especificacion_dia_4}}</p>
+            </div>
+        </div>
+
+        <div class="card text-center" style="width: 18rem;">
+            <div class="card-body">
+                <h5 class="card-title">Dia 5</h5>
+                <p class="card-text">{{datos.especificacion_dia_5}}</p>
+            </div>
+        </div>
+
+        <div class="card text-end" style="width: 18rem;">
+            <div class="card-body">
+                <h5 class="card-title">Dia 6</h5>
+                <p class="card-text">{{datos.especificacion_dia_6}}</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="dias3">
+        <div class="card text" style="width: 18rem;">
+            <div class="card-body">
+                <h5 class="card-title">Dia 4</h5>
+                <p class="card-text">{{datos.especificacion_dia_4}}</p>
+            </div>
+        </div>
+    </div>
 </div>
-<div>
-    <label >Recomendaciones</label>
-    <p>{{datos.especificacion_recomendacion}}</p>
+
+
+<div style="width: 100%;">
+    <div class="card" style="width: 20%; margin-left: 52%;">
+        <div class="card-body">
+            <h5 class="card-title">
+                <p>{{datos.especificacion_nombre}}</p>
+            </h5>
+            <h6 class="card-subtitle mb-2 text-muted">Te recomendamos</h6>
+            <p class="card-text">{{datos.especificacion_recomendacion}}</p>
+        </div>
+    </div>
 </div>
-<div>
-    <label >Dia 1</label>
-    <p>{{datos.especificacion_dia_1}}</p>
-</div>
-<div>
-    <label >Dia 2</label>
-    <p>{{datos.especificacion_dia_2}}</p>
-</div>
-<div>
-    <label >Dia 3</label>
-    <p>{{datos.especificacion_dia_3}}</p>
-</div>
-<div>
-    <label >Dia 4</label>
-    <p>{{datos.especificacion_dia_4}}</p>
-</div>
-<div>
-    <label >Dia 5</label>
-    <p>{{datos.especificacion_dia_5}}</p>
-</div>
-<div>
-    <label >Dia 6</label>
-    <p>{{datos.especificacion_dia_6}}</p>
-</div>
-<div>
-    <label >Dia 7</label>
-    <p>{{datos.especificacion_dia_7}}</p>
-</div>
+
 {% else %}
-    No hay datos...
+No hay datos...
 </div>
 {% endif %}
 
-    
+
 {% endblock %}

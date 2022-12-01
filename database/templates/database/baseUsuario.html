@@ -22,58 +22,14 @@
   <title>{% block titulo %} SalutApp {% endblock %}</title>
 </head>
 
-<body>
+<body >
+  
   {% block header %}
   <img id="banner-listar" src="{% static 'database/img/banner1.png' %}" class="Banner SalutApp">
   {% endblock %}
 
   {% if request.session.logueo.1 == 'admin' or  request.session.logueo.1 == 'usuario'%}
-  <nav class="navbar navbar-expand-lg bg-light">
-    <div class="container-fluid">
-      <a class="navbar-brand" href=""> {% block subtitulo %}SalutApp{% endblock %}</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="{% url 'IMeta:listar' %}">Meta</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="{% url 'IUsuario:listar' %}">Usuario</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="{% url 'IPlan:listar' %}">Plan</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="{% url 'IEspecificacion:listar' %}">Dieta-Ejercicio</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="{% url 'IPqr:formulario' %}">Pqr</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="{% url 'ITarea:listar' %}">Tarea</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="{% url 'ITip:listar' %}">Tip</a>
-          </li>
-          
-          {% if request.session.logueo %}
-          
-          <div class="d-flex">
-            <a id="btnSi" class="btn btn-primary" href="{% url 'sesion:logout' %}">Logout</a>
-          </div>
-          {% endif %}
 
-        </ul>
-        <!--<div class="d-flex">
-              <a class="btn btn-outline-success" href="#">Registrarse</a>
-              <a class="btn btn-outline-success" href="#">Iniciar Sesion</a>
-            </div>-->
-      </div>
-    </div>
-  </nav>
   {% else %}
   <nav class="navbar navbar-expand-lg bg-light">
     <div class="container-fluid">
@@ -81,7 +37,7 @@
     </div>
     <a  id="btnSi" class="btn btn-primary" href="{% url 'sesion:loginFormulario' %}">Sign In</a>
       <!-- crear cuenta -->
-      <a  id="btnSu" class="btn btn-primary" href="{% url 'sesion:loginFormulario' %}">Sign Up</a>
+    <a  id="btnSu" class="btn btn-primary" href="{% url 'sesion:loginFormulario' %}">Sign Up</a>
   </nav>
   {% endif %}
   
@@ -123,6 +79,153 @@
       </div>
     </footer>
   </div>
+
+
+  <!-- +++++++++++++++++++++ index de usuarios +++++++++++++++++++++-->
+
+  <!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="side.css">
+    <title>Document</title>
+</head>
+<body>
+    <div id="sidemenu" class="menu-collapsed">
+        <div id="header">
+            <div id="title"><span>Perfil</span></div>
+            <div id="menu-btn">
+                <div class="btn-hamburger"></div>
+                <div class="btn-hamburger"></div>
+                <div class="btn-hamburger"></div>
+            </div>
+        </div>
+        
+        <div id="profile">
+            <div id="photo"><img src={% static 'database/img/imgIndexClien/Logov1.png' %} alt=""></div>
+            <div id="name"><span>SalutApp</span></div>
+        </div>
+
+         <div id="menu-items">
+            <div class="item">
+                <a  href="{% url 'IMeta:listar' %}">
+                    <div class="icon"><img src={% static 'database/img/imgIndexClien/objetivo.png' %} alt=""></div>
+                    <div class="title"><span>Meta</span></div>
+                </a>
+            </div>
+
+            <div class="item separator">
+            </div>
+         </div>
+
+         <div id="menu-items">
+            <div class="item">
+                <a href="{% url 'IUsuario:listar' %}">
+                    <div class="icon"><img src={% static 'database/img/imgIndexClien/usuario.png' %} alt=""></div>
+                    <div class="title"><span>Usuario</span></div>
+                </a>
+            </div>
+
+            <div class="item separator">
+            </div>
+         </div>
+
+         <div id="menu-items">
+            <div class="item">
+                <a  href="{% url 'IPlan:listar' %}">
+                    <div class="icon"><img src={% static 'database/img/imgIndexClien/plan.png' %} alt=""></div>
+                    <div class="title"><span>Plan</span></div>
+                </a>
+            </div>
+
+            <div class="item separator">
+            </div>
+         </div>
+
+         <div id="menu-items">
+            <div class="item">
+                <a  href="{% url 'ITarea:listar' %}">
+                    <div class="icon"><img src={% static 'database/img/imgIndexClien/tarea.png' %} alt=""></div>
+                    <div class="title"><span>Tareas</span></div>
+                </a>
+            </div>
+
+            <div class="item separator">
+            </div>
+         </div>
+
+         <div id="menu-items">
+            <div class="item">
+                <a href="{% url 'IPqr:formulario' %}">
+                    <div class="icon"><img src={% static 'database/img/imgIndexClien/pqr.png' %} alt=""></div>
+                    <div class="title"><span>PQR</span></div>
+                </a>
+            </div>
+
+            <div class="item separator">
+            </div>
+         </div>
+
+         <div id="menu-items">
+            <div class="item">
+                <a href="{% url 'IEspecificacion:listar' %}">
+                    <div class="icon"><img src={% static 'database/img/imgIndexClien/dieta.png' %} alt=""></div>
+                    <div class="title"><span>Dieta-Ejercicio</span></div>
+                </a>
+            </div>
+
+            <div class="item separator">
+            </div>
+         </div>
+
+         <div id="menu-items">
+            <div class="item">
+                <a href="{% url 'ITip:listar' %}">
+                    <div class="icon"><img src={% static 'database/img/imgIndexClien/tip.png' %} alt=""></div>
+                    <div class="title"><span>Tip</span></div>
+                </a>
+            </div>
+
+            <div class="item separator">
+            </div>
+         </div>
+
+         {% if request.session.logueo %}
+         <div id="menu-items">
+            <div class="item">
+                <a href="{% url 'sesion:logout' %}">
+                    <div class="icon"><img src={% static 'database/img/imgIndexClien/hogar.png' %} alt=""></div>
+                    <div class="title"><span>Logout</span></div>
+                  </a>
+            </div>
+
+            <div class="item separator">
+            </div>
+         </div>
+         {% endif %}
+        
+    </div>
+    
+    <!--<div id="banner-ola">
+      Esto es una prueba
+    </div>-->
+    
+    <script>
+        const btn = document.querySelector('#menu-btn');
+        const menu = document.querySelector('#sidemenu');
+        btn.addEventListener('click', e =>{
+            menu.classList.toggle("menu-expanded");
+            menu.classList.toggle("menu-collapsed");
+
+            document.querySelector('body').classList.toggle('body-expanded');
+        });
+    </script>
+</body>
+</html>
+
+  <!-- +++++++++++++++++++++++++++++++++++++++++++++++++++++++++ +++++++ -->
   {%endblock%}
 
   <script src="{% static 'database/js/popper.min.js' %}"></script>
