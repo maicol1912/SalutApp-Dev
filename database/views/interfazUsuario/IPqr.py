@@ -8,10 +8,28 @@ from database.views.encriptacion import encriptador
 # Create your views here.
 
 def formulario(request):
-        return render(request, 'database/interfaces/interfazPqr/registrarPqr.html')
+    """
+    Renderiza un template el cual contiene los campos para ingresar
+    los datos de :model:`database.Pqr`.
+
+    **Template:**
+
+
+    """
+
+    return render(request, 'database/interfaces/interfazPqr/registrarPqr.html')
 
 
 def ingresar(request):
+
+    '''
+    Permite la creacion y almacenamiento en :model: `database.Pqr` de una nueva
+    Pqr.
+
+    **Template:**
+
+    '''
+
     try:
         if request.session["logueo"][1] == "usuario" or request.session["logueo"][1] == "admin":
             usuario = Usuario.objects.get(pk=request.session["logueo"][2])

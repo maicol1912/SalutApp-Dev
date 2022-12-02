@@ -23,7 +23,7 @@ class Tip(models.Model):
 class Usuario(models.Model):
     """
     La siguiente tabla se usa para almacenar los datos de las personas que 
-    se registren en nuestra aplicacion y con estos datos poder desdplegar 
+    se registren en nuestra aplicacion :model: `database.Usuario` y con estos datos poder desdplegar 
     diferentes herramientas
     """
     usuario_id = models.IntegerField(primary_key=True)
@@ -72,7 +72,7 @@ class Pqr(models.Model):
 class Especificacion(models.Model):
     """
     En esta tabla se contienen dietas especificas predefinidas para recomendar
-    a el usuario dependiendo de sus caracteristicas y esta divida en los 7 dias de la semana
+    a el usuario :model: `database.Usuario` dependiendo de sus caracteristicas y esta divida en los 7 dias de la semana
     """
     especificacion_id = models.IntegerField(primary_key=True)
     especificacion_nombre = models.CharField(max_length=200)

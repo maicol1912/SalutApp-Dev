@@ -99,7 +99,7 @@ def ingresar(request):
 
 def eliminar(request, id):
     """
-    Filtra el registro que se quiere eliminar, y hace el borrado del :model:`database.Usuario`.
+    Filtra el registro que se quiere eliminar, y hace el borrado de usuarios del :model:`database.Usuario`.
     """
     if request.session["logueo"][1] =="admin":
         usuario = Usuario.objects.get(pk=id)

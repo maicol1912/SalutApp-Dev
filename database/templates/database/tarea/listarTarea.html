@@ -41,12 +41,12 @@
 
         {% for i in datos %}
         <tr>
-            <td>{{i.id}}</td>
+            <td>{{i.i.tarea_id}}</td>
             <td>{{i.tarea_check}}</td>
             <td>{{i.especificacion_id}}</td>
             <td>{{i.usuario_id}}</td>
-            <td><a type="button" class="btn btn-danger" href="{% url 'tarea:eliminar' i.id %}">Eliminar</a>
-                <a type="button" class="btn btn-success" href="{% url 'tarea:encontrar' i.id %}">Actualizar</a>
+            <td><a type="button" class="btn btn-danger" href="{% url 'tarea:eliminar' i.tarea_id %}">Eliminar</a>
+                <a type="button" class="btn btn-success" href="{% url 'tarea:encontrar' i.tarea_id %}">Actualizar</a>
             </td>
         </tr>
 
