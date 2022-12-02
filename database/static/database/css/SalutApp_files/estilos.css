@@ -1,0 +1,307 @@
+
+#input-formulario,#input-meta,#input-info,#input-desc{
+    height: 5rem;
+}
+form{
+    width: 25rem;
+    margin-left: 40rem;
+    margin-top: 4rem;
+}
+
+/*--------------------------------------------------*/
+.landing-body {
+    font-family: sans-serif;
+    background-color: #052035;
+}  
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: sans-serif;
+}
+
+#navPrimaria{
+    padding-top: 0em;
+    padding-bottom: 0em;
+    background-color: #052035;
+}
+#nav-bar{
+    padding-top: .5em;
+    padding-bottom: .5em;
+    background-color: #052035;
+}
+
+.imgLogoNav{
+    height: 4em;
+    width: 4em;
+    margin-left: 6em;
+    margin-right: 1em;
+}
+
+#btnSi,#btnSu{
+    border-radius: 50px;
+    height: 2.5em;
+    width: 8em;
+    margin-right: 1.5em;
+}
+#btnDescarga{
+    border-radius: 50px;
+    width: 10em;
+    height: 2.5em;
+}
+
+#btnSi:hover,#btnSu:hover{
+    background-color: #0c00b8;
+    border: 0;
+    width: 8.5em;
+    height: 3em;
+}
+
+#btnSu{
+    margin-right: 15em;
+}
+
+#bt1,#bt2,#bt3,#bt4{
+    color: white;
+}
+
+#bt1,#bt2,#bt3,#bt4{
+    color: white;
+}
+
+strong:hover{
+    background-color: #ffffff15;
+    border-radius: 50px;
+    padding: 20px 15px 20px 15px;
+    font-size: 20px;
+    
+    }
+strong{
+    margin-left: 1.5em;
+}
+
+.modal-header,.modal-body,.modal-footer,.moda,.modal-content{
+    display: flex;
+    justify-content: center;
+    justify-items: center;
+    background-color: #052035;
+    border-radius: 5px;
+    
+}
+
+#TituloIngreso,#TituloRegistro{
+    margin: auto;
+    color: white;
+}
+
+#recordatorio{
+    margin-left: 3.5em;
+}
+#labelRecuerda{
+    color: white;
+}
+
+#pwd,#email{
+    height: 3.5em;
+    width: 22em;
+    border-radius: 5px;
+    margin: auto;
+}
+#iniciarsesion{
+    margin-left: 3.55em;
+    padding-right: 2em;
+    width: 22em;
+    padding-top: .5em;
+    padding-bottom: .5em;
+    border-radius: 20px;
+
+}
+
+
+/* Banner de ola */
+.banner-ola{
+    background-image: url(../img/banner-bg.png);
+    width: 100%;
+    height: 45.82em;
+}
+
+.iconos-clientes{
+    width: 100%;
+    height: 30em;
+}
+
+.testimonial{
+    background-image: url(../img/testimonial-bg.png);
+    width: 100%;
+    height: 26em;
+}
+
+.testimonial .Parrafono-testimonios{
+    float: left;
+    font-size: smaller;
+    width: 60%;
+    color: white;
+    font-family: sans-serif;
+    padding-top: 12em;
+    padding-left: 10em;
+}
+
+.cartillas-testimoniales{
+    padding-top: 8em;
+    padding-left: 30%;
+}
+
+.cuerpo .celular img{
+    height: 32em;
+    margin-left: 20em;
+    margin-top: 5em ;
+}
+
+.texto-primario{
+    width: 32%;
+    margin-left: 10em;
+    margin-top: 5em;
+    float: left;
+}
+
+.texto-primario h2,p{
+    color: white;
+}
+
+.iconos-clientes{
+    background-image: url(../img/Banner2.JPG);
+    width: 100%;
+}
+
+/* Slider */
+.slider{
+    width: 50%;
+    height: 10em;
+    overflow: hidden;
+    border-radius: 30px;
+  }
+  .slider ul{
+      display: flex;
+      animation: cambio 20s infinite alternate linear;
+      width: 400%;
+  }
+  .slider li{
+      width: 100%;
+      list-style: none;
+  }
+  .slider .divtetimonio{
+      background-color: white;
+      box-sizing: content-box;
+      height: 10em;
+      padding-top: 2em;
+      padding-left: 3em;
+  }
+  .slider img{
+    height: 100px;
+    float: left;
+    margin-right: 2em;
+    background-color: #052035;
+    border-radius: 100%;
+  }
+  .slider .corregir{
+    padding-right: 20px;
+    color: black;
+  }
+  @keyframes cambio{
+      0%{margin-left: 0;}
+      20%{margin-left: 0;}
+      
+      25%{margin-left: -100%;}
+      45%{margin-left: -100%;}
+      
+      50%{margin-left: -200%;}
+      70%{margin-left: -200%;}
+      
+      75%{margin-left: -300%;}
+      100%{margin-left: -300%;}
+  }
+  @media only screen and (min-width:320px) and (max-width:768px){
+  .slider, .slider ul, .slider img{
+      height: 100vh;
+  }
+}
+
+/* Pie de pagina */
+.pie-pagina{
+    width: 100%;
+    background-color: #052035;
+    margin-top: 1em;
+}
+
+.pie-pagina .grupo-1{
+    width: 100%;
+    max-width: 1200px;
+    margin: auto;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 50px;
+    padding: 45px 0px;
+}
+
+.pie-pagina .grupo-1 .box figure{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.pie-pagina .grupo-1 .box figure img{
+    width: 250px;
+}
+
+.pie-pagina .grupo-1 .box h2{
+    color: white;
+
+    font-size: 20px;
+} 
+
+.pie-pagina .grupo-1 .box p{
+    color: #efefef;
+
+}
+
+.pie-pagina .grupo-1 .red-social a{
+    display: inline-block;
+    text-decoration: none;
+    width: 45px;
+    line-height: 45px;
+    color: white;
+    margin-right: 10px;
+    background-color: #0e314b;
+    text-align: center;
+    transition: all 300ms ease;
+}
+
+.pie-pagina .grupo-1 .red-social a:hover{
+    color: aqua;
+}
+
+.pie-pagina .grupo-2{
+    background-color: #0e314b;
+    padding: 15px 10px;
+    text-align: center;
+    color: white;
+}
+
+.pie-pagina .grupo-2 small{
+    font-size: 15px;
+}
+#banner-listar,#banner-registrar,#banner-actualizar{
+    width: 100%;
+}
+.fooo,.pie-pagina{
+    margin-bottom: 0px;
+}
+.listar-tabla{
+    width: 60rem;
+    margin-left: 20rem;
+}
+.contenedor-div{
+    margin-bottom: 10em;
+}

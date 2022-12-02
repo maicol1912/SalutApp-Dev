@@ -1,0 +1,36 @@
+{% extends "database/baseUsuario.html" %}
+{% load static %}
+
+{% block subtitulo %} Usuario {% endblock %}
+
+{% block contenedor %}
+
+{% if messages %}
+
+{% for message in messages %}
+<div class="alert alert-{% if message.tags %}{{message.tags}}{% else %}dark{% endif %}" role="alert">
+    {{message}}
+</div>
+{% endfor %}
+
+
+{% endif %}
+    
+<div id="cartaMeta" class="card">
+    <div class="card-body">
+      <h4 class="card-title">Tu Informacion</h4>
+      <p class="card-text">{{datos.usuario_nombre}}</p>
+      <h5 class="card-title">Correo</h5>
+      <p class="card-text">{{datos.usuario_correo}}</p>
+      <h5 class="card-title">Peso</h5>
+      <p class="card-text">{{datos.usuario_peso}}</p>
+      <h5 class="card-title">Altura</h5>
+      <p class="card-text">{{datos.usuario_altura}}</p>
+      <h5 class="card-title">Edad</h5>
+      <p class="card-text">{{datos.usuario_edad}}</p>
+      <h5 class="card-title">IMC</h5>
+      <p class="card-text">{{imc}}</p>
+      <a type="button" class="btn btn-danger" href="{% url 'IUsuario:encontrar'%}">Actualizar Informacion</a>
+    </div>
+</div>
+{% endblock %}

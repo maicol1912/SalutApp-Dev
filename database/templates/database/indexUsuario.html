@@ -1,0 +1,22 @@
+{% extends "database/baseUsuario.html" %}
+{% load static %}
+
+{% block titulo %} Bienvenido {% endblock %}
+
+{% block contenedor %}
+{% if messages %}
+
+{% for message in messages %}
+<div class="alert alert-{% if message.tags %}{{message.tags}}{% else %}dark{% endif %}" role="alert">
+    {{message}}
+</div>
+{% endfor %}
+
+
+{% endif %}
+
+    <h1 class="ho">Bienvenido a la interfaz de usuario</h1>
+    <img id src="{% static 'database/img/procesamientoindustria.png' %}" width="20%" height="100px">
+    
+{% endblock %}
+

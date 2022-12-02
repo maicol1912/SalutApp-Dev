@@ -1,0 +1,235 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="{% static 'database/css/bootstrap.min.css' %}" rel="stylesheet">
+  <link rel="apple-touch-icon" sizes="180x180" href="{% static 'database/favicon_io/apple-touch-icon.png' %}">
+  <link rel="icon" type="image/png" sizes="32x32" href="{% static 'database/favicon_io/favicon-32x32.png' %}">
+  <link rel="icon" type="image/png" sizes="16x16" href="{% static 'database/favicon_io/favicon-16x16.png' %}">
+  <link rel="manifest" href="{% static 'database/favicon_io/site.webmanifest' %}">
+
+  <link rel="stylesheet" href="{% static 'database/css/estilos.css' %}">
+  <link rel="stylesheet" href="{% static 'database/css/slider.css' %}">
+
+
+  <!--  ----------------------------------------------------- -->
+  <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
+  <script src="https://kit.fontawesome.com/657c3a62ca.js" crossorigin="anonymous"></script>
+  <!--  ----------------------------------------------------- -->
+
+  <title>{% block titulo %} SalutApp {% endblock %}</title>
+</head>
+
+<body >
+  
+  {% block header %}
+  <img id="banner-listar" src="{% static 'database/img/banner1.png' %}" class="Banner SalutApp">
+  {% endblock %}
+
+  {% if request.session.logueo.1 == 'admin' or  request.session.logueo.1 == 'usuario'%}
+
+  {% else %}
+  <nav class="navbar navbar-expand-lg bg-light">
+    <div class="container-fluid">
+      <p class="navbar-brand" href="">Usted no tiene permisos para acceder a este modulo</p>
+    </div>
+    <a  id="btnSi" class="btn btn-primary" href="{% url 'sesion:loginFormulario' %}">Sign In</a>
+      <!-- crear cuenta -->
+    <a  id="btnSu" class="btn btn-primary" href="{% url 'sesion:loginFormulario' %}">Sign Up</a>
+  </nav>
+  {% endif %}
+  
+
+
+  {% block contenedor %}---------{% endblock %}
+
+  {% block footer %}
+  <!-- Footer -->
+  <div class="fooo">
+    <footer class="pie-pagina">
+      <div class="grupo-1">
+        <div class="box">
+          <figure>
+            <a href="">
+              <img id src="{% static 'database/img/Logov1.png' %}" class="Banner SalutApp">
+            </a>
+          </figure>
+        </div>
+
+        <div class="box">
+          <h2>SOBRE NOSOTROS</h2>
+          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Beatae, reprehenderit!</p>
+          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Beatae, reprehenderit!</p>
+        </div>
+
+        <div class="box">
+          <h2>SIGUENOS</h2>
+          <div class="red-social">
+            <a href="#" class="fa fa-facebook"></a>
+            <a href="#" class="fa fa-instagram"></a>
+            <a href="#" class="fa fa-twitter"></a>
+            <a href="#" class="fa fa-github"></a>
+          </div>
+        </div>
+      </div>
+      <div class="grupo-2">
+        <small>&copy; 2021-2022 <b>SalutApp</b> - Todos los derechos reservados.</small>
+      </div>
+    </footer>
+  </div>
+
+
+  <!-- +++++++++++++++++++++ index de usuarios +++++++++++++++++++++-->
+
+  <!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="side.css">
+    <title>Document</title>
+</head>
+<body>
+    <div id="sidemenu" class="menu-collapsed">
+        <div id="header">
+            <div id="title"><span>Perfil</span></div>
+            <div id="menu-btn">
+                <div class="btn-hamburger"></div>
+                <div class="btn-hamburger"></div>
+                <div class="btn-hamburger"></div>
+            </div>
+        </div>
+        
+        <div id="profile">
+            <div id="photo"><img src={% static 'database/img/imgIndexClien/Logov1.png' %} alt=""></div>
+            <div id="name"><span>SalutApp</span></div>
+        </div>
+
+         <div id="menu-items">
+            <div class="item">
+                <a  href="{% url 'IMeta:listar' %}">
+                    <div class="icon"><img src={% static 'database/img/imgIndexClien/objetivo.png' %} alt=""></div>
+                    <div class="title"><span>Meta</span></div>
+                </a>
+            </div>
+
+            <div class="item separator">
+            </div>
+         </div>
+
+         <div id="menu-items">
+            <div class="item">
+                <a href="{% url 'IUsuario:listar' %}">
+                    <div class="icon"><img src={% static 'database/img/imgIndexClien/usuario.png' %} alt=""></div>
+                    <div class="title"><span>Usuario</span></div>
+                </a>
+            </div>
+
+            <div class="item separator">
+            </div>
+         </div>
+
+         <div id="menu-items">
+            <div class="item">
+                <a  href="{% url 'IPlan:listar' %}">
+                    <div class="icon"><img src={% static 'database/img/imgIndexClien/plan.png' %} alt=""></div>
+                    <div class="title"><span>Plan</span></div>
+                </a>
+            </div>
+
+            <div class="item separator">
+            </div>
+         </div>
+
+         <div id="menu-items">
+            <div class="item">
+                <a  href="{% url 'ITarea:listar' %}">
+                    <div class="icon"><img src={% static 'database/img/imgIndexClien/tarea.png' %} alt=""></div>
+                    <div class="title"><span>Tareas</span></div>
+                </a>
+            </div>
+
+            <div class="item separator">
+            </div>
+         </div>
+
+         <div id="menu-items">
+            <div class="item">
+                <a href="{% url 'IPqr:formulario' %}">
+                    <div class="icon"><img src={% static 'database/img/imgIndexClien/pqr.png' %} alt=""></div>
+                    <div class="title"><span>PQR</span></div>
+                </a>
+            </div>
+
+            <div class="item separator">
+            </div>
+         </div>
+
+         <div id="menu-items">
+            <div class="item">
+                <a href="{% url 'IEspecificacion:listar' %}">
+                    <div class="icon"><img src={% static 'database/img/imgIndexClien/dieta.png' %} alt=""></div>
+                    <div class="title"><span>Dieta-Ejercicio</span></div>
+                </a>
+            </div>
+
+            <div class="item separator">
+            </div>
+         </div>
+
+         <div id="menu-items">
+            <div class="item">
+                <a href="{% url 'ITip:listar' %}">
+                    <div class="icon"><img src={% static 'database/img/imgIndexClien/tip.png' %} alt=""></div>
+                    <div class="title"><span>Tip</span></div>
+                </a>
+            </div>
+
+            <div class="item separator">
+            </div>
+         </div>
+
+         {% if request.session.logueo %}
+         <div id="menu-items">
+            <div class="item">
+                <a href="{% url 'sesion:logout' %}">
+                    <div class="icon"><img src={% static 'database/img/imgIndexClien/hogar.png' %} alt=""></div>
+                    <div class="title"><span>Logout</span></div>
+                  </a>
+            </div>
+
+            <div class="item separator">
+            </div>
+         </div>
+         {% endif %}
+        
+    </div>
+    
+    <!--<div id="banner-ola">
+      Esto es una prueba
+    </div>-->
+    
+    <script>
+        const btn = document.querySelector('#menu-btn');
+        const menu = document.querySelector('#sidemenu');
+        btn.addEventListener('click', e =>{
+            menu.classList.toggle("menu-expanded");
+            menu.classList.toggle("menu-collapsed");
+
+            document.querySelector('body').classList.toggle('body-expanded');
+        });
+    </script>
+</body>
+</html>
+
+  <!-- +++++++++++++++++++++++++++++++++++++++++++++++++++++++++ +++++++ -->
+  {%endblock%}
+
+  <script src="{% static 'database/js/popper.min.js' %}"></script>
+  <script src="{% static 'database/js/bootstrap.min.js' %}"></script>
+  <script src="{% static 'database/js/libreria.js' %}"></script>

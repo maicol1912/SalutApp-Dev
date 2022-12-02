@@ -1,0 +1,45 @@
+{% extends "database/baseUsuarioCopy.html" %}
+{% load static %}
+
+{% block subtitulo %} Usuario {% endblock %}
+
+{% block contenedor %}
+<form id="formularioRegistro" action="{% url 'IUsuario:ingresar' %}" method="post">
+    {% csrf_token %}
+    <div class="mb-3">
+        <label>Cedula</label>
+        <input type="number" class="form-control" name="usuario_id" required>
+    </div>
+
+    <div class="mb-3">
+        <label>Usuario</label>
+        <input type="text" class="form-control" name="usuario_nombre" required>
+    </div>
+    <div class="mb-3">
+        <label>Correo</label>
+        <input type="email" class="form-control" name="usuario_correo" required>
+    </div>
+
+    <div class="mb-3">
+        <label>Password</label>
+        <input type="password" class="form-control" name="usuario_password" required>
+    </div>
+
+    <div class="mb-3">
+        <label>Peso (Kg)</label>
+        <input type="number" class="form-control" name="usuario_peso" required>
+    </div>
+    <div class="mb-3">
+        <label>Altura (Cm)</label>
+        <input type="number" class="form-control" name="usuario_altura" required>
+    </div>
+
+    <div class="mb-3">
+        <label>Edad</label>
+        <input type="number" class="form-control" name="usuario_edad" required>
+    </div>
+    <input type="hidden" name="usuario_rol" value="usuario">
+
+    <button type="submit" class="btn btn-primary">Enviar</button>
+</form>
+{% endblock %}

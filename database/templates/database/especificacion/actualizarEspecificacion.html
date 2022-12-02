@@ -1,0 +1,53 @@
+{% extends "database/base.html" %}
+{% load static %}
+
+{% block subtitulo %} Plan {% endblock %}
+
+{% block contenedor %}
+<form action="{% url 'especificacion:actualizar' %}" method="post">
+    {% csrf_token %}
+    <input type="hidden" name="id" value="{{datos.especificacion_id}}">
+    <div class="mb-3">
+        <label for="">Nombre</label>
+        <input type="text" class="form-control" name="especificacion_nombre" value="{{datos.especificacion_nombre}}">
+    </div>
+    <div class="mb-3">
+        <label for="">Recomendaciones</label>
+        <input type="text" class="form-control" name="especificacion_recomendacion" value="{{datos.especificacion_recomendacion}}">
+    </div>
+
+    <div class="mb-3">
+        <label for="">Dia 1</label>
+        <textarea type="text" class="form-control" id="input-formulario" name="especificacion_dia_1">{{datos.especificacion_dia_1}}</textarea>
+    </div>
+
+    <div class="mb-3">
+        <label for="">Dia 2</label>
+        <textarea type="text" class="form-control" id="input-formulario" name="especificacion_dia_2">{{datos.especificacion_dia_2}}</textarea>
+    </div>
+
+    <div class="mb-3">
+        <label for="">Dia 3</label>
+        <textarea type="text" class="form-control" id="input-formulario" name="especificacion_dia_3">{{datos.especificacion_dia_3}}</textarea>
+    </div>
+    <div class="mb-3">
+        <label for="">Dia 4</label>
+        <textarea type="text" class="form-control" id="input-formulario" name="especificacion_dia_4">{{datos.especificacion_dia_4}}</textarea>
+    </div>
+    <div class="mb-3">
+        <label for="">Dia 5</label>
+        <textarea type="text" class="form-control" id="input-formulario" name="especificacion_dia_5">{{datos.especificacion_dia_5}}</textarea>
+    </div>
+    <div class="mb-3">
+        <label for="">Dia 6</label>
+        <textarea type="text" class="form-control" id="input-formulario" name="especificacion_dia_6">{{datos.especificacion_dia_6}}</textarea>
+    </div>
+    <div class="mb-3">
+        <label for="">Dia 7</label>
+        <textarea type="text" class="form-control" id="input-formulario" name="especificacion_dia_7">{{datos.especificacion_dia_7}}</textarea>
+    </div>
+
+
+    <button type="submit" class="btn btn-primary">Enviar</button>
+</form>
+{% endblock %}

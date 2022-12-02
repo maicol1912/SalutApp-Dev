@@ -1,0 +1,41 @@
+{% extends "database/base.html" %}
+{% load static %}
+
+{% block subtitulo %} Meta {% endblock %}
+
+{% block contenedor %}
+<form action="{% url 'tarea:ingresar' %}" method="post">
+    {% csrf_token %}
+    <input type="hidden" name="id" value="{{datos.id}}">
+    <div class="mb-3">
+        <label for="">Tarea Check</label><br>
+        <select class="form-control" name="tarea_check">
+            <option value="falso">No se realizo</option>
+            <option value="verdadero" selected="">Si se realizo</option>
+        </select>
+    </div>
+
+    <div class="mb-3">
+        <label for="">Usuario</label>
+        <select class="form-control" name="tarea_usuario">
+
+            {% for i in usuarios%}
+            <option value="{{i.usuario_id}}">{{i.usuario_nombre}}</option>
+            {% endfor %}
+
+        </select>
+    </div>
+
+    <div class="mb-3">
+        <label for="">Usuario</label>
+        <select class="form-control" name="tarea_especificacion">
+
+            {% for i in especificaciones%}
+            <option value="{{i.especificacion_id}}">{{i.especificacion_nombre}}</option>
+            {% endfor %}
+
+        </select>
+    </div>
+    <button type="submit" class="btn btn-primary">Enviar</button>
+</form>
+{% endblock %}

@@ -1,0 +1,28 @@
+{% extends "database/baseUsuario.html" %}
+{% load static %}
+
+{% block subtitulo %} Usuario {% endblock %}
+
+{% block contenedor %}
+<form id="formularioActualizar" action="{% url 'IUsuario:actualizar' %}" method="post">
+    {% csrf_token %}
+    <input type="hidden" name="usuario_id" value="{{datos.usuario_id}}">
+
+    <div class="mb-3">
+        <label for="">Nombre</label>
+        <input type="text" class="form-control" name="usuario_nombre" value="{{datos.usuario_nombre}}" required>
+    </div>
+
+    <div class="mb-3">
+        <label for="">Correo</label>
+        <input type="email" class="form-control" name="usuario_correo" value="{{datos.usuario_correo}}" required>
+    </div>
+
+    <div class="mb-3">
+        <label for="">Password</label>
+        <input type="password" class="form-control" name="usuario_password">
+    </div>
+
+    <button type="submit" class="btn btn-primary">Enviar</button>
+</form>
+{% endblock %}
