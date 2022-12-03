@@ -189,15 +189,14 @@ strong{
 
 #recuadro{
     width: 100%;
-    height: 80em;
+    height: 100%;
     background-color: #052035;
+    padding-bottom: 100%;
 }
 
 .modal-header,.modal-body,.modal-footer,.moda,.modal-content{
     background-color: #052035;
-    border-radius: 5px;
-    
-    
+    border-radius: 5px;    
 }
 
 #TituloIngreso,#TituloRegistro{
@@ -210,14 +209,15 @@ strong{
 }
 #labelRecuerda{
     color: white;
-    margin-left: -6em;
+    margin-left: -25%;
 }
 
 #pwd,#email{
     height: 3.5em;
     width: 22em;
     border-radius: 5px;
-    margin-left: -6em;
+    margin-left: auto;
+    margin-left: -25%;
 }
 #iniciarsesion{
     margin-left: 3.55em;
@@ -226,7 +226,7 @@ strong{
     padding-top: .5em;
     padding-bottom: .5em;
     border-radius: 20px;
-    margin-left: -6em;
+    margin-left: -25%;
 }
 
 
@@ -472,6 +472,12 @@ strong{
     margin-left: 15em;
 }
 
+#cartaEspe{
+    margin-left: 38%;
+    margin-top: 5em;
+    width: 18em;
+}
+
 #formularioPQR{
     margin-left: 28em;
     margin-bottom: 5em;
@@ -480,4 +486,39 @@ strong{
 #formularioActualizar{
     margin-left: 27em;
     margin-bottom: 5em;
+}
+
+#formularioTarea{
+    margin-left: -10%;
+    margin-bottom: 10em;
+}
+
+#metaColor1,#cartaEspe, #cartaMeta{
+    background-color: #0e314b;
+    color: rgb(255, 255, 255);
+    border-radius: 1em;
+    
+}
+
+#cartaMeta label{
+    background-color: rgb(55, 140, 179); ;
+}
+
+#metaColor1 h4, #metaColor1 h5,#colorprincipal,#cartaEspe label,#cartaEspe h3,#cartaEspe h2{
+    background-color: rgb(55, 140, 179);
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    color: white;
+}
+
+#metaColor1 p{
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-size: larger;
+}
+
+#cartaEspe .card-body .card-body{
+    background-color: rgb(55, 140, 179);
+}
+
+#cartaEspe .card-body h5{
+    background-color: #0e314b;
 }

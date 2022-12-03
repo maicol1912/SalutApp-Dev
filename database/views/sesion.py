@@ -65,3 +65,9 @@ def logout(request):
     except Exception as e:
         messages.error(request, f"Error: {e}")
         return redirect('landing')
+
+
+
+
+    
+

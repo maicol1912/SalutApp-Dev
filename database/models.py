@@ -28,8 +28,8 @@ class Usuario(models.Model):
     diferentes herramientas
     """
     usuario_id = models.IntegerField(primary_key=True)
-    usuario_nombre = models.CharField(max_length=200)
-    usuario_correo = models.EmailField(max_length=300)
+    usuario_nombre = models.CharField(max_length=200, unique=True)
+    usuario_correo = models.EmailField(max_length=300, unique=True) 
     usuario_password = models.CharField(max_length=300)
     usuario_peso = models.IntegerField()
     usuario_altura = models.IntegerField()

@@ -17,17 +17,24 @@
 {% endif %}
 
 {% if datos %}
-<h2>Tu Plan</h2>
-<div>
+
+
+
+<div id="cartaMeta" class="card">
+<h2 id="colorprincipal" class="card text-center">Tu Plan</h2>
+<div id="metaColor1" class="card-body">
     <label for="">En que consiste tu plan</label>
-    <p>{{datos.plan_desc}}</p>
-</div>
-<div>
+    <p class="card-text">{{datos.plan_desc}}</p>
+
+
     <label for="">Recomendaciones</label>
-    <p>{{datos.plan_recomendaciones}}</p>
+    <p class="card-text">{{datos.plan_recomendaciones}}</p>
+</div>
+</div>
+
     {% else %}
     No hay datos...
-</div>
+
 {% endif %}
 
 {% endblock %}

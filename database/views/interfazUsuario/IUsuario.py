@@ -16,19 +16,22 @@ def listar(request):
     Returns:
         template:`database/interfaces/interfazUsuario/listarUsuario.html`
     """
+    try:
+        if request.session["logueo"][1] == "usuario" or request.session["logueo"][1] == "admin":
+            usuarioE = Usuario.objects.get(pk=request.session["logueo"][2])
 
-    if request.session["logueo"][1] == "usuario" or request.session["logueo"][1] == "admin":
-        usuarioE = Usuario.objects.get(pk=request.session["logueo"][2])
-
-        imc = (usuarioE.usuario_peso/(usuarioE.usuario_altura /
-               100 * usuarioE.usuario_altura/100))
-        imcFormateado = ("%.1f" % imc)
-        print(usuarioE)
-        context = {"datos":usuarioE,"imc":imcFormateado}
-        return render(request, 'database/interfaces/interfazUsuario/listarUsuario.html',context)
-    else:
-        messages.warning(request, "usted no ha enviado datos...")
-        return("indexUsuario")
+            imc = (usuarioE.usuario_peso/(usuarioE.usuario_altura /
+                100 * usuarioE.usuario_altura/100))
+            imcFormateado = ("%.1f" % imc)
+            print(usuarioE)
+            context = {"datos":usuarioE,"imc":imcFormateado}
+            return render(request, 'database/interfaces/interfazUsuario/listarUsuario.html',context)
+        else:
+            messages.warning(request, "usted no ha enviado datos...")
+            return("indexUsuario")
+    except:
+        messages.warning(request, " No tienes acceso a este modulo")
+        return redirect("indexUsuario")
 
 def formulario(request):
     """Renderiza un template el cual contiene los campos para ingresar
@@ -41,7 +44,6 @@ def formulario(request):
         template:`database/interfaces/interfazUsuario/registrarUsuario.html`
     """
     return render(request, 'database/interfaces/interfazUsuario/registrarUsuario.html')
-    
 
 def ingresar(request):
     
@@ -56,44 +58,45 @@ def ingresar(request):
         nada
     """
     try:
-        if request.method == "POST":
-                altura = int(request.POST["usuario_altura"])
-                peso = int(request.POST["usuario_peso"])
-                edad = int(request.POST["usuario_edad"])
-                if altura > 140 and peso > 40 and edad>=15:
-                    password = request.POST["usuario_password"]
-                    user = request.POST["usuario_nombre"]
-                    correo = request.POST["usuario_correo"]
-                    id = request.POST["usuario_id"]
-                    if (Usuario.objects.filter(usuario_nombre=user) or Usuario.objects.filter(usuario_correo=correo) or Usuario.objects.filter(usuario_id=id)):
-                        messages.warning(request, "Este usuario o correo ya esta en uso")
-                        return redirect("indexUsuario")
+        if request.session["logueo"][1] == "usuario" or request.session["logueo"][1] == "admin":
+            if request.method == "POST":
+                    altura = int(request.POST["usuario_altura"])
+                    peso = int(request.POST["usuario_peso"])
+                    edad = int(request.POST["usuario_edad"])
+                    if altura > 140 and peso > 40 and edad>=15:
+                        password = request.POST["usuario_password"]
+                        user = request.POST["usuario_nombre"]
+                        correo = request.POST["usuario_correo"]
+                        id = request.POST["usuario_id"]
+                        if (Usuario.objects.filter(usuario_nombre=user) or Usuario.objects.filter(usuario_correo=correo) or Usuario.objects.filter(usuario_id=id)):
+                            messages.warning(request, "Este usuario o correo ya esta en uso")
+                            return redirect("indexUsuario")
+                        else:
+                            passwordEncriptado = encriptador.encriptarPassword(password)
+                            fechaIngreso = datetime.strftime(datetime.now(), "%d-%m-%Y")
+                            usuario = Usuario(usuario_id=request.POST["usuario_id"],
+                                            usuario_nombre = user,
+                                            usuario_correo = correo,
+                                            usuario_password =passwordEncriptado ,
+                                            usuario_peso = peso,
+                                            usuario_altura = altura,
+                                            usuario_edad = edad,
+                                            usuario_rol = request.POST["usuario_rol"],
+                                            usuario_nro_semanas=0,
+                                            usuario_fecha_avance=fechaIngreso,
+                                            usuario_nro_tarea = 0
+                                    )
+                            usuario.save()
+                            messages.success(request, "Usuario guardado Correctamente")
                     else:
-                        passwordEncriptado = encriptador.encriptarPassword(password)
-                        fechaIngreso = datetime.strftime(datetime.now(), "%d-%m-%Y")
-                        usuario = Usuario(usuario_id=request.POST["usuario_id"],
-                                        usuario_nombre = user,
-                                        usuario_correo = correo,
-                                        usuario_password =passwordEncriptado ,
-                                        usuario_peso = peso,
-                                        usuario_altura = altura,
-                                        usuario_edad = edad,
-                                        usuario_rol = request.POST["usuario_rol"],
-                                        usuario_nro_semanas=0,
-                                        usuario_fecha_avance=fechaIngreso,
-                                        usuario_nro_tarea = 0
-                                )
-                        usuario.save()
-                        messages.success(request, "Usuario guardado Correctamente")
-                else:
-                    messages.warning(request, "Los datos que ingresaste no son validos")
-        else:
-            messages.warning(request, "usted no ha enviado datos...")
+                        messages.warning(request, "Los datos que ingresaste no son validos")
+            else:
+                messages.warning(request, "usted no ha enviado datos...")
 
-    except Exception as e:
-        messages.error(request, f"Error: {e}")
+    except:
+        messages.warning(request, " No tienes acceso a este modulo")
+        return redirect("indexUsuario")
 
-    return redirect('IMeta:formulario')
     
 
 
@@ -142,3 +145,8 @@ def actualizar(request):
     else:
         messages.warning(request, "usted no tiene acceso a este campo")
         return redirect("indexUsuario")
+
+
+
+    
+

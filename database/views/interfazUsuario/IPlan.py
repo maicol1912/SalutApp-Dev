@@ -15,24 +15,28 @@ def listar(request):
         template:`database/interfaces/interfazPlan/listarPlan.html`
         
     """
-    if request.session["logueo"][1] == "usuario" or request.session["logueo"][1] == "admin":
-        usuario = Usuario.objects.get(pk=request.session["logueo"][2])
-        if Meta.objects.filter(usuario_id=usuario):
-            meta = Meta.objects.filter(usuario_id=usuario)[0]
-            if Plan.objects.filter(meta_id=meta.id):
-            
-                metaE = Meta.objects.filter(usuario_id = usuario)[0]
-                plan = Plan.objects.filter(meta_id = metaE.id)[0]
-            
-                context = {"datos": plan}
-                return render(request, 'database/interfaces/interfazPlan/listarPlan.html', context)
+    try:
+        if request.session["logueo"][1] == "usuario" or request.session["logueo"][1] == "admin":
+            usuario = Usuario.objects.get(pk=request.session["logueo"][2])
+            if Meta.objects.filter(usuario_id=usuario):
+                meta = Meta.objects.filter(usuario_id=usuario)[0]
+                if Plan.objects.filter(meta_id=meta.id):
+                
+                    metaE = Meta.objects.filter(usuario_id = usuario)[0]
+                    plan = Plan.objects.filter(meta_id = metaE.id)[0]
+                
+                    context = {"datos": plan}
+                    return render(request, 'database/interfaces/interfazPlan/listarPlan.html', context)
+                else:
+                    return redirect("IPlan:ingresar")
             else:
-                return redirect("IPlan:ingresar")
+                
+                return redirect("IMeta:formulario")
         else:
-            
-            return redirect("IMeta:formulario")
-    else:
-        messages.warning(request, "usted no tiene acceso a este modulo")
+            messages.warning(request, "usted no tiene acceso a este modulo")
+            return redirect("indexUsuario")
+    except:
+        messages.warning(request, " No tienes acceso a este modulo")
         return redirect("indexUsuario")
 
 
@@ -48,57 +52,51 @@ def ingresar(request):
     Returns:
         nada 
     """
+    try:
+        if request.session["logueo"][1] == "usuario" or request.session["logueo"][1] == "admin":
+            idUsuario = request.session["logueo"][2]
 
-    if request.session["logueo"][1] == "usuario" or request.session["logueo"][1] == "admin":
-        idUsuario = request.session["logueo"][2]
-
-        if (Usuario.objects.get(pk=idUsuario) and Meta.objects.filter(usuario_id=idUsuario)):
-    
-            usuario = Usuario.objects.get(pk=idUsuario)
-            imc = (usuario.usuario_peso/((usuario.usuario_altura/100) * (usuario.usuario_altura/100)))
-            
-            meta = Meta.objects.filter(usuario_id=idUsuario)[0]
-            
-            if(meta.meta_tipo == "subir peso"):
-                textoBajoPeso = "Lo que debes realizar es un superavit calorico ya que estas  por debajo del peso deseado"
-                recomendacionesBajoPeso = "debes realizar ejercicios de hipertrofia, comer mas veces al dia ademas subir mucho el numero de calorias que ingieres"
-                especificacion = Especificacion.objects.get(pk='1131')
-
-                plan = Plan(plan_desc=textoBajoPeso,
-                            plan_recomendaciones=recomendacionesBajoPeso,
-                            especificacion_id=especificacion,
-                            meta_id=meta,
-                            usuario_id=usuario )
-                plan.save()
-                return redirect("IPlan:listar")
-
-            if (meta.meta_tipo == "bajar peso"):
-                textoPesoAlto = "Lo que debes realizar es un deficit calorico ya que estas  por encima del peso deseado"
-                recomendacionesAltoPeso = "debes realizar ejercicios de hipertrofia pero lo debes acompañar con bastante cardio y ejercicios de vascularidad, comer 3 o 4 veces al dia ademas bajar el numero de calorias que consumes en un dia para entrar en un deficit calorico"
-                especificacion = Especificacion.objects.get(pk='1132')
-                plan = Plan(plan_desc=textoPesoAlto,
-                            plan_recomendaciones=recomendacionesAltoPeso,
-                            especificacion_id=especificacion,
-                            meta_id=meta,
-                            usuario_id=usuario)
-                plan.save()
-                return redirect("IPlan:listar")
-
-            if (meta.meta_tipo == "recomposicion"):
-                textoPesoNormal = "Lo que debes realizar es un mantenimiento calorico e ir remplazando poco a poco tu masa corporal por musculo ya que quiere mantener el peso deseado pero disminuir la grasa"
-                recomendacionesPesoNormal = "debes realizar ejercicios de hipertrofia, comer varias veces al dia, comer una cantidad de calorias considerable pero altas en proteinas"
-                especificacion = Especificacion.objects.get(pk='1133')
-                plan = Plan(plan_desc=textoPesoNormal,
-                            plan_recomendaciones=recomendacionesPesoNormal,
-                            especificacion_id=especificacion,
-                            meta_id=meta,
-                            usuario_id=usuario)
-                plan.save()
-                return redirect("IPlan:listar")
+            if (Usuario.objects.get(pk=idUsuario) and Meta.objects.filter(usuario_id=idUsuario)):
+        
+                usuario = Usuario.objects.get(pk=idUsuario)
+                imc = (usuario.usuario_peso/((usuario.usuario_altura/100) * (usuario.usuario_altura/100)))
                 
+                meta = Meta.objects.filter(usuario_id=idUsuario)[0]
+                
+                if(meta.meta_tipo == "subir peso"):
+                    textoBajoPeso = "Lo que debes realizar es un superavit calorico ya que estas  por debajo del peso deseado"
+                    recomendacionesBajoPeso = "debes realizar ejercicios de hipertrofia, comer mas veces al dia ademas subir mucho el numero de calorias que ingieres"
+                    especificacion = Especificacion.objects.get(pk='1131')
+
+                    plan = Plan(plan_desc=textoBajoPeso,
+                                plan_recomendaciones=recomendacionesBajoPeso,
+                                especificacion_id=especificacion,
+                                meta_id=meta,
+                                usuario_id=usuario )
+                    plan.save()
+                    return redirect("IPlan:listar")
+
+                if (meta.meta_tipo == "bajar peso"):
+                    textoPesoAlto = "Lo que debes realizar es un deficit calorico ya que estas  por encima del peso deseado"
+                    recomendacionesAltoPeso = "debes realizar ejercicios de hipertrofia pero lo debes acompañar con bastante cardio y ejercicios de vascularidad, comer 3 o 4 veces al dia ademas bajar el numero de calorias que consumes en un dia para entrar en un deficit calorico"
+                    especificacion = Especificacion.objects.get(pk='1132')
+                    plan = Plan(plan_desc=textoPesoAlto,
+                                plan_recomendaciones=recomendacionesAltoPeso,
+                                especificacion_id=especificacion,
+                                meta_id=meta,
+                                usuario_id=usuario)
+                    plan.save()
+                    return redirect("IPlan:listar")
+                    
+            else:
+                messages.warning(request, "no has rellenado la meta")
+                return redirect("IMeta:formulario")
         else:
-            messages.warning(request, "no has rellenado la meta")
-            return redirect("IMeta:formulario")
-    else:
-        messages.warning(request, "No tienes acceso a este modulo")
+            messages.warning(request, "No tienes acceso a este modulo")
+            return redirect("indexUsuario")
+    except:
+        messages.warning(request, " No tienes acceso a este modulo")
         return redirect("indexUsuario")
+
+    
+
