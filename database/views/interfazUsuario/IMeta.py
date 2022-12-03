@@ -8,9 +8,9 @@ from database.views.encriptacion import encriptador
 # Create your views here.
 
 def listar(request):
-    '''
+    """
     Lista la meta propuesta :model: `database.Meta` para el cliente :model: `database.Usuario`
-    '''
+    """
     idUsuario = request.session["logueo"][2]
     
     if Meta.objects.filter(usuario_id=idUsuario):
@@ -22,22 +22,23 @@ def listar(request):
 
 
 def formulario(request):
-    '''
+    """
     Renderiza el formulario para que el cliente :model: `database.Usuario` ingrese 
     la infromacion necesaria para crear una meta`
-    '''
+    """
     return render(request, 'database/interfaces/interfazMeta/registrarMeta.html')
 
 
 def ingresar(request):
 
-    '''
+    
+    
     """
     Valida los datos enviados por el formulario, y asi poder
     hacer la insercion a :model:`database.Meta` si todo esta correcto,
     sino redirecciona nuevamente al mismo formulario hasta ser valido
     """
-    '''
+    
 
     try:
         if request.method == "POST":

@@ -9,12 +9,12 @@ from database.views.encriptacion import encriptador
 # Create your views here.
 def listar(request):
 
-    '''
+    """
     Lista la infromacion del usuario de :model: `database.Usuario` en el template
 
     **Template:**
 
-    '''
+    """
 
     if request.session["logueo"][1] == "usuario" or request.session["logueo"][1] == "admin":
         usuarioE = Usuario.objects.get(pk=request.session["logueo"][2])

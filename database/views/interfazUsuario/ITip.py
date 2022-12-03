@@ -6,12 +6,12 @@ from django.contrib import messages
 
 def listar(request):
 
-    '''
+    """
     Lista los tips :model: `database.Tip` disponibles para el usuario :model: `database.Usuario` en el template
 
     **Template:**
 
-    '''
+    """
 
     if request.session["logueo"][1] == "usuario" or request.session["logueo"][1] == "admin":
         

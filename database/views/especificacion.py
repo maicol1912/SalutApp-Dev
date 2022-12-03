@@ -11,9 +11,10 @@ def listar(request):
     Lista todos los registros almacenados de :model:`database.Especificacion`.
     en el template
 
-    **Template:**
-
-    :template:`database/especificacion/listarEspecificacion.html`
+    *return*
+    si la cookie es admin redirecciona :template:`database/especificacion/listarEspecificacion.html`
+    si la cookie no es admin retorna la ruta admin
+    
     """
     if request.session["logueo"][1] =="admin":
         especificacion = Especificacion.objects.all()
@@ -44,7 +45,7 @@ def formulario(request):
 
 def ingresar(request):
     """
-    Valida los datos enviados por el formulario, y asi poder
+    Valida los datos entemplateviados por el formulario, y asi poder
     hacer la insercion a :model:`database.Especificacion`. si todo esta correcto
     o redirecciona nuevamente al mismo formulario hasta ser valido
     """

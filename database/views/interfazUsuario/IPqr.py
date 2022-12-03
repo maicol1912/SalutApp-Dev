@@ -22,13 +22,13 @@ def formulario(request):
 
 def ingresar(request):
 
-    '''
+    """
     Permite la creacion y almacenamiento en :model: `database.Pqr` de una nueva
     Pqr.
 
     **Template:**
 
-    '''
+    """
 
     try:
         if request.session["logueo"][1] == "usuario" or request.session["logueo"][1] == "admin":
