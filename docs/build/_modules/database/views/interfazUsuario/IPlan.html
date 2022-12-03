@@ -166,14 +166,15 @@
 
 <span class="c1"># Create your views here.</span>
 <div class="viewcode-block" id="listar"><a class="viewcode-back" href="../../../../index.html#database.views.interfazUsuario.IPlan.listar">[documentos]</a><span class="k">def</span> <span class="nf">listar</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Lista el plan y las recomendaciones dadas para el cliente :model: `database.Usuario` en el template</span>
 
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Lista el plan y las recomendaciones dadas para el cliente :model: `database.Usuario` en el template</span>
+<span class="sd">    Args:</span>
+<span class="sd">        q: ninguno</span>
 
-<span class="sd">    **Template:**</span>
-
+<span class="sd">    Returns:</span>
+<span class="sd">        template:`database/interfaces/interfazPlan/listarPlan.html`</span>
+<span class="sd">        </span>
 <span class="sd">    &quot;&quot;&quot;</span>
-
     <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">session</span><span class="p">[</span><span class="s2">&quot;logueo&quot;</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;usuario&quot;</span> <span class="ow">or</span> <span class="n">request</span><span class="o">.</span><span class="n">session</span><span class="p">[</span><span class="s2">&quot;logueo&quot;</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;admin&quot;</span><span class="p">:</span>
         <span class="n">usuario</span> <span class="o">=</span> <span class="n">Usuario</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">pk</span><span class="o">=</span><span class="n">request</span><span class="o">.</span><span class="n">session</span><span class="p">[</span><span class="s2">&quot;logueo&quot;</span><span class="p">][</span><span class="mi">2</span><span class="p">])</span>
         <span class="k">if</span> <span class="n">Meta</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">usuario_id</span><span class="o">=</span><span class="n">usuario</span><span class="p">):</span>
@@ -197,13 +198,15 @@
 
 
 <div class="viewcode-block" id="ingresar"><a class="viewcode-back" href="../../../../index.html#database.views.interfazUsuario.IPlan.ingresar">[documentos]</a><span class="k">def</span> <span class="nf">ingresar</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
-    
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Permite la creacion y almacenamiento en :model: `database.Plan` de un </span>
-<span class="sd">    nuevo plan para el cliente  :model: `database.Usuario`</span>
+    <span class="sd">&quot;&quot;&quot;Valida los datos enviados por el formulario, y asi poder</span>
+<span class="sd">    hacer la insercion a: model: `database.Plan`. si todo esta correcto</span>
+<span class="sd">    o redirecciona nuevamente al mismo formulario hasta ser valido</span>
 
-<span class="sd">    **Template:**</span>
+<span class="sd">    Args:</span>
+<span class="sd">        q: ninguno</span>
 
+<span class="sd">    Returns:</span>
+<span class="sd">        nada </span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">session</span><span class="p">[</span><span class="s2">&quot;logueo&quot;</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;usuario&quot;</span> <span class="ow">or</span> <span class="n">request</span><span class="o">.</span><span class="n">session</span><span class="p">[</span><span class="s2">&quot;logueo&quot;</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;admin&quot;</span><span class="p">:</span>

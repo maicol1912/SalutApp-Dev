@@ -169,9 +169,14 @@
     <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;database/login/login.html&#39;</span><span class="p">)</span>  <span class="c1">#Creo que aqui esta el error</span>
 
 <div class="viewcode-block" id="login"><a class="viewcode-back" href="../../../index.html#database.views.sesion.login">[documentos]</a><span class="k">def</span> <span class="nf">login</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Valida que los datos ingresados si forman parte de :model:`database.Usuario`.</span>
+    <span class="sd">&quot;&quot;&quot;Valida que los datos ingresados si forman parte de :model:`database.Usuario`.</span>
 <span class="sd">    por lo tanto que si haya un usuario con esos datos</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        q: ninguno</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">       nada</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s2">&quot;POST&quot;</span><span class="p">:</span>
         <span class="k">try</span><span class="p">:</span>
@@ -205,9 +210,14 @@
         <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="s1">&#39;sesion:loginFormulario&#39;</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="logout"><a class="viewcode-back" href="../../../index.html#database.views.sesion.logout">[documentos]</a><span class="k">def</span> <span class="nf">logout</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Valida que la sesion del usuario este abierta y </span>
+    <span class="sd">&quot;&quot;&quot;Valida que la sesion del usuario este abierta y </span>
 <span class="sd">    realiza el borrado de la sesion</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        q: ninguno</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">       nada</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">try</span><span class="p">:</span>
         <span class="k">del</span> <span class="n">request</span><span class="o">.</span><span class="n">session</span><span class="p">[</span><span class="s2">&quot;logueo&quot;</span><span class="p">]</span>

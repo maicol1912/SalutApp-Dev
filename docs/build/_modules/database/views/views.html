@@ -167,30 +167,38 @@
 <span class="c1"># Create your views here.</span>
 
 <div class="viewcode-block" id="index"><a class="viewcode-back" href="../../../index.html#database.views.views.index">[documentos]</a><span class="k">def</span> <span class="nf">index</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Renderiza un template de inicio dependiendo el tipo de usuario de :model: `database.`</span>
+    <span class="sd">&quot;&quot;&quot;Renderiza un template de inicio dependiendo el tipo de usuario de :model: `database.`</span>
 
-<span class="sd">    **Template:**</span>
+<span class="sd">    Args:</span>
+<span class="sd">        q: ninguno</span>
 
+<span class="sd">    Returns:</span>
+<span class="sd">       template:`database/index.html`</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;database/index.html&#39;</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="indexUsuario"><a class="viewcode-back" href="../../../index.html#database.views.views.indexUsuario">[documentos]</a><span class="k">def</span> <span class="nf">indexUsuario</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Renderiza un template de inicio dependiendo el tipo de usuario de :model: `database.`</span>
+    <span class="sd">&quot;&quot;&quot;Renderiza un template de inicio dependiendo el tipo de usuario de :model: `database.`</span>
 
-<span class="sd">    **Template:**</span>
+<span class="sd">    Args:</span>
+<span class="sd">        q: ninguno</span>
 
+<span class="sd">    Returns:</span>
+<span class="sd">       template:`database/indexUsuario.html`</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+    
     <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;database/indexUsuario.html&#39;</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="landing"><a class="viewcode-back" href="../../../index.html#database.views.views.landing">[documentos]</a><span class="k">def</span> <span class="nf">landing</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Renderiza un template de inicio para todos los tipos de usuario.</span>
-<span class="sd">    **Template:**</span>
+    <span class="sd">&quot;&quot;&quot;Renderiza un template de inicio para todos los tipos de usuario.</span>
 
+<span class="sd">    Args:</span>
+<span class="sd">        q: ninguno</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">       template:`database/landing.html`</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;database/landing.html&#39;</span><span class="p">)</span></div>
+    <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span></div>
 
 
 

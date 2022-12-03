@@ -165,12 +165,13 @@
 
 
 <div class="viewcode-block" id="listar"><a class="viewcode-back" href="../../../../index.html#database.views.interfazUsuario.ITip.listar">[documentos]</a><span class="k">def</span> <span class="nf">listar</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Lista los tips :model: `database.Tip` disponibles para el usuario :model: `database.Usuario` en el template</span>
 
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Lista los tips :model: `database.Tip` disponibles para el usuario :model: `database.Usuario` en el template</span>
+<span class="sd">    Args:</span>
+<span class="sd">        q: ninguno</span>
 
-<span class="sd">    **Template:**</span>
-
+<span class="sd">    Returns:</span>
+<span class="sd">        template:`database/interfaces/interfazTip/listarTip.html`</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">session</span><span class="p">[</span><span class="s2">&quot;logueo&quot;</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;usuario&quot;</span> <span class="ow">or</span> <span class="n">request</span><span class="o">.</span><span class="n">session</span><span class="p">[</span><span class="s2">&quot;logueo&quot;</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;admin&quot;</span><span class="p">:</span>

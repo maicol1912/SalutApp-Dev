@@ -166,8 +166,16 @@
 <span class="c1"># Create your views here.</span>
 
 
-<span class="k">def</span> <span class="nf">listar</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
-    
+<div class="viewcode-block" id="listar"><a class="viewcode-back" href="../../../index.html#database.views.plan.listar">[documentos]</a><span class="k">def</span> <span class="nf">listar</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Lista todos los registros almacenados de :model:`database.Plan`.</span>
+<span class="sd">    en el template</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        q: ninguno</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">       template:`database/plan/listarPlan.html`</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">session</span><span class="p">[</span><span class="s2">&quot;logueo&quot;</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span><span class="s2">&quot;admin&quot;</span><span class="p">:</span>
         <span class="n">plan</span> <span class="o">=</span> <span class="n">Plan</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
         <span class="n">paginator</span> <span class="o">=</span> <span class="n">Paginator</span><span class="p">(</span><span class="n">plan</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
@@ -178,16 +186,17 @@
         <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;database/plan/listarPlan.html&#39;</span><span class="p">,</span> <span class="n">context</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="n">messages</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s2">&quot;usted no tiene acceso a este campo&quot;</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="s2">&quot;index&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="s2">&quot;index&quot;</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="formulario"><a class="viewcode-back" href="../../../index.html#database.views.plan.formulario">[documentos]</a><span class="k">def</span> <span class="nf">formulario</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Renderiza un template el cual contiene los campos para ingresar</span>
+    <span class="sd">&quot;&quot;&quot;Renderiza un template el cual contiene los campos para ingresar</span>
 <span class="sd">    los datos de :model:`database.Plan`.</span>
 
-<span class="sd">    **Template:**</span>
+<span class="sd">    Args:</span>
+<span class="sd">        q: ninguno</span>
 
-<span class="sd">    :template:`database/plan/registrarPlan.html`</span>
+<span class="sd">    Returns:</span>
+<span class="sd">       template:`database/plan/registrarPlan.html`</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">session</span><span class="p">[</span><span class="s2">&quot;logueo&quot;</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span><span class="s2">&quot;admin&quot;</span><span class="p">:</span>
         <span class="n">especificacion</span> <span class="o">=</span> <span class="n">Especificacion</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
@@ -200,10 +209,15 @@
         <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="s2">&quot;index&quot;</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="ingresar"><a class="viewcode-back" href="../../../index.html#database.views.plan.ingresar">[documentos]</a><span class="k">def</span> <span class="nf">ingresar</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Valida los datos enviados por el formulario, y asi poder</span>
+    <span class="sd">&quot;&quot;&quot;Valida los datos enviados por el formulario, y asi poder</span>
 <span class="sd">    hacer la insercion a :model:`database.Plan`. si todo esta correcto</span>
 <span class="sd">    o redirecciona nuevamente al mismo formulario hasta ser valido</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        q: ninguno</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">       nada</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">session</span><span class="p">[</span><span class="s2">&quot;logueo&quot;</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span><span class="s2">&quot;admin&quot;</span><span class="p">:</span>
         <span class="k">try</span><span class="p">:</span>
@@ -235,8 +249,13 @@
         <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="s2">&quot;index&quot;</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="eliminar"><a class="viewcode-back" href="../../../index.html#database.views.plan.eliminar">[documentos]</a><span class="k">def</span> <span class="nf">eliminar</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="nb">id</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Filtra el registro que se quiere eliminar, y hace el borrado del :model:`database.Plan`.</span>
+    <span class="sd">&quot;&quot;&quot;Filtra el registro que se quiere eliminar, y hace el borrado del :model:`database.Plan`.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        q: recibe el id del plan para poderlo eliminar</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">       nada</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">session</span><span class="p">[</span><span class="s2">&quot;logueo&quot;</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span><span class="s2">&quot;admin&quot;</span><span class="p">:</span>
         <span class="n">plan</span> <span class="o">=</span> <span class="n">Plan</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">pk</span><span class="o">=</span><span class="nb">id</span><span class="p">)</span>
@@ -247,13 +266,14 @@
         <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="s2">&quot;index&quot;</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="encontrar"><a class="viewcode-back" href="../../../index.html#database.views.plan.encontrar">[documentos]</a><span class="k">def</span> <span class="nf">encontrar</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="nb">id</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Filtra el registro que se quiere modificar y renderiza un formulario </span>
+    <span class="sd">&quot;&quot;&quot;Filtra el registro que se quiere modificar y renderiza un formulario </span>
 <span class="sd">    para ingresar los campos del :model:`database.Plan`.</span>
 
-<span class="sd">    **Template:**</span>
+<span class="sd">    Args:</span>
+<span class="sd">        q: recibe el id del plan para renderizarlo</span>
 
-<span class="sd">    :template:`database/plan/actualizarPlan.html`</span>
+<span class="sd">    Returns:</span>
+<span class="sd">       template:`database/plan/actualizarPlan.html`</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">session</span><span class="p">[</span><span class="s2">&quot;logueo&quot;</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span><span class="s2">&quot;admin&quot;</span><span class="p">:</span>
         <span class="n">plan</span> <span class="o">=</span> <span class="n">Plan</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">pk</span><span class="o">=</span><span class="nb">id</span><span class="p">)</span>
@@ -267,9 +287,14 @@
         <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="s2">&quot;index&quot;</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="actualizar"><a class="viewcode-back" href="../../../index.html#database.views.plan.actualizar">[documentos]</a><span class="k">def</span> <span class="nf">actualizar</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Valida los datos enviados por el formulario, y asi poder</span>
+    <span class="sd">&quot;&quot;&quot;Valida los datos enviados por el formulario, y asi poder</span>
 <span class="sd">    hacer la actualizacion a :model:`database.Plan`. si todo esta correcto</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        q: ninguno</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">       nada</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">session</span><span class="p">[</span><span class="s2">&quot;logueo&quot;</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span><span class="s2">&quot;admin&quot;</span><span class="p">:</span>
         <span class="n">especificacionP</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="p">[</span><span class="s2">&quot;plan_especificacion&quot;</span><span class="p">]</span>
@@ -294,13 +319,14 @@
         <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="s2">&quot;index&quot;</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="buscar"><a class="viewcode-back" href="../../../index.html#database.views.plan.buscar">[documentos]</a><span class="k">def</span> <span class="nf">buscar</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Filtra el registro que se quiere encontrar de :model:`database.Plan`. </span>
+    <span class="sd">&quot;&quot;&quot;Filtra el registro que se quiere encontrar de :model:`database.Plan`. </span>
 <span class="sd">    y se muestra sus datos en un template</span>
 
-<span class="sd">    **Template:**</span>
+<span class="sd">    Args:</span>
+<span class="sd">        q: ninguno</span>
 
-<span class="sd">    :template:`database/plan/listarPlan.html`</span>
+<span class="sd">    Returns:</span>
+<span class="sd">       template:`database/plan/listarPlan.html`</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">session</span><span class="p">[</span><span class="s2">&quot;logueo&quot;</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span><span class="s2">&quot;admin&quot;</span><span class="p">:</span>
         <span class="kn">from</span> <span class="nn">django.db.models</span> <span class="kn">import</span> <span class="n">Q</span>

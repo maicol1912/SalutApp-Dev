@@ -38,7 +38,7 @@ def landing(request):
     Returns:
        template:`database/landing.html`
     """
-    return render(request, '')
+    return render(request, 'database/landing.html')
 
 
 

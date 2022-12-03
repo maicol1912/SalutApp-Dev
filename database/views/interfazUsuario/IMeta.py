@@ -59,6 +59,7 @@ def ingresar(request):
 
             pesoIdeal = int(request.POST["meta_peso"])
             imcIdeal = (pesoIdeal/(altura * altura))
+            
             if imc <=18.4 and tipoMeta == "bajar peso":
                 messages.warning(request, "su peso es bajo, no puede bajar mas peso")
                 return ("indexUsuario")
@@ -67,9 +68,23 @@ def ingresar(request):
                 messages.warning(request, "su peso es alto, no puede subir mas peso")
                 return ("indexUsuario")
 
-            if imcIdeal < 18.9 or imcIdeal > 24.9:
-                messages.warning(request, "esta meta no es saludable, esta fuera de los pesos recomendables")
+            if imcIdeal < 24.9 and imcIdeal >18.9:
+                if tipoMeta == "bajar peso":
+                    if usuarioE.usuario_peso - 5 > pesoIdeal:
+                        messages.warning(request, "esta meta no es saludable, esta fuera de los pesos recomendables")
+                        return redirect("indexUsuario")
+
+                if tipoMeta == "subir peso":
+                    if usuarioE.usuario_peso + 5 < pesoIdeal:
+                        messages.warning(
+                            request, "esta meta no es saludable, esta fuera de los pesos recomendables")
+                        return redirect("indexUsuario")
+            if tipoMeta == "recomposicion" and pesoIdeal != usuarioE.usuario_peso:
+                messages.warning(
+                    request, "no estas entrando en recomposicion")
                 return redirect("indexUsuario")
+            
+                
                 
             meta = Meta(meta_tipo=tipoMeta,
                         meta_desc=request.POST["meta_desc"],

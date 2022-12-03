@@ -168,12 +168,13 @@
 
 <span class="c1"># Create your views here.</span>
 <div class="viewcode-block" id="listar"><a class="viewcode-back" href="../../../../index.html#database.views.interfazUsuario.IUsuario.listar">[documentos]</a><span class="k">def</span> <span class="nf">listar</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Lista la infromacion del usuario de :model: `database.Usuario` en el template</span>
 
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Lista la infromacion del usuario de :model: `database.Usuario` en el template</span>
+<span class="sd">    Args:</span>
+<span class="sd">        q: ninguno</span>
 
-<span class="sd">    **Template:**</span>
-
+<span class="sd">    Returns:</span>
+<span class="sd">        template:`database/interfaces/interfazUsuario/listarUsuario.html`</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">session</span><span class="p">[</span><span class="s2">&quot;logueo&quot;</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;usuario&quot;</span> <span class="ow">or</span> <span class="n">request</span><span class="o">.</span><span class="n">session</span><span class="p">[</span><span class="s2">&quot;logueo&quot;</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;admin&quot;</span><span class="p">:</span>
@@ -190,22 +191,29 @@
         <span class="k">return</span><span class="p">(</span><span class="s2">&quot;indexUsuario&quot;</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="formulario"><a class="viewcode-back" href="../../../../index.html#database.views.interfazUsuario.IUsuario.formulario">[documentos]</a><span class="k">def</span> <span class="nf">formulario</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Renderiza un template el cual contiene los campos para ingresar</span>
+    <span class="sd">&quot;&quot;&quot;Renderiza un template el cual contiene los campos para ingresar</span>
 <span class="sd">    los datos de :model:`database.Usuario`.</span>
 
-<span class="sd">    **Template:**</span>
+<span class="sd">    Args:</span>
+<span class="sd">        q: ninguno</span>
 
-<span class="sd">    :template:`database/interfaces/interfazUsuario/registrarUsuario.html`</span>
+<span class="sd">    Returns:</span>
+<span class="sd">        template:`database/interfaces/interfazUsuario/registrarUsuario.html`</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;database/interfaces/interfazUsuario/registrarUsuario.html&#39;</span><span class="p">)</span></div>
     
 
 <div class="viewcode-block" id="ingresar"><a class="viewcode-back" href="../../../../index.html#database.views.interfazUsuario.IUsuario.ingresar">[documentos]</a><span class="k">def</span> <span class="nf">ingresar</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Valida los datos enviados por el formulario, y asi poder</span>
-<span class="sd">    hacer la insercion a :model:`database.Usuario`. si todo esta correcto</span>
-<span class="sd">    o redirecciona nuevamente al mismo formulario hasta ser valido</span>
+<span class="sd">    hacer la insercion a: model: `database.Usuario`</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        q: ninguno</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        nada</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">try</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s2">&quot;POST&quot;</span><span class="p">:</span>
@@ -254,9 +262,11 @@
 <span class="sd">    Filtra el registro que se quiere modificar y renderiza un formulario </span>
 <span class="sd">    para ingresar los campos del :model:`database.Usuario`.</span>
 
-<span class="sd">    **Template:**</span>
+<span class="sd">    Args:</span>
+<span class="sd">        q: ninguno</span>
 
-<span class="sd">    :template:`database/usuario/actualizarUsuario.html`</span>
+<span class="sd">    Returns:</span>
+<span class="sd">        template:`database/usuario/actualizarUsuario.html`</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">session</span><span class="p">[</span><span class="s2">&quot;logueo&quot;</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;admin&quot;</span> <span class="ow">or</span> <span class="n">request</span><span class="o">.</span><span class="n">session</span><span class="p">[</span><span class="s2">&quot;logueo&quot;</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;usuario&quot;</span><span class="p">:</span>
         <span class="n">usuario</span> <span class="o">=</span> <span class="n">Usuario</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">pk</span><span class="o">=</span><span class="n">request</span><span class="o">.</span><span class="n">session</span><span class="p">[</span><span class="s2">&quot;logueo&quot;</span><span class="p">][</span><span class="mi">2</span><span class="p">])</span>
@@ -270,6 +280,12 @@
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Valida los datos enviados por el formulario, y asi poder</span>
 <span class="sd">    hacer la actualizacion a :model:`database.Usuario`. si todo esta correcto</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        q: ninguno</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        nada</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">session</span><span class="p">[</span><span class="s2">&quot;logueo&quot;</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;admin&quot;</span> <span class="ow">or</span> <span class="n">request</span><span class="o">.</span><span class="n">session</span><span class="p">[</span><span class="s2">&quot;logueo&quot;</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;usuario&quot;</span><span class="p">:</span>
         <span class="nb">id</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">session</span><span class="p">[</span><span class="s2">&quot;logueo&quot;</span><span class="p">][</span><span class="mi">2</span><span class="p">]</span>

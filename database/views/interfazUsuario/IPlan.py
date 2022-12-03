@@ -83,18 +83,6 @@ def ingresar(request):
                             usuario_id=usuario)
                 plan.save()
                 return redirect("IPlan:listar")
-
-            if (meta.meta_tipo == "recomposicion"):
-                textoPesoNormal = "Lo que debes realizar es un mantenimiento calorico e ir remplazando poco a poco tu masa corporal por musculo ya que quiere mantener el peso deseado pero disminuir la grasa"
-                recomendacionesPesoNormal = "debes realizar ejercicios de hipertrofia, comer varias veces al dia, comer una cantidad de calorias considerable pero altas en proteinas"
-                especificacion = Especificacion.objects.get(pk='1133')
-                plan = Plan(plan_desc=textoPesoNormal,
-                            plan_recomendaciones=recomendacionesPesoNormal,
-                            especificacion_id=especificacion,
-                            meta_id=meta,
-                            usuario_id=usuario)
-                plan.save()
-                return redirect("IPlan:listar")
                 
         else:
             messages.warning(request, "no has rellenado la meta")

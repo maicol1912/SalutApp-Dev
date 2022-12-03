@@ -168,28 +168,28 @@
 <span class="c1"># Create your views here.</span>
 
 <div class="viewcode-block" id="formulario"><a class="viewcode-back" href="../../../../index.html#database.views.interfazUsuario.IPqr.formulario">[documentos]</a><span class="k">def</span> <span class="nf">formulario</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Renderiza un template el cual contiene los campos para ingresar</span>
+    <span class="sd">&quot;&quot;&quot;Renderiza un template el cual contiene los campos para ingresar</span>
 <span class="sd">    los datos de :model:`database.Pqr`.</span>
 
-<span class="sd">    **Template:**</span>
+<span class="sd">    Args:</span>
+<span class="sd">        q: ninguno</span>
 
-
+<span class="sd">    Returns:</span>
+<span class="sd">        template:`database/interfaces/interfazPqr/registrarPqr.html`</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-
     <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;database/interfaces/interfazPqr/registrarPqr.html&#39;</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="ingresar"><a class="viewcode-back" href="../../../../index.html#database.views.interfazUsuario.IPqr.ingresar">[documentos]</a><span class="k">def</span> <span class="nf">ingresar</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Valida los datos enviados por el formulario, y asi poder</span>
+<span class="sd">    hacer la insercion a :model:`database.Pqr` </span>
 
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Permite la creacion y almacenamiento en :model: `database.Pqr` de una nueva</span>
-<span class="sd">    Pqr.</span>
+<span class="sd">    Args:</span>
+<span class="sd">        q: ninguno</span>
 
-<span class="sd">    **Template:**</span>
-
+<span class="sd">    Returns:</span>
+<span class="sd">        nada</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-
     <span class="k">try</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">session</span><span class="p">[</span><span class="s2">&quot;logueo&quot;</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;usuario&quot;</span> <span class="ow">or</span> <span class="n">request</span><span class="o">.</span><span class="n">session</span><span class="p">[</span><span class="s2">&quot;logueo&quot;</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;admin&quot;</span><span class="p">:</span>
             <span class="n">usuario</span> <span class="o">=</span> <span class="n">Usuario</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">pk</span><span class="o">=</span><span class="n">request</span><span class="o">.</span><span class="n">session</span><span class="p">[</span><span class="s2">&quot;logueo&quot;</span><span class="p">][</span><span class="mi">2</span><span class="p">])</span>

@@ -2,7 +2,6 @@ insert into `salutapp-database`.database_especificacion values(1131,"Rutina de p
 
 insert into `salutapp-database`.database_especificacion values(1132,"Rutina de cardio funcional en bicicleta","Rutina de Espalda y triceps","Rutina de pecho y biceps","Rutina de pierna","Rutina de cardio y abdomen","Dia de trote minimo 1 hora","Dia de descanso","Estrategia de bajar peso","los alimentos mas recomenables son huevos, verduras verdes, salmon, pollo o ternera magra, patata, atun, legumbres, sopas, yogurt aguacate, frutos secos cereales, fruta, chia, cafe, vino");
 
-insert into `salutapp-database`.database_especificacion values(1133,"Rutina de pecho y biceps","Rutina de cardio funcional en bicicleta y abdomen","Rutina de Espalda y triceps","Rutina de pierna","Rutina de cardio funcional en bicicleta y abdomen","Rutina de Espalda y triceps","Dia de descanso","Estrategia de recomposisicion corporal","los alimentos mas recomendados para subir de peso son leche, batidos de proteina, Arroz, Carnes Rojas, Nueces o mantequilla de nueces,papas (patatas), y lo mas importante es recordar que los ejercicios mas importantes son aquellos de hipertrofia pero combinando esto con cardio para poco a poco perder grasa");
 
 
 insert into `salutapp-database`.database_usuario values(1,"maicol123","maicol@a.com","sha256$UDpUaoN93avm0yUPFP2P$b81413d4397f013537911afc525958375db603b031873e03c0b0fa4bcf10e0b7",60,160,18,"admin","23-11-2022",0,0);

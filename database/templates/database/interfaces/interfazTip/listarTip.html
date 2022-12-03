@@ -16,19 +16,18 @@
 
 {% endif %}
 
-<div id="cartaMeta" class="card">
-    <div class="card-body">
-        <a href="{% url 'ITarea:formulario' %}"><h4 class="card-title">Crear Tarea</h4></a>
-      <h4 class="card-title">Tips</h4>
-      {% if datos %}
-      {% for i in datos %}
-      <h5 class="card-title">{{i.tip_encabezado}}</h5>
-      <p class="card-text">{{i.tip_desc}}</p>
-      {% endfor %}
-      {% else %}
-        <h4 class="card-text"> No hay datos...</h4> 
-      {% endif %}
-    </div>
-</div>
+{% if datos %}
+
+  {% for i in datos %}
+  <div>
+    <label>{{i.tip_encabezado}}</label>
+    <p>{{i.tip_desc}}</p>
+  </div>
+  {% endfor %}
+
+{% else %}
+<h1>no hay tips...</h1>
+
+{% endif %}
 
 {% endblock %}

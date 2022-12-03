@@ -164,12 +164,14 @@
 <span class="kn">from</span> <span class="nn">django.contrib</span> <span class="kn">import</span> <span class="n">messages</span>
 <span class="kn">from</span> <span class="nn">database.views.encriptacion</span> <span class="kn">import</span> <span class="n">encriptador</span>
 
-
-<span class="c1"># Create your views here.</span>
-
 <div class="viewcode-block" id="listar"><a class="viewcode-back" href="../../../../index.html#database.views.interfazUsuario.IMeta.listar">[documentos]</a><span class="k">def</span> <span class="nf">listar</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Lista la meta propuesta :model: `database.Meta` para el cliente :model: `database.Usuario`</span>
+    <span class="sd">&quot;&quot;&quot;Lista la meta designada de :model: `database.Meta` para el cliente :model: `database.Usuario`</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        q: ninguno</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        template:`database/interfaces/interfazMeta/listarMeta.html`</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">idUsuario</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">session</span><span class="p">[</span><span class="s2">&quot;logueo&quot;</span><span class="p">][</span><span class="mi">2</span><span class="p">]</span>
     
@@ -182,24 +184,28 @@
 
 
 <div class="viewcode-block" id="formulario"><a class="viewcode-back" href="../../../../index.html#database.views.interfazUsuario.IMeta.formulario">[documentos]</a><span class="k">def</span> <span class="nf">formulario</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Renderiza el formulario para que el cliente :model: `database.Usuario` ingrese </span>
+    <span class="sd">&quot;&quot;&quot;Renderiza el formulario para que el cliente :model: `database.Usuario` ingrese </span>
 <span class="sd">    la infromacion necesaria para crear una meta`</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        q: ninguno</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        template:`database/interfaces/interfazMeta/registrarMeta.html`</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;database/interfaces/interfazMeta/registrarMeta.html&#39;</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="ingresar"><a class="viewcode-back" href="../../../../index.html#database.views.interfazUsuario.IMeta.ingresar">[documentos]</a><span class="k">def</span> <span class="nf">ingresar</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Valida los datos enviados por el formulario, y asi poder</span>
+<span class="sd">    hacer la insercion a :model:`database.Meta` </span>
 
-    
-    
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Valida los datos enviados por el formulario, y asi poder</span>
-<span class="sd">    hacer la insercion a :model:`database.Meta` si todo esta correcto,</span>
-<span class="sd">    sino redirecciona nuevamente al mismo formulario hasta ser valido</span>
+<span class="sd">    Args:</span>
+<span class="sd">        q: ninguno</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        nada</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    
-
     <span class="k">try</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s2">&quot;POST&quot;</span><span class="p">:</span>
             <span class="n">usuarioP</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="p">[</span><span class="s2">&quot;meta_usuario&quot;</span><span class="p">]</span>
