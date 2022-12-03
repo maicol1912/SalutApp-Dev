@@ -6,7 +6,7 @@ from datetime import datetime
 from database.views.encriptacion.encriptador import *
 
 def loginFormulario(request):
-    return render(request, 'database/login/login.html')  #Creo que aqui esta el error
+    return render(request, 'database/login/login.html')
 
 def login(request):
     """Valida que los datos ingresados si forman parte de :model:`database.Usuario`.
