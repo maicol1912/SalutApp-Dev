@@ -16,19 +16,22 @@ def listar(request):
     Returns:
         template:`database/interfaces/interfazUsuario/listarUsuario.html`
     """
+    try:
+        if request.session["logueo"][1] == "usuario" or request.session["logueo"][1] == "admin":
+            usuarioE = Usuario.objects.get(pk=request.session["logueo"][2])
 
-    if request.session["logueo"][1] == "usuario" or request.session["logueo"][1] == "admin":
-        usuarioE = Usuario.objects.get(pk=request.session["logueo"][2])
-
-        imc = (usuarioE.usuario_peso/(usuarioE.usuario_altura /
-               100 * usuarioE.usuario_altura/100))
-        imcFormateado = ("%.1f" % imc)
-        print(usuarioE)
-        context = {"datos":usuarioE,"imc":imcFormateado}
-        return render(request, 'database/interfaces/interfazUsuario/listarUsuario.html',context)
-    else:
-        messages.warning(request, "usted no ha enviado datos...")
-        return("indexUsuario")
+            imc = (usuarioE.usuario_peso/(usuarioE.usuario_altura /
+                100 * usuarioE.usuario_altura/100))
+            imcFormateado = ("%.1f" % imc)
+            print(usuarioE)
+            context = {"datos":usuarioE,"imc":imcFormateado}
+            return render(request, 'database/interfaces/interfazUsuario/listarUsuario.html',context)
+        else:
+            messages.warning(request, "usted no ha enviado datos...")
+            return("indexUsuario")
+    except:
+        messages.warning(request, " No tienes acceso a este modulo")
+        return redirect("indexUsuario")
 
 def formulario(request):
     """Renderiza un template el cual contiene los campos para ingresar
@@ -90,10 +93,10 @@ def ingresar(request):
         else:
             messages.warning(request, "usted no ha enviado datos...")
 
-    except Exception as e:
-        messages.error(request, f"Error: {e}")
+    except:
+        messages.warning(request, " No tienes acceso a este modulo")
+        return redirect("indexUsuario")
 
-    return redirect('IMeta:formulario')
     
 
 

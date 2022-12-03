@@ -20,17 +20,20 @@ def listar(request):
     Returns:
        template:`database/usuario/listarUsuario.html`
     """
-    
-    if request.session["logueo"][1] =="admin":
-        usuario = Usuario.objects.all()
-        paginator = Paginator(usuario, 5)
-        page_number = request.GET.get('page')
-        usuario = paginator.get_page(page_number)
+    try:
+        if request.session["logueo"][1] =="admin":
+            usuario = Usuario.objects.all()
+            paginator = Paginator(usuario, 5)
+            page_number = request.GET.get('page')
+            usuario = paginator.get_page(page_number)
 
-        context = {"datos": usuario}
-        return render(request, 'database/usuario/listarUsuario.html', context)
-    else:
-        messages.warning(request, "usted no tiene acceso a este campo")
+            context = {"datos": usuario}
+            return render(request, 'database/usuario/listarUsuario.html', context)
+        else:
+            messages.warning(request, "usted no tiene acceso a este campo")
+            return redirect("index")
+    except:
+        messages.warning(request, " No tienes acceso a este modulo")
         return redirect("index")
 
 def formulario(request):
@@ -43,10 +46,14 @@ def formulario(request):
     Returns:
        template:`database/usuario/registrarUsuario.html`
     """
-    if request.session["logueo"][1] =="admin":
-        return render(request, 'database/usuario/registrarUsuarioAdmin.html')
-    else:
-        messages.warning(request, "usted no tiene acceso a este campo")
+    try:
+        if request.session["logueo"][1] =="admin":
+            return render(request, 'database/usuario/registrarUsuarioAdmin.html')
+        else:
+            messages.warning(request, "usted no tiene acceso a este campo")
+            return redirect("index")
+    except:
+        messages.warning(request, " No tienes acceso a este modulo")
         return redirect("index")
 
 def ingresar(request):
@@ -114,12 +121,16 @@ def eliminar(request, id):
     Returns:
        nada
     """
-    if request.session["logueo"][1] =="admin":
-        usuario = Usuario.objects.get(pk=id)
-        usuario.delete()
-        return redirect('usuario:listar')
-    else:
-        messages.warning(request, "usted no tiene acceso a este campo")
+    try:
+        if request.session["logueo"][1] =="admin":
+            usuario = Usuario.objects.get(pk=id)
+            usuario.delete()
+            return redirect('usuario:listar')
+        else:
+            messages.warning(request, "usted no tiene acceso a este campo")
+            return redirect("index")
+    except:
+        messages.warning(request, " No tienes acceso a este modulo")
         return redirect("index")
 
 def encontrar(request, id):
@@ -132,12 +143,16 @@ def encontrar(request, id):
     Returns:
        template:`database/usuario/actualizarUsuario.html`
     """
-    if request.session["logueo"][1] =="admin":
-        usuario = Usuario.objects.get(pk=id)
-        context = {"datos": usuario}
-        return render(request, "database/usuario/actualizarUsuario.html", context)
-    else:
-        messages.warning(request, "usted no tiene acceso a este campo")
+    try:
+        if request.session["logueo"][1] =="admin":
+            usuario = Usuario.objects.get(pk=id)
+            context = {"datos": usuario}
+            return render(request, "database/usuario/actualizarUsuario.html", context)
+        else:
+            messages.warning(request, "usted no tiene acceso a este campo")
+            return redirect("index")
+    except:
+        messages.warning(request, " No tienes acceso a este modulo")
         return redirect("index")
 
 def actualizar(request): 
@@ -150,24 +165,28 @@ def actualizar(request):
     Returns:
        template:`database/usuario/actualizarUsuario.html`
     """
-    if request.session["logueo"][1] =="admin":
-        id = request.POST["usuario_id"]
-        password = request.POST["usuario_password"]
-        passwordEncriptado = encriptador.encriptarPassword(password)
+    try:
+        if request.session["logueo"][1] =="admin":
+            id = request.POST["usuario_id"]
+            password = request.POST["usuario_password"]
+            passwordEncriptado = encriptador.encriptarPassword(password)
 
-        usuario = Usuario.objects.get(pk=id)
-        usuario.usuario_id = id
-        usuario.usuario_nombre = request.POST["usuario_nombre"]
-        usuario.usuario_correo = request.POST["usuario_correo"]
-        usuario.usuario_password = passwordEncriptado
-        usuario.usuario_peso = int(request.POST["usuario_peso"])
-        usuario.usuario_altura = int(request.POST["usuario_altura"])
-        usuario.usuario_edad = int(request.POST["usuario_edad"])
-        usuario.usuario_rol = request.POST["usuario_rol"]
-        usuario.save()
-        return redirect('usuario:listar')
-    else:
-        messages.warning(request, "usted no tiene acceso a este campo")
+            usuario = Usuario.objects.get(pk=id)
+            usuario.usuario_id = id
+            usuario.usuario_nombre = request.POST["usuario_nombre"]
+            usuario.usuario_correo = request.POST["usuario_correo"]
+            usuario.usuario_password = passwordEncriptado
+            usuario.usuario_peso = int(request.POST["usuario_peso"])
+            usuario.usuario_altura = int(request.POST["usuario_altura"])
+            usuario.usuario_edad = int(request.POST["usuario_edad"])
+            usuario.usuario_rol = request.POST["usuario_rol"]
+            usuario.save()
+            return redirect('usuario:listar')
+        else:
+            messages.warning(request, "usted no tiene acceso a este campo")
+            return redirect("index")
+    except:
+        messages.warning(request, " No tienes acceso a este modulo")
         return redirect("index")
 
 def buscar(request):
@@ -180,25 +199,28 @@ def buscar(request):
     Returns:
        template:`database/usuario/listarUsuario.html`
     """
-    
-    if request.session["logueo"][1] =="admin":
-        from django.db.models import Q
-        
-        if request.method == "POST":
-            dato = request.POST["buscar"]
-            q = Usuario.objects.filter(Q(usuario_nombre__contains = dato) | Q(usuario_correo__contains = dato))
+    try:
+        if request.session["logueo"][1] =="admin":
+            from django.db.models import Q
             
-            paginator = Paginator(q, 5) # Mostrar 3 registros por página...
+            if request.method == "POST":
+                dato = request.POST["buscar"]
+                q = Usuario.objects.filter(Q(usuario_nombre__contains = dato) | Q(usuario_correo__contains = dato))
+                
+                paginator = Paginator(q, 5) # Mostrar 3 registros por página...
 
-            page_number = request.GET.get('page')
-            #Sobreescribir la salida de la consulta.......
-            q = paginator.get_page(page_number)
-            
-            contexto = { "datos": q }
-            return render(request, 'database/usuario/listarUsuario.html', contexto)
+                page_number = request.GET.get('page')
+                #Sobreescribir la salida de la consulta.......
+                q = paginator.get_page(page_number)
+                
+                contexto = { "datos": q }
+                return render(request, 'database/usuario/listarUsuario.html', contexto)
+            else:
+                messages.error(request, "Error no envió datos...")
+                return redirect('usuario:listar')
         else:
-            messages.error(request, "Error no envió datos...")
-            return redirect('usuario:listar')
-    else:
-        messages.warning(request, "usted no tiene acceso a este campo")
+            messages.warning(request, "usted no tiene acceso a este campo")
+            return redirect("index")
+    except:
+        messages.warning(request, " No tienes acceso a este modulo")
         return redirect("index")

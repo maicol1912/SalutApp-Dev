@@ -13,6 +13,7 @@ def listar(request):
     Returns:
         template:`database/interfaces/interfazMeta/listarMeta.html`
     """
+    
     idUsuario = request.session["logueo"][2]
     
     if Meta.objects.filter(usuario_id=idUsuario):

@@ -13,13 +13,16 @@ def listar(request):
     Returns:
         template:`database/interfaces/interfazTip/listarTip.html`
     """
-
-    if request.session["logueo"][1] == "usuario" or request.session["logueo"][1] == "admin":
-        
-        tip = Tip.objects.all()
-        context = {"datos": tip}
-        return render(request, 'database/interfaces/interfazTip/listarTip.html', context)
-        
-    else:
+    try:
+        if request.session["logueo"][1] == "usuario" or request.session["logueo"][1] == "admin":
+            
+            tip = Tip.objects.all()
+            context = {"datos": tip}
+            return render(request, 'database/interfaces/interfazTip/listarTip.html', context)
+            
+        else:
+            messages.warning(request, " No tienes acceso a este modulo")
+            return redirect("indexUsuario")
+    except:
         messages.warning(request, " No tienes acceso a este modulo")
         return redirect("indexUsuario")

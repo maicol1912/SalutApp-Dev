@@ -205,15 +205,16 @@ def ingresar(request):
             messages.warning(request, " No Encontramos tareas para ti")
             return redirect("indexUsuario")
 
-    except Exception as e:
-        messages.error(request, f"Error: {e}")
+    except:
+        messages.warning(request, " No tienes acceso a este modulo")
+        return redirect("indexUsuario")
 
-    return redirect('indexUsuario')
 
 
 def finalizar(request):
+    del request.session["logueo"]
     user = Usuario.objects.get(pk=request.session["logueo"][2])
     user.delete()
     messages.warning(request, "LLegaste a tu meta de peso, si deseas seguir con otra dieta registrate con tus nuevos datos")
-    return redirect('indexUsuario')
+    return redirect('sesion:login')
 

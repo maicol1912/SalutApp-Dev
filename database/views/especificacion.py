@@ -15,16 +15,20 @@ def listar(request):
     Returns:
         template:`database/especificacion/listarEspecificacion.html`
     """
-    if request.session["logueo"][1] =="admin":
-        especificacion = Especificacion.objects.all()
-        paginator = Paginator(especificacion, 5)
-        page_number = request.GET.get('page')
-        especificacion = paginator.get_page(page_number)
+    try:
+        if request.session["logueo"][1] =="admin":
+            especificacion = Especificacion.objects.all()
+            paginator = Paginator(especificacion, 5)
+            page_number = request.GET.get('page')
+            especificacion = paginator.get_page(page_number)
 
-        context = {"datos": especificacion}
-        return render(request, 'database/especificacion/listarEspecificacion.html', context)
-    else:
-        messages.warning(request, "usted no tiene acceso a este campo")
+            context = {"datos": especificacion}
+            return render(request, 'database/especificacion/listarEspecificacion.html', context)
+        else:
+            messages.warning(request, "usted no tiene acceso a este campo")
+            return redirect("index")
+    except:
+        messages.warning(request, " No tienes acceso a este modulo")
         return redirect("index")
 
 def formulario(request):
@@ -36,10 +40,14 @@ def formulario(request):
     Returns:
         template:`database/especificacion/registrarEspecificacion.html`
     """
-    if request.session["logueo"][1] =="admin":
-        return render(request, 'database/especificacion/registrarEspecificacion.html')
-    else:
-        messages.warning(request, "usted no tiene acceso a este campo")
+    try:
+        if request.session["logueo"][1] =="admin":
+            return render(request, 'database/especificacion/registrarEspecificacion.html')
+        else:
+            messages.warning(request, "usted no tiene acceso a este campo")
+            return redirect("index")
+    except:
+        messages.warning(request, " No tienes acceso a este modulo")
         return redirect("index")
 
 def ingresar(request):
@@ -53,31 +61,34 @@ def ingresar(request):
     Returns:
         
     """
+    try:
+        if request.session["logueo"][1] =="admin":
+            try:
+                if request.method == "POST":
+                    especificacion = Especificacion(especificacion_id = request.POST["especificacion_id"],
+                                                    especificacion_nombre = request.POST["especificacion_nombre"],
+                                                    especificacion_dia_1=request.POST["especificacion_dia_1"],
+                                                    especificacion_dia_2=request.POST["especificacion_dia_1"],
+                                                    especificacion_dia_3=request.POST["especificacion_dia_1"],
+                                                    especificacion_dia_4=request.POST["especificacion_dia_1"],
+                                                    especificacion_dia_5=request.POST["especificacion_dia_1"],
+                                                    especificacion_dia_6=request.POST["especificacion_dia_1"],
+                                                    especificacion_dia_7=request.POST["especificacion_dia_1"],
+                                )
+                    especificacion.save()
+                    messages.success(request, "Especificacion guardada Correctamente")
+                else:
+                    messages.warning(request, "usted no ha enviado datos...")
 
-    if request.session["logueo"][1] =="admin":
-        try:
-            if request.method == "POST":
-                especificacion = Especificacion(especificacion_id = request.POST["especificacion_id"],
-                                                especificacion_nombre = request.POST["especificacion_nombre"],
-                                                especificacion_dia_1=request.POST["especificacion_dia_1"],
-                                                especificacion_dia_2=request.POST["especificacion_dia_1"],
-                                                especificacion_dia_3=request.POST["especificacion_dia_1"],
-                                                especificacion_dia_4=request.POST["especificacion_dia_1"],
-                                                especificacion_dia_5=request.POST["especificacion_dia_1"],
-                                                especificacion_dia_6=request.POST["especificacion_dia_1"],
-                                                especificacion_dia_7=request.POST["especificacion_dia_1"],
-                            )
-                especificacion.save()
-                messages.success(request, "Especificacion guardada Correctamente")
-            else:
-                messages.warning(request, "usted no ha enviado datos...")
+            except Exception as e:
+                messages.error(request, f"Error: {e}")
 
-        except Exception as e:
-            messages.error(request, f"Error: {e}")
-
-        return redirect('especificacion:listar')
-    else:
-        messages.warning(request, "usted no tiene acceso a este campo")
+            return redirect('especificacion:listar')
+        else:
+            messages.warning(request, "usted no tiene acceso a este campo")
+            return redirect("index")
+    except:
+        messages.warning(request, " No tienes acceso a este modulo")
         return redirect("index")
 
 def eliminar(request, id):
@@ -89,13 +100,16 @@ def eliminar(request, id):
     Returns:
        nada
     """
-
-    if request.session["logueo"][1] =="admin":
-        especificacion = Especificacion.objects.get(pk=id)
-        especificacion.delete()
-        return redirect('especificacion:listar')
-    else:
-        messages.warning(request, "usted no tiene acceso a este campo")
+    try:
+        if request.session["logueo"][1] =="admin":
+            especificacion = Especificacion.objects.get(pk=id)
+            especificacion.delete()
+            return redirect('especificacion:listar')
+        else:
+            messages.warning(request, "usted no tiene acceso a este campo")
+            return redirect("index")
+    except:
+        messages.warning(request, " No tienes acceso a este modulo")
         return redirect("index")
 
 def encontrar(request, id):
@@ -108,13 +122,16 @@ def encontrar(request, id):
     Returns:
        template:`database/especificacion/actualizarEspecificacion.html`
     """
-    
-    if request.session["logueo"][1] =="admin":
-        especificacion = Especificacion.objects.get(pk=id)
-        context = {"datos": especificacion}
-        return render(request, "database/especificacion/actualizarEspecificacion.html", context)
-    else:
-        messages.warning(request, "usted no tiene acceso a este campo")
+    try:
+        if request.session["logueo"][1] =="admin":
+            especificacion = Especificacion.objects.get(pk=id)
+            context = {"datos": especificacion}
+            return render(request, "database/especificacion/actualizarEspecificacion.html", context)
+        else:
+            messages.warning(request, "usted no tiene acceso a este campo")
+            return redirect("index")
+    except:
+        messages.warning(request, " No tienes acceso a este modulo")
         return redirect("index")
 
 def actualizar(request):
@@ -127,23 +144,27 @@ def actualizar(request):
     Returns:
        nada
     """
-    if request.session["logueo"][1] =="admin":
-        id = request.POST["id"]
+    try:
+        if request.session["logueo"][1] =="admin":
+            id = request.POST["id"]
 
-        especificacion = Especificacion.objects.get(pk=id)
-        especificacion.especificacion_id = id 
-        especificacion.especificacion_nombre = request.POST["especificacion_nombre"]
-        especificacion.especificacion_dia_1 = request.POST["especificacion_dia_1"]
-        especificacion.especificacion_dia_2 = request.POST["especificacion_dia_2"]
-        especificacion.especificacion_dia_3 = request.POST["especificacion_dia_3"]
-        especificacion.especificacion_dia_4 = request.POST["especificacion_dia_4"]
-        especificacion.especificacion_dia_5 = request.POST["especificacion_dia_5"]
-        especificacion.especificacion_dia_6 = request.POST["especificacion_dia_6"]
-        especificacion.especificacion_dia_7 = request.POST["especificacion_dia_7"]
-        especificacion.save()
-        return redirect('especificacion:listar')
-    else:
-        messages.warning(request, "usted no tiene acceso a este campo")
+            especificacion = Especificacion.objects.get(pk=id)
+            especificacion.especificacion_id = id 
+            especificacion.especificacion_nombre = request.POST["especificacion_nombre"]
+            especificacion.especificacion_dia_1 = request.POST["especificacion_dia_1"]
+            especificacion.especificacion_dia_2 = request.POST["especificacion_dia_2"]
+            especificacion.especificacion_dia_3 = request.POST["especificacion_dia_3"]
+            especificacion.especificacion_dia_4 = request.POST["especificacion_dia_4"]
+            especificacion.especificacion_dia_5 = request.POST["especificacion_dia_5"]
+            especificacion.especificacion_dia_6 = request.POST["especificacion_dia_6"]
+            especificacion.especificacion_dia_7 = request.POST["especificacion_dia_7"]
+            especificacion.save()
+            return redirect('especificacion:listar')
+        else:
+            messages.warning(request, "usted no tiene acceso a este campo")
+            return redirect("index")
+    except:
+        messages.warning(request, " No tienes acceso a este modulo")
         return redirect("index")
 
 def buscar(request):
@@ -156,25 +177,28 @@ def buscar(request):
     Returns:
        template:`database/especificacion/listarEspecificacion.html`
     """
-
-    if request.session["logueo"][1] =="admin":
-        from django.db.models import Q
-        
-        if request.method == "POST":
-            dato = request.POST["buscar"]
-            q = Especificacion.objects.filter(especificacion_nombre__contains = dato)
+    try:
+        if request.session["logueo"][1] =="admin":
+            from django.db.models import Q
             
-            paginator = Paginator(q, 5) # Mostrar 3 registros por página...
+            if request.method == "POST":
+                dato = request.POST["buscar"]
+                q = Especificacion.objects.filter(especificacion_nombre__contains = dato)
+                
+                paginator = Paginator(q, 5) # Mostrar 3 registros por página...
 
-            page_number = request.GET.get('page')
-            #Sobreescribir la salida de la consulta.......
-            q = paginator.get_page(page_number)
-            
-            contexto = { "datos": q }
-            return render(request, 'database/especificacion/listarEspecificacion.html', contexto)
+                page_number = request.GET.get('page')
+                #Sobreescribir la salida de la consulta.......
+                q = paginator.get_page(page_number)
+                
+                contexto = { "datos": q }
+                return render(request, 'database/especificacion/listarEspecificacion.html', contexto)
+            else:
+                messages.error(request, "Error no envió datos...")
+                return redirect('especificacion:listar')
         else:
-            messages.error(request, "Error no envió datos...")
-            return redirect('especificacion:listar')
-    else:
-        messages.warning(request, "usted no tiene acceso a este campo")
+            messages.warning(request, "usted no tiene acceso a este campo")
+            return redirect("index")
+    except:
+        messages.warning(request, " No tienes acceso a este modulo")
         return redirect("index")

@@ -17,8 +17,12 @@ def formulario(request):
     Returns:
         template:`database/interfaces/interfazPqr/registrarPqr.html`
     """
-    return render(request, 'database/interfaces/interfazPqr/registrarPqr.html')
-
+    try:
+        if request.session["logueo"][1] == "usuario" or request.session["logueo"][1] == "admin":
+            return render(request, 'database/interfaces/interfazPqr/registrarPqr.html')
+    except:
+        messages.warning(request, " No tienes acceso a este modulo")
+        return redirect("indexUsuario")
 
 def ingresar(request):
     """Valida los datos enviados por el formulario, y asi poder

@@ -13,16 +13,20 @@ def listar(request):
     Returns:
        template:`database/tarea/listarTarea.html`
     """
-    if request.session["logueo"][1] =="admin":
-        tarea = Tarea.objects.all()
-        paginator = Paginator(tarea, 5)
-        page_number = request.GET.get('page')
-        tarea= paginator.get_page(page_number)
+    try:
+        if request.session["logueo"][1] =="admin":
+            tarea = Tarea.objects.all()
+            paginator = Paginator(tarea, 5)
+            page_number = request.GET.get('page')
+            tarea= paginator.get_page(page_number)
 
-        context = {"datos": tarea}
-        return render(request, 'database/tarea/listarTarea.html', context)
-    else:
-        messages.warning(request, "usted no tiene acceso a este campo")
+            context = {"datos": tarea}
+            return render(request, 'database/tarea/listarTarea.html', context)
+        else:
+            messages.warning(request, "usted no tiene acceso a este campo")
+            return redirect("index")
+    except:
+        messages.warning(request, " No tienes acceso a este modulo")
         return redirect("index")
 
 def formulario(request):
@@ -35,14 +39,18 @@ def formulario(request):
     Returns:
        template:`database/tarea/registrarTarea.html`
     """
-    if request.session["logueo"][1] =="admin":
-        especificacion = Especificacion.objects.all()
-        usuario = Usuario.objects.all()
-        context = {"especificaciones": especificacion,
-                "usuarios":usuario}
-        return render(request, 'database/tarea/registrarTarea.html', context)
-    else:
-        messages.warning(request, "usted no tiene acceso a este campo")
+    try:
+        if request.session["logueo"][1] =="admin":
+            especificacion = Especificacion.objects.all()
+            usuario = Usuario.objects.all()
+            context = {"especificaciones": especificacion,
+                    "usuarios":usuario}
+            return render(request, 'database/tarea/registrarTarea.html', context)
+        else:
+            messages.warning(request, "usted no tiene acceso a este campo")
+            return redirect("index")
+    except:
+        messages.warning(request, " No tienes acceso a este modulo")
         return redirect("index")
 
 def ingresar(request):
@@ -56,35 +64,39 @@ def ingresar(request):
     Returns:
        nada
     """
-    if request.session["logueo"][1] =="admin":
-        try:
-            if request.method == "POST":
-                especificacionP = request.POST["tarea_especificacion"]
-                especificacion = Especificacion.objects.get(pk=especificacionP)
+    try:
+        if request.session["logueo"][1] =="admin":
+            try:
+                if request.method == "POST":
+                    especificacionP = request.POST["tarea_especificacion"]
+                    especificacion = Especificacion.objects.get(pk=especificacionP)
 
-                if (request.POST["tarea_check"]=="falso"):
-                    check = False
-                if (request.POST["tarea_check"] == "verdadero"):
-                    check = True
+                    if (request.POST["tarea_check"]=="falso"):
+                        check = False
+                    if (request.POST["tarea_check"] == "verdadero"):
+                        check = True
 
-                usuarioP = request.POST["tarea_usuario"]
-                usuario = Usuario.objects.get(pk=usuarioP)
+                    usuarioP = request.POST["tarea_usuario"]
+                    usuario = Usuario.objects.get(pk=usuarioP)
 
-                tarea = Tarea(  tarea_check = check,
-                                especificacion_id = especificacion,
-                                usuario_id = usuario
-                            )
-                tarea.save()
-                messages.success(request, "Tarea guardada Correctamente")
-            else:
-                messages.warning(request, "usted no ha enviado datos...")
+                    tarea = Tarea(  tarea_check = check,
+                                    especificacion_id = especificacion,
+                                    usuario_id = usuario
+                                )
+                    tarea.save()
+                    messages.success(request, "Tarea guardada Correctamente")
+                else:
+                    messages.warning(request, "usted no ha enviado datos...")
 
-        except Exception as e:
-            messages.error(request, f"Error: {e}")
+            except Exception as e:
+                messages.error(request, f"Error: {e}")
 
-        return redirect('tarea:listar')
-    else:
-        messages.warning(request, "usted no tiene acceso a este campo")
+            return redirect('tarea:listar')
+        else:
+            messages.warning(request, "usted no tiene acceso a este campo")
+            return redirect("index")
+    except:
+        messages.warning(request, " No tienes acceso a este modulo")
         return redirect("index")
 
 def eliminar(request, id):
@@ -96,13 +108,16 @@ def eliminar(request, id):
     Returns:
        nada
     """
-    
-    if request.session["logueo"][1] =="admin":
-        tarea = Tarea.objects.get(pk=id)
-        tarea.delete()
-        return redirect('tarea:listar')
-    else:
-        messages.warning(request, "usted no tiene acceso a este campo")
+    try:
+        if request.session["logueo"][1] =="admin":
+            tarea = Tarea.objects.get(pk=id)
+            tarea.delete()
+            return redirect('tarea:listar')
+        else:
+            messages.warning(request, "usted no tiene acceso a este campo")
+            return redirect("index")
+    except:
+        messages.warning(request, " No tienes acceso a este modulo")
         return redirect("index")
 
 def encontrar(request, id):
@@ -115,17 +130,21 @@ def encontrar(request, id):
     Returns:
        template:`database/tarea/actualizarTarea.html`
     """
-    if request.session["logueo"][1] =="admin":
-        tarea = Tarea.objects.get(pk=id)
-        usuario = Usuario.objects.all()
-        especificacion = Especificacion.objects.all()
-        context = {"datos": tarea,
-                "usuarios": usuario,
-                "especificaciones":especificacion
-                }
-        return render(request, "database/tarea/actualizarTarea.html", context)
-    else:
-        messages.warning(request, "usted no tiene acceso a este campo")
+    try:
+        if request.session["logueo"][1] =="admin":
+            tarea = Tarea.objects.get(pk=id)
+            usuario = Usuario.objects.all()
+            especificacion = Especificacion.objects.all()
+            context = {"datos": tarea,
+                    "usuarios": usuario,
+                    "especificaciones":especificacion
+                    }
+            return render(request, "database/tarea/actualizarTarea.html", context)
+        else:
+            messages.warning(request, "usted no tiene acceso a este campo")
+            return redirect("index")
+    except:
+        messages.warning(request, " No tienes acceso a este modulo")
         return redirect("index")
 
 def actualizar(request):
@@ -138,29 +157,33 @@ def actualizar(request):
     Returns:
        nada
     """
-    if request.session["logueo"][1] =="admin":
-        usuarioP = request.POST["tarea_usuario"]
-        usuario = Usuario.objects.get(pk=usuarioP)
+    try:
+        if request.session["logueo"][1] =="admin":
+            usuarioP = request.POST["tarea_usuario"]
+            usuario = Usuario.objects.get(pk=usuarioP)
 
-        especificacionP = request.POST["tarea_especificacion"]
-        especificacion = Especificacion.objects.get(pk=especificacionP)
-        
-        if (request.POST["tarea_check"] == "falso"):
-            check = False
-        if (request.POST["tarea_check"] == "verdadero"):
-            check = True
+            especificacionP = request.POST["tarea_especificacion"]
+            especificacion = Especificacion.objects.get(pk=especificacionP)
+            
+            if (request.POST["tarea_check"] == "falso"):
+                check = False
+            if (request.POST["tarea_check"] == "verdadero"):
+                check = True
 
-        id = request.POST["id"]
+            id = request.POST["id"]
 
-        tarea = Tarea.objects.get(pk=id)
-        tarea.id = id
-        tarea.tarea_check = check
-        tarea.especificacion_id = especificacion
-        tarea.usuario_id = usuario
-        tarea.save()
-        return redirect('tarea:listar')
-    else:
-        messages.warning(request, "usted no tiene acceso a este campo")
+            tarea = Tarea.objects.get(pk=id)
+            tarea.id = id
+            tarea.tarea_check = check
+            tarea.especificacion_id = especificacion
+            tarea.usuario_id = usuario
+            tarea.save()
+            return redirect('tarea:listar')
+        else:
+            messages.warning(request, "usted no tiene acceso a este campo")
+            return redirect("index")
+    except:
+        messages.warning(request, " No tienes acceso a este modulo")
         return redirect("index")
 
 def buscar(request):
@@ -173,24 +196,28 @@ def buscar(request):
     Returns:
        template:`database/tarea/listarTarea.html`
     """
-    if request.session["logueo"][1] =="admin":
-        from django.db.models import Q
-        
-        if request.method == "POST":
-            dato = request.POST["buscar"]
-            q = Tarea.objects.filter(usuario_id__contains = dato)
+    try:
+        if request.session["logueo"][1] =="admin":
+            from django.db.models import Q
             
-            paginator = Paginator(q, 5) # Mostrar 3 registros por página...
+            if request.method == "POST":
+                dato = request.POST["buscar"]
+                q = Tarea.objects.filter(usuario_id__contains = dato)
+                
+                paginator = Paginator(q, 5) # Mostrar 3 registros por página...
 
-            page_number = request.GET.get('page')
-            #Sobreescribir la salida de la consulta.......
-            q = paginator.get_page(page_number)
-            
-            contexto = { "datos": q }
-            return render(request, 'database/tarea/listarTarea.html', contexto)
+                page_number = request.GET.get('page')
+                #Sobreescribir la salida de la consulta.......
+                q = paginator.get_page(page_number)
+                
+                contexto = { "datos": q }
+                return render(request, 'database/tarea/listarTarea.html', contexto)
+            else:
+                messages.error(request, "Error no envió datos...")
+                return redirect('tarea:listar')
         else:
-            messages.error(request, "Error no envió datos...")
-            return redirect('tarea:listar')
-    else:
-        messages.warning(request, "usted no tiene acceso a este campo")
+            messages.warning(request, "usted no tiene acceso a este campo")
+            return redirect("index")
+    except:
+        messages.warning(request, " No tienes acceso a este modulo")
         return redirect("index")
