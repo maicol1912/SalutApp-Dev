@@ -349,9 +349,8 @@ o redirecciona nuevamente al mismo formulario hasta ser valido</p>
 <span class="sig-prename descclassname"><span class="pre">database.views.especificacion.</span></span><span class="sig-name descname"><span class="pre">listar</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/database/views/especificacion.html#listar"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#database.views.especificacion.listar" title="Enlazar permanentemente con esta definición">¶</a></dt>
 <dd><p>Lista todos los registros almacenados de <a href="#id37"><span class="problematic" id="id38">:model:`database.Especificacion`</span></a>.
 en el template</p>
-<p><em>return</em>
-si la cookie es admin redirecciona <a href="#id39"><span class="problematic" id="id40">:template:`database/especificacion/listarEspecificacion.html`</span></a>
-si la cookie no es admin retorna la ruta admin</p>
+<p>Returns:
+<a href="#id39"><span class="problematic" id="id40">:template:`database/especificacion/listarEspecificacion.html`</span></a></p>
 </dd></dl>
 
 <span class="target" id="module-database.views.meta"></span><dl class="py function">
@@ -725,8 +724,8 @@ en el template</p>
 <span class="target" id="module-database.models"></span><dl class="py class">
 <dt class="sig sig-object py" id="database.models.Especificacion">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">database.models.</span></span><span class="sig-name descname"><span class="pre">Especificacion</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/database/models.html#Especificacion"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#database.models.Especificacion" title="Enlazar permanentemente con esta definición">¶</a></dt>
-<dd><p>En esta tabla se contienen dietas especificas predefinidas para recomendar
-a el usuario :model: <cite>database.Usuario</cite> dependiendo de sus caracteristicas y esta divida en los 7 dias de la semana</p>
+<dd><p>El modelo contiene dietas especificas predefinidas para recomendar
+a :model: <cite>database.Usuario</cite> dependiendo de la informacion ingresada.</p>
 <dl class="py exception">
 <dt class="sig sig-object py" id="database.models.Especificacion.DoesNotExist">
 <em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">DoesNotExist</span></span><a class="headerlink" href="#database.models.Especificacion.DoesNotExist" title="Enlazar permanentemente con esta definición">¶</a></dt>
@@ -742,8 +741,8 @@ a el usuario :model: <cite>database.Usuario</cite> dependiendo de sus caracteris
 <dl class="py class">
 <dt class="sig sig-object py" id="database.models.Meta">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">database.models.</span></span><span class="sig-name descname"><span class="pre">Meta</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/database/models.html#Meta"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#database.models.Meta" title="Enlazar permanentemente con esta definición">¶</a></dt>
-<dd><p>En esta tabla se almacenan los  datos de cada usuario para asi poder
-definir cual es el plan que este debe llevar , relacionada a :model: <cite>database.Usuario</cite>.</p>
+<dd><p>El modelo almacena los datos de cada :model: <cite>database.Usuario</cite>. para asi poder
+definir cual :model: <cite>database.Plan</cite>. debe pertenecer.</p>
 <dl class="py exception">
 <dt class="sig sig-object py" id="database.models.Meta.DoesNotExist">
 <em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">DoesNotExist</span></span><a class="headerlink" href="#database.models.Meta.DoesNotExist" title="Enlazar permanentemente con esta definición">¶</a></dt>
@@ -759,8 +758,8 @@ definir cual es el plan que este debe llevar , relacionada a :model: <cite>datab
 <dl class="py class">
 <dt class="sig sig-object py" id="database.models.Plan">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">database.models.</span></span><span class="sig-name descname"><span class="pre">Plan</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/database/models.html#Plan"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#database.models.Plan" title="Enlazar permanentemente con esta definición">¶</a></dt>
-<dd><p>En esta tabla se contiene la descripcion y una introduccion al plan que el usuario
-va a llevar sin entrar en mucho detalle, relacionada a  :model: <cite>database.Especificacion</cite></p>
+<dd><p>Este modelo contiene la descripcion e introduccion al plan que el :model: <cite>database.Usuario</cite>
+va a cumplir sin mucho detalle, y se relacionada a  :model: <cite>database.Especificacion</cite></p>
 <dl class="py exception">
 <dt class="sig sig-object py" id="database.models.Plan.DoesNotExist">
 <em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">DoesNotExist</span></span><a class="headerlink" href="#database.models.Plan.DoesNotExist" title="Enlazar permanentemente con esta definición">¶</a></dt>
@@ -776,8 +775,8 @@ va a llevar sin entrar en mucho detalle, relacionada a  :model: <cite>database.E
 <dl class="py class">
 <dt class="sig sig-object py" id="database.models.Pqr">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">database.models.</span></span><span class="sig-name descname"><span class="pre">Pqr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/database/models.html#Pqr"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#database.models.Pqr" title="Enlazar permanentemente con esta definición">¶</a></dt>
-<dd><p>En esta tabla se contienen todas las peticiones, quejas, y reclamos,
-relacionada a :model: <cite>database.Usuario</cite></p>
+<dd><p>El modelo almacena las peticiones, quejas, y reclamos,
+de :model: <cite>database.Usuario</cite>. para ser atendidas.</p>
 <dl class="py exception">
 <dt class="sig sig-object py" id="database.models.Pqr.DoesNotExist">
 <em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">DoesNotExist</span></span><a class="headerlink" href="#database.models.Pqr.DoesNotExist" title="Enlazar permanentemente con esta definición">¶</a></dt>
@@ -793,8 +792,8 @@ relacionada a :model: <cite>database.Usuario</cite></p>
 <dl class="py class">
 <dt class="sig sig-object py" id="database.models.Tarea">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">database.models.</span></span><span class="sig-name descname"><span class="pre">Tarea</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/database/models.html#Tarea"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#database.models.Tarea" title="Enlazar permanentemente con esta definición">¶</a></dt>
-<dd><p>En esta tabla se contiene la confirmacion de los usuarios acerca de la realizacion
-de las actividades asignadas, relacionada a :model: <cite>database.Usuario</cite></p>
+<dd><p>Este modelo contiene la confirmacion de los :model: <cite>database.Usuario</cite> acerca de la realizacion
+de las actividades asignadas.</p>
 <dl class="py exception">
 <dt class="sig sig-object py" id="database.models.Tarea.DoesNotExist">
 <em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">DoesNotExist</span></span><a class="headerlink" href="#database.models.Tarea.DoesNotExist" title="Enlazar permanentemente con esta definición">¶</a></dt>
@@ -810,8 +809,8 @@ de las actividades asignadas, relacionada a :model: <cite>database.Usuario</cite
 <dl class="py class">
 <dt class="sig sig-object py" id="database.models.Tip">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">database.models.</span></span><span class="sig-name descname"><span class="pre">Tip</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/database/models.html#Tip"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#database.models.Tip" title="Enlazar permanentemente con esta definición">¶</a></dt>
-<dd><p>La siguiente tabla se usa para almacenar encuestas que se le hacen
-a los usuarios de la app acerca de opiniones</p>
+<dd><p>El modelo se usa para almacenar tips los cuales se le recomiendan a los usuarios
+de la aplicaciones acerca de buenas practicas</p>
 <dl class="py exception">
 <dt class="sig sig-object py" id="database.models.Tip.DoesNotExist">
 <em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">DoesNotExist</span></span><a class="headerlink" href="#database.models.Tip.DoesNotExist" title="Enlazar permanentemente con esta definición">¶</a></dt>
@@ -827,8 +826,8 @@ a los usuarios de la app acerca de opiniones</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="database.models.Usuario">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">database.models.</span></span><span class="sig-name descname"><span class="pre">Usuario</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/database/models.html#Usuario"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#database.models.Usuario" title="Enlazar permanentemente con esta definición">¶</a></dt>
-<dd><p>La siguiente tabla se usa para almacenar los datos de las personas que
-se registren en nuestra aplicacion :model: <cite>database.Usuario</cite> y con estos datos poder desdplegar
+<dd><p>El modelo se usa para almacenar los datos de los clientes que
+se registren en la aplicacion :model: <cite>database.Usuario</cite> y con estos datos poder desplegar
 diferentes herramientas</p>
 <dl class="py exception">
 <dt class="sig sig-object py" id="database.models.Usuario.DoesNotExist">
