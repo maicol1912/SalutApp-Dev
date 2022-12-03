@@ -7,12 +7,13 @@ from datetime import datetime, timedelta
 # Create your views here.
 
 def listar(request):
+    """Lista las tareas :model: `database.Tarea` disponibles para el usuario :model: `database.Usuario` en el template
 
-    """
-    Lista las tareas :model: `database.Tarea` disponibles para el usuario :model: `database.Usuario` en el template
+    Args:
+        q: ninguno
 
-    **Template:**
-
+    Returns:
+        template:`database/interfaces/interfazTarea/listarTarea.html`
     """
 
     if request.session["logueo"][1] == "usuario" or request.session["logueo"][1] == "admin":
@@ -29,13 +30,14 @@ def listar(request):
 
 
 def formulario(request):
-
-    """
-    Renderiza un template el cual contiene los campos para ingresar
+    """Renderiza un template el cual contiene los campos para ingresar
     los datos de :model:`database.Tarea`.
 
-    **Template:**
+    Args:
+        q: ninguno
 
+    Returns:
+        template:`database/interfaces/interfazTarea/registrarTarea.html`
     """
 
     if request.session["logueo"][1] == "usuario" or request.session["logueo"][1] == "admin":
@@ -59,13 +61,14 @@ def formulario(request):
 
 
 def ingresar(request):
-    
-    """
-    Permite la creacion y almacenamiento en :model: `database.Tarea` de la 
-    vereficacion del cumplimiento de la tarea en  :model: `database.Tarea` por parte del usuario.
+    """Valida los datos enviados por el formulario, y asi poder
+    hacer la insercion a: model: `database.Tarea`
 
-    **Template:**
+    Args:
+        q: ninguno
 
+    Returns:
+        nada
     """
 
     try:

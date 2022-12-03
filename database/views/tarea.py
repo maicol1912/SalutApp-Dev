@@ -3,20 +3,15 @@ from database.models import Tarea,Especificacion,Usuario
 from django.contrib import messages
 from django.core.paginator import Paginator
 
-
-
-
-# Create your views here.
-
-
 def listar(request):
-    """
-    Lista todos los registros almacenados de :model:`database.Tarea`.
+    """Lista todos los registros almacenados de :model:`database.Tarea`.
     en el template
 
-    **Template:**
+    Args:
+        q: ninguno
 
-    :template:`database/tarea/listarTarea.html`
+    Returns:
+       template:`database/tarea/listarTarea.html`
     """
     if request.session["logueo"][1] =="admin":
         tarea = Tarea.objects.all()
@@ -31,13 +26,14 @@ def listar(request):
         return redirect("index")
 
 def formulario(request):
-    """
-    Renderiza un template el cual contiene los campos para ingresar
+    """Renderiza un template el cual contiene los campos para ingresar
     los datos de :model:`database.Tarea`.
 
-    **Template:**
+    Args:
+        q: ninguno
 
-    :template:`database/tarea/registrarTarea.html`
+    Returns:
+       template:`database/tarea/registrarTarea.html`
     """
     if request.session["logueo"][1] =="admin":
         especificacion = Especificacion.objects.all()
@@ -50,10 +46,15 @@ def formulario(request):
         return redirect("index")
 
 def ingresar(request):
-    """
-    Valida los datos enviados por el formulario, y asi poder
+    """Valida los datos enviados por el formulario, y asi poder
     hacer la insercion a :model:`database.Tarea`. si todo esta correcto
     o redirecciona nuevamente al mismo formulario hasta ser valido
+
+    Args:
+        q: ninguno
+
+    Returns:
+       nada
     """
     if request.session["logueo"][1] =="admin":
         try:
@@ -87,9 +88,15 @@ def ingresar(request):
         return redirect("index")
 
 def eliminar(request, id):
+    """Filtra el registro que se quiere eliminar, y hace el borrado del :model:`database.Tarea`.
+
+    Args:
+        q: ninguno
+
+    Returns:
+       nada
     """
-    Filtra el registro que se quiere eliminar, y hace el borrado del :model:`database.Tarea`.
-    """
+    
     if request.session["logueo"][1] =="admin":
         tarea = Tarea.objects.get(pk=id)
         tarea.delete()
@@ -99,13 +106,14 @@ def eliminar(request, id):
         return redirect("index")
 
 def encontrar(request, id):
-    """
-    Filtra el registro que se quiere modificar y renderiza un formulario 
+    """Filtra el registro que se quiere modificar y renderiza un formulario 
     para ingresar los campos del :model:`database.Tarea`.
 
-    **Template:**
+    Args:
+        q: ninguno
 
-    :template:`database/tarea/actualizarTarea.html`
+    Returns:
+       template:`database/tarea/actualizarTarea.html`
     """
     if request.session["logueo"][1] =="admin":
         tarea = Tarea.objects.get(pk=id)
@@ -121,9 +129,14 @@ def encontrar(request, id):
         return redirect("index")
 
 def actualizar(request):
-    """
-    Valida los datos enviados por el formulario, y asi poder
+    """Valida los datos enviados por el formulario, y asi poder
     hacer la actualizacion a :model:`database.Tarea`. si todo esta correcto
+
+    Args:
+        q: ninguno
+
+    Returns:
+       nada
     """
     if request.session["logueo"][1] =="admin":
         usuarioP = request.POST["tarea_usuario"]
@@ -151,13 +164,14 @@ def actualizar(request):
         return redirect("index")
 
 def buscar(request):
-    """
-    Filtra el registro que se quiere encontrar de :model:`database.Tarea`. 
+    """Filtra el registro que se quiere encontrar de :model:`database.Tarea`. 
     y se muestra sus datos en un template
 
-    **Template:**
+    Args:
+        q: ninguno
 
-    :template:`database/tarea/listarTarea.html`
+    Returns:
+       template:`database/tarea/listarTarea.html`
     """
     if request.session["logueo"][1] =="admin":
         from django.db.models import Q

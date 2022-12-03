@@ -7,13 +7,14 @@ from django.core.paginator import Paginator
 
 
 def listar(request):
-    """
-    Lista todos los registros almacenados de :model:`database.Encuesta`.
+    """Lista todos los registros almacenados de :model:`database.Tip`.
     en el template
 
-    **Template:**
+    Args:
+        q: ninguno
 
-    :template:`database/encuesta/listarEncuesta.html`
+    Returns:
+       template:`database/tip/listarTip.html`
     """
     if request.session["logueo"][1] =="admin":
         tip = Tip.objects.all()
@@ -29,13 +30,14 @@ def listar(request):
 
 
 def formulario(request):
-    """
-    Renderiza un template el cual contiene los campos para ingresar
-    los datos de :model:`database.Encuesta`.
+    """Renderiza un template el cual contiene los campos para ingresar
+    los datos de :model:`database.Tip`.
 
-    **Template:**
+    Args:
+        q: ninguno
 
-    :template:`database/encuesta/registrarEncuesta.html`
+    Returns:
+       template:`database/tip/registrarTip.html`
     """
     if request.session["logueo"][1] =="admin":
         return render(request, 'database/tip/registrarTip.html')
@@ -44,10 +46,15 @@ def formulario(request):
         return redirect("index")
 
 def ingresar(request):
-    """
-    Valida los datos enviados por el formulario, y asi poder
-    hacer la insercion a :model:`database.Encuesta`. si todo esta correcto
+    """Valida los datos enviados por el formulario, y asi poder
+    hacer la insercion a :model:`database.Tip`. si todo esta correcto
     o redirecciona nuevamente al mismo formulario hasta ser valido
+
+    Args:
+        q: ninguno
+
+    Returns:
+       nada
     """
     if request.session["logueo"][1] =="admin":
         try:
@@ -68,8 +75,13 @@ def ingresar(request):
         return redirect("index")
 
 def eliminar(request, id):
-    """
-    Filtra el registro que se quiere eliminar, y hace el borrado del :model:`database.Encuesta`.
+    """Filtra el registro que se quiere eliminar, y hace el borrado del :model:`database.Tip`.
+
+    Args:
+        q: recibe el id del tip para poder eliminarlo
+
+    Returns:
+       nada
     """
     if request.session["logueo"][1] =="admin":
         tip = Tip.objects.get(pk=id)
@@ -80,13 +92,14 @@ def eliminar(request, id):
         return redirect("index")
 
 def encontrar(request, id):
-    """
-    Filtra el registro que se quiere modificar y renderiza un formulario 
-    para ingresar los campos del :model:`database.Encuesta`.
+    """Filtra el registro que se quiere modificar y renderiza un formulario 
+    para ingresar los campos del :model:`database.Tip`.
 
-    **Template:**
+    Args:
+        q: recibe el id del tip para poder renderizarlo
 
-    :template:`database/encuesta/actualizarEncuesta.html`
+    Returns:
+       template:`database/tip/actualizarTip.html`
     """
     if request.session["logueo"][1] =="admin":
         tip = Tip.objects.get(pk=id)
@@ -97,10 +110,16 @@ def encontrar(request, id):
         return redirect("index")
 
 def actualizar(request):
+    """Valida los datos enviados por el formulario, y asi poder
+    hacer la actualizacion a :model:`database.Tip`. si todo esta correcto
+
+    Args:
+        q: ninguno
+
+    Returns:
+       nada
     """
-    Valida los datos enviados por el formulario, y asi poder
-    hacer la actualizacion a :model:`database.Encuesta`. si todo esta correcto
-    """
+    
     if request.session["logueo"][1] =="admin":
         id = request.POST["id"]
         tip = Tip.objects.get(pk=id)
@@ -115,13 +134,14 @@ def actualizar(request):
         return redirect("index")
 
 def buscar(request):
-    """
-    Filtra el registro que se quiere encontrar de :model:`database.Encuesta`. 
+    """Filtra el registro que se quiere encontrar de :model:`database.Tip`. 
     y se muestra sus datos en un template
 
-    **Template:**
+    Args:
+        q: ninguno
 
-    :template:`database/encuesta/listarEncuesta.html`
+    Returns:
+       template:`database/tip/listarTip.html`
     """
     if request.session["logueo"][1] =="admin":
         from django.db.models import Q

@@ -11,8 +11,8 @@ from django.db import models
 
 class Tip(models.Model):
     """
-    La siguiente tabla se usa para almacenar encuestas que se le hacen 
-    a los usuarios de la app acerca de opiniones
+    El modelo se usa para almacenar tips los cuales se le recomiendan a los usuarios
+    de la aplicaciones acerca de buenas practicas
     """
     tip_encabezado = models.CharField(max_length=200)
     tip_desc = models.TextField()
@@ -21,9 +21,10 @@ class Tip(models.Model):
 
 
 class Usuario(models.Model):
+    
     """
-    La siguiente tabla se usa para almacenar los datos de las personas que 
-    se registren en nuestra aplicacion :model: `database.Usuario` y con estos datos poder desdplegar 
+    El modelo se usa para almacenar los datos de los clientes que 
+    se registren en la aplicacion :model: `database.Usuario` y con estos datos poder desplegar 
     diferentes herramientas
     """
     usuario_id = models.IntegerField(primary_key=True)
@@ -44,8 +45,8 @@ class Usuario(models.Model):
 
 class Meta(models.Model):
     """
-    En esta tabla se almacenan los  datos de cada usuario para asi poder
-    definir cual es el plan que este debe llevar , relacionada a :model: `database.Usuario`.
+    El modelo almacena los datos de cada :model: `database.Usuario`. para asi poder
+    definir cual :model: `database.Plan`. debe pertenecer.
     """
     meta_tipo = models.CharField(max_length=200)
     meta_desc = models.TextField()
@@ -58,8 +59,8 @@ class Meta(models.Model):
 
 class Pqr(models.Model):
     """
-    En esta tabla se contienen todas las peticiones, quejas, y reclamos,
-    relacionada a :model: `database.Usuario`
+    El modelo almacena las peticiones, quejas, y reclamos,
+    de :model: `database.Usuario`. para ser atendidas.
     """
     pqr_tipo = models.CharField(max_length=200)
     pqr_desc = models.TextField()
@@ -71,8 +72,8 @@ class Pqr(models.Model):
 
 class Especificacion(models.Model):
     """
-    En esta tabla se contienen dietas especificas predefinidas para recomendar
-    a el usuario :model: `database.Usuario` dependiendo de sus caracteristicas y esta divida en los 7 dias de la semana
+    El modelo contiene dietas especificas predefinidas para recomendar
+    a :model: `database.Usuario` dependiendo de la informacion ingresada.
     """
     especificacion_id = models.IntegerField(primary_key=True)
     especificacion_nombre = models.CharField(max_length=200)
@@ -91,8 +92,8 @@ class Especificacion(models.Model):
 
 class Plan(models.Model):
     """
-    En esta tabla se contiene la descripcion y una introduccion al plan que el usuario
-    va a llevar sin entrar en mucho detalle, relacionada a  :model: `database.Especificacion`
+    Este modelo contiene la descripcion e introduccion al plan que el :model: `database.Usuario`
+    va a cumplir sin mucho detalle, y se relacionada a  :model: `database.Especificacion`
     """
     plan_desc = models.TextField()
     plan_recomendaciones = models.TextField()
@@ -106,8 +107,8 @@ class Plan(models.Model):
 
 class Tarea(models.Model):
     """
-    En esta tabla se contiene la confirmacion de los usuarios acerca de la realizacion
-    de las actividades asignadas, relacionada a :model: `database.Usuario`
+    Este modelo contiene la confirmacion de los :model: `database.Usuario` acerca de la realizacion
+    de las actividades asignadas.
     """
     tarea_id = models.CharField(primary_key=True, max_length=200)
     tarea_check_1 = models.CharField(null=True,max_length=3)

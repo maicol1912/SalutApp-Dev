@@ -7,13 +7,14 @@ from django.core.paginator import Paginator
 
 # Create your views here.
 def listar(request):
-    """
-    Lista todos los registros almacenados de :model:`database.Pqr`.
+    """Lista todos los registros almacenados de :model:`database.Pqr`.
     en el template
 
-    **Template:**
+    Args:
+        q: ninguno
 
-    :template:`database/pqr/listarPqr.html`
+    Returns:
+       template:`database/pqr/listarPqr.html`
     """
     if request.session["logueo"][1] =="admin":
         pqr = Pqr.objects.all()
@@ -28,13 +29,14 @@ def listar(request):
         return redirect("index")
 
 def formulario(request):
-    """
-    Renderiza un template el cual contiene los campos para ingresar
+    """Renderiza un template el cual contiene los campos para ingresar
     los datos de :model:`database.Pqr`.
 
-    **Template:**
+    Args:
+        q: ninguno
 
-    :template:`database/pqr/registrarPqr.html`
+    Returns:
+       template:`database/pqr/registrarPqr.html`
     """
     if request.session["logueo"][1] =="admin":
         usuario = Usuario.objects.all()
@@ -45,11 +47,17 @@ def formulario(request):
         return redirect("index")
 
 def ingresar(request):
-    """
-    Valida los datos enviados por el formulario, y asi poder
+    """Valida los datos enviados por el formulario, y asi poder
     hacer la insercion a :model:`database.Pqr`. si todo esta correcto
     o redirecciona nuevamente al mismo formulario hasta ser valido
+
+    Args:
+        q: ninguno
+
+    Returns:
+       nada
     """
+    
     if request.session["logueo"][1] =="admin":
         try:
             if request.method == "POST":
@@ -73,8 +81,13 @@ def ingresar(request):
         return redirect("index")
 
 def eliminar(request, id):
-    """
-    Filtra el registro que se quiere eliminar, y hace el borrado del :model:`database.Pqr`.
+    """Filtra el registro que se quiere eliminar, y hace el borrado del :model:`database.Pqr`.
+
+    Args:
+        q: recibe el id del pqr para poder eliminarlo
+
+    Returns:
+       nada
     """
     if request.session["logueo"][1] =="admin":
         pqr = Pqr.objects.get(pk=id)
@@ -85,14 +98,16 @@ def eliminar(request, id):
         return redirect("index")
 
 def encontrar(request, id):
-    """
-    Filtra el registro que se quiere modificar y renderiza un formulario 
+    """Filtra el registro que se quiere modificar y renderiza un formulario 
     para ingresar los campos del :model:`database.Pqr`.
 
-    **Template:**
+    Args:
+        q: recibe el id del pqr para poder renderizarlo
 
-    :template:`database/pqr/actualizarPqr.html`
+    Returns:
+       template:`database/pqr/actualizarPqr.html`
     """
+    
     if request.session["logueo"][1] =="admin":
         pqr = Pqr.objects.get(pk=id)
         usuario = Usuario.objects.all()
@@ -104,9 +119,14 @@ def encontrar(request, id):
         return redirect("index")
 
 def actualizar(request):
-    """
-    Valida los datos enviados por el formulario, y asi poder
+    """Valida los datos enviados por el formulario, y asi poder
     hacer la actualizacion a :model:`database.Pqr`. si todo esta correcto
+
+    Args:
+        q: ninguno
+
+    Returns:
+       nada
     """
     if request.session["logueo"][1] =="admin":
         usuarioP = request.POST["pqr_usuario"]
@@ -125,14 +145,16 @@ def actualizar(request):
         return redirect("index")
 
 def buscar(request):
-    """
-    Filtra el registro que se quiere encontrar de :model:`database.Pqr`. 
+    """Filtra el registro que se quiere encontrar de :model:`database.Pqr`. 
     y se muestra sus datos en un template
 
-    **Template:**
+    Args:
+        q: ninguno
 
-    :template:`database/pqr/listarPqr.html`
+    Returns:
+       template:`database/pqr/listarPqr.html`
     """
+    
     if request.session["logueo"][1] =="admin":
         from django.db.models import Q
         

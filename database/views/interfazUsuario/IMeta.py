@@ -4,12 +4,14 @@ from database.models import Usuario,Meta
 from django.contrib import messages
 from database.views.encriptacion import encriptador
 
-
-# Create your views here.
-
 def listar(request):
-    """
-    Lista la meta propuesta :model: `database.Meta` para el cliente :model: `database.Usuario`
+    """Lista la meta designada de :model: `database.Meta` para el cliente :model: `database.Usuario`
+
+    Args:
+        q: ninguno
+
+    Returns:
+        template:`database/interfaces/interfazMeta/listarMeta.html`
     """
     idUsuario = request.session["logueo"][2]
     
@@ -22,24 +24,28 @@ def listar(request):
 
 
 def formulario(request):
-    """
-    Renderiza el formulario para que el cliente :model: `database.Usuario` ingrese 
+    """Renderiza el formulario para que el cliente :model: `database.Usuario` ingrese 
     la infromacion necesaria para crear una meta`
+
+    Args:
+        q: ninguno
+
+    Returns:
+        template:`database/interfaces/interfazMeta/registrarMeta.html`
     """
     return render(request, 'database/interfaces/interfazMeta/registrarMeta.html')
 
 
 def ingresar(request):
+    """Valida los datos enviados por el formulario, y asi poder
+    hacer la insercion a :model:`database.Meta` 
 
-    
-    
-    """
-    Valida los datos enviados por el formulario, y asi poder
-    hacer la insercion a :model:`database.Meta` si todo esta correcto,
-    sino redirecciona nuevamente al mismo formulario hasta ser valido
-    """
-    
+    Args:
+        q: ninguno
 
+    Returns:
+        nada
+    """
     try:
         if request.method == "POST":
             usuarioP = request.POST["meta_usuario"]

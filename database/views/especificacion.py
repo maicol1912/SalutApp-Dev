@@ -7,14 +7,13 @@ from django.core.paginator import Paginator
 
 
 def listar(request):
-    """
-    Lista todos los registros almacenados de :model:`database.Especificacion`.
-    en el template
+    """Lista todos los registros almacenados de :model:`database.Especificacion`. en el template
 
-    *return*
-    si la cookie es admin redirecciona :template:`database/especificacion/listarEspecificacion.html`
-    si la cookie no es admin retorna la ruta admin
-    
+    Args:
+        q: ninguno
+
+    Returns:
+        template:`database/especificacion/listarEspecificacion.html`
     """
     if request.session["logueo"][1] =="admin":
         especificacion = Especificacion.objects.all()
@@ -29,13 +28,13 @@ def listar(request):
         return redirect("index")
 
 def formulario(request):
-    """
-    Renderiza un template el cual contiene los campos para ingresar
-    los datos de :model:`database.Especificacion`.
+    """Renderiza un template el cual contiene los campos para ingresar los datos de :model:`database.Especificacion`.
 
-    **Template:**
+    Args:
+        q: ninguno
 
-    :template:`database/especificacion/registrarEspecificacion.html`
+    Returns:
+        template:`database/especificacion/registrarEspecificacion.html`
     """
     if request.session["logueo"][1] =="admin":
         return render(request, 'database/especificacion/registrarEspecificacion.html')
@@ -44,11 +43,17 @@ def formulario(request):
         return redirect("index")
 
 def ingresar(request):
-    """
-    Valida los datos entemplateviados por el formulario, y asi poder
+    """Valida los datos entemplateviados por el formulario, y asi poder
     hacer la insercion a :model:`database.Especificacion`. si todo esta correcto
     o redirecciona nuevamente al mismo formulario hasta ser valido
+
+    Args:
+        q: 
+
+    Returns:
+        
     """
+
     if request.session["logueo"][1] =="admin":
         try:
             if request.method == "POST":
@@ -76,9 +81,15 @@ def ingresar(request):
         return redirect("index")
 
 def eliminar(request, id):
+    """Filtra el registro que se quiere eliminar, y hace el borrado del :model:`database.Encuesta`.
+
+    Args:
+        q: recibe el id del usuario para poder encontrar y eliminar 
+
+    Returns:
+       nada
     """
-    Filtra el registro que se quiere eliminar, y hace el borrado del :model:`database.Encuesta`.
-    """
+
     if request.session["logueo"][1] =="admin":
         especificacion = Especificacion.objects.get(pk=id)
         especificacion.delete()
@@ -88,14 +99,16 @@ def eliminar(request, id):
         return redirect("index")
 
 def encontrar(request, id):
-    """
-    Filtra el registro que se quiere modificar y renderiza un formulario 
+    """Filtra el registro que se quiere modificar y renderiza un formulario 
     para ingresar los campos del :model:`database.Especificacion`.
 
-    **Template:**
+    Args:
+        q: recibe el id del usuario para poder encontrar renderizar
 
-    :template:`database/especificacion/actualizarEspecificacion.html`
+    Returns:
+       template:`database/especificacion/actualizarEspecificacion.html`
     """
+    
     if request.session["logueo"][1] =="admin":
         especificacion = Especificacion.objects.get(pk=id)
         context = {"datos": especificacion}
@@ -105,9 +118,14 @@ def encontrar(request, id):
         return redirect("index")
 
 def actualizar(request):
-    """
-    Valida los datos enviados por el formulario, y asi poder
+    """Valida los datos enviados por el formulario, y asi poder
     hacer la actualizacion a :model:`database.Especificacion`. si todo esta correcto
+
+    Args:
+        q: ninguno
+
+    Returns:
+       nada
     """
     if request.session["logueo"][1] =="admin":
         id = request.POST["id"]
@@ -129,14 +147,16 @@ def actualizar(request):
         return redirect("index")
 
 def buscar(request):
-    """
-    Filtra el registro que se quiere encontrar de :model:`database.Especificacion`. 
+    """Filtra el registro que se quiere encontrar de :model:`database.Especificacion`. 
     y se muestra sus datos en un template
 
-    **Template:**
+    Args:
+        q: ninguno
 
-    :template:`database/especificacion/listarEspecificacion.html`
+    Returns:
+       template:`database/especificacion/listarEspecificacion.html`
     """
+
     if request.session["logueo"][1] =="admin":
         from django.db.models import Q
         

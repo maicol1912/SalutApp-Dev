@@ -7,30 +7,38 @@ from database.views.encriptacion.encriptador import *
 # Create your views here.
 
 def index(request):
-    """
-    Renderiza un template de inicio dependiendo el tipo de usuario de :model: `database.`
+    """Renderiza un template de inicio dependiendo el tipo de usuario de :model: `database.`
 
-    **Template:**
+    Args:
+        q: ninguno
 
+    Returns:
+       template:`database/index.html`
     """
     return render(request, 'database/index.html')
 
 def indexUsuario(request):
-    """
-    Renderiza un template de inicio dependiendo el tipo de usuario de :model: `database.`
+    """Renderiza un template de inicio dependiendo el tipo de usuario de :model: `database.`
 
-    **Template:**
+    Args:
+        q: ninguno
 
+    Returns:
+       template:`database/indexUsuario.html`
     """
+    
     return render(request, 'database/indexUsuario.html')
 
 def landing(request):
-    """
-    Renderiza un template de inicio para todos los tipos de usuario.
-    **Template:**
+    """Renderiza un template de inicio para todos los tipos de usuario.
 
+    Args:
+        q: ninguno
+
+    Returns:
+       template:`database/landing.html`
     """
-    return render(request, 'database/landing.html')
+    return render(request, '')
 
 
 

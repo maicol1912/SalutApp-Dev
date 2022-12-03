@@ -8,12 +8,13 @@ from database.views.encriptacion import encriptador
 
 # Create your views here.
 def listar(request):
+    """Lista la infromacion del usuario de :model: `database.Usuario` en el template
 
-    """
-    Lista la infromacion del usuario de :model: `database.Usuario` en el template
+    Args:
+        q: ninguno
 
-    **Template:**
-
+    Returns:
+        template:`database/interfaces/interfazUsuario/listarUsuario.html`
     """
 
     if request.session["logueo"][1] == "usuario" or request.session["logueo"][1] == "admin":
@@ -30,22 +31,29 @@ def listar(request):
         return("indexUsuario")
 
 def formulario(request):
-    """
-    Renderiza un template el cual contiene los campos para ingresar
+    """Renderiza un template el cual contiene los campos para ingresar
     los datos de :model:`database.Usuario`.
 
-    **Template:**
+    Args:
+        q: ninguno
 
-    :template:`database/interfaces/interfazUsuario/registrarUsuario.html`
+    Returns:
+        template:`database/interfaces/interfazUsuario/registrarUsuario.html`
     """
     return render(request, 'database/interfaces/interfazUsuario/registrarUsuario.html')
     
 
 def ingresar(request):
+    
     """
     Valida los datos enviados por el formulario, y asi poder
-    hacer la insercion a :model:`database.Usuario`. si todo esta correcto
-    o redirecciona nuevamente al mismo formulario hasta ser valido
+    hacer la insercion a: model: `database.Usuario`
+
+    Args:
+        q: ninguno
+
+    Returns:
+        nada
     """
     try:
         if request.method == "POST":
@@ -94,9 +102,11 @@ def encontrar(request):
     Filtra el registro que se quiere modificar y renderiza un formulario 
     para ingresar los campos del :model:`database.Usuario`.
 
-    **Template:**
+    Args:
+        q: ninguno
 
-    :template:`database/usuario/actualizarUsuario.html`
+    Returns:
+        template:`database/usuario/actualizarUsuario.html`
     """
     if request.session["logueo"][1] == "admin" or request.session["logueo"][1] == "usuario":
         usuario = Usuario.objects.get(pk=request.session["logueo"][2])
@@ -110,6 +120,12 @@ def actualizar(request):
     """
     Valida los datos enviados por el formulario, y asi poder
     hacer la actualizacion a :model:`database.Usuario`. si todo esta correcto
+
+    Args:
+        q: ninguno
+
+    Returns:
+        nada
     """
     if request.session["logueo"][1] == "admin" or request.session["logueo"][1] == "usuario":
         id = request.session["logueo"][2]

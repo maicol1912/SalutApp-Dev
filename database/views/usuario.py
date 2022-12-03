@@ -11,14 +11,16 @@ from datetime import datetime
 
 
 def listar(request):
-    """
-    Lista todos los registros almacenados de :model:`database.Usuario`.
+    """Lista todos los registros almacenados de :model:`database.Usuario`.
     en el template
 
-    **Template:**
+    Args:
+        q: ninguno
 
-    :template:`database/usuario/listarUsuario.html`
+    Returns:
+       template:`database/usuario/listarUsuario.html`
     """
+    
     if request.session["logueo"][1] =="admin":
         usuario = Usuario.objects.all()
         paginator = Paginator(usuario, 5)
@@ -32,13 +34,14 @@ def listar(request):
         return redirect("index")
 
 def formulario(request):
-    """
-    Renderiza un template el cual contiene los campos para ingresar
+    """Renderiza un template el cual contiene los campos para ingresar
     los datos de :model:`database.Usuario`.
 
-    **Template:**
+    Args:
+        q: ninguno
 
-    :template:`database/usuario/registrarUsuario.html`
+    Returns:
+       template:`database/usuario/registrarUsuario.html`
     """
     if request.session["logueo"][1] =="admin":
         return render(request, 'database/usuario/registrarUsuarioAdmin.html')
@@ -47,10 +50,15 @@ def formulario(request):
         return redirect("index")
 
 def ingresar(request):
-    """
-    Valida los datos enviados por el formulario, y asi poder
+    """Valida los datos enviados por el formulario, y asi poder
     hacer la insercion a :model:`database.Usuario`. si todo esta correcto
     o redirecciona nuevamente al mismo formulario hasta ser valido
+
+    Args:
+        q: ninguno
+
+    Returns:
+       nada
     """
     try:
         
@@ -98,8 +106,13 @@ def ingresar(request):
 
 
 def eliminar(request, id):
-    """
-    Filtra el registro que se quiere eliminar, y hace el borrado de usuarios del :model:`database.Usuario`.
+    """Filtra el registro que se quiere eliminar, y hace el borrado de usuarios del :model:`database.Usuario`.
+
+    Args:
+        q: recibe el id del usuario para poder eliminarlo
+
+    Returns:
+       nada
     """
     if request.session["logueo"][1] =="admin":
         usuario = Usuario.objects.get(pk=id)
@@ -110,13 +123,14 @@ def eliminar(request, id):
         return redirect("index")
 
 def encontrar(request, id):
-    """
-    Filtra el registro que se quiere modificar y renderiza un formulario 
+    """Filtra el registro que se quiere modificar y renderiza un formulario 
     para ingresar los campos del :model:`database.Usuario`.
 
-    **Template:**
+    Args:
+        q: recibe el id del usuario para poder renderizarlo
 
-    :template:`database/usuario/actualizarUsuario.html`
+    Returns:
+       template:`database/usuario/actualizarUsuario.html`
     """
     if request.session["logueo"][1] =="admin":
         usuario = Usuario.objects.get(pk=id)
@@ -127,9 +141,14 @@ def encontrar(request, id):
         return redirect("index")
 
 def actualizar(request): 
-    """
-    Valida los datos enviados por el formulario, y asi poder
-    hacer la actualizacion a :model:`database.Usuario`. si todo esta correcto
+    """Filtra el registro que se quiere modificar y renderiza un formulario 
+    para ingresar los campos del :model:`database.Usuario`.
+
+    Args:
+        q: recibe el id del usuario para poder renderizarlo
+
+    Returns:
+       template:`database/usuario/actualizarUsuario.html`
     """
     if request.session["logueo"][1] =="admin":
         id = request.POST["usuario_id"]
@@ -152,14 +171,16 @@ def actualizar(request):
         return redirect("index")
 
 def buscar(request):
-    """
-    Filtra el registro que se quiere encontrar de :model:`database.Usuario`. 
+    """Filtra el registro que se quiere encontrar de :model:`database.Usuario`. 
     y se muestra sus datos en un template
 
-    **Template:**
+    Args:
+        q: ninguno
 
-    :template:`database/usuario/listarUsuario.html`
+    Returns:
+       template:`database/usuario/listarUsuario.html`
     """
+    
     if request.session["logueo"][1] =="admin":
         from django.db.models import Q
         

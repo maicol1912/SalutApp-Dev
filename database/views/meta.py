@@ -8,14 +8,16 @@ from django.core.paginator import Paginator
 
 
 def listar(request):
-    """
-    Lista todos los registros almacenados de :model:`database.Meta`.
+    """Lista todos los registros almacenados de :model:`database.Meta`.
     en el template
 
-    **Template:**
+    Args:
+        q: ninguno
 
-    :template:`database/meta/listarMeta.html`
+    Returns:
+       template:`database/meta/listarMeta.html`
     """
+    
     if request.session["logueo"][1] =="admin":
         meta = Meta.objects.all()
         paginator = Paginator(meta, 5)
@@ -29,14 +31,16 @@ def listar(request):
         return redirect("index")
 
 def formulario(request):
-    """
-    Renderiza un template el cual contiene los campos para ingresar
+    """Renderiza un template el cual contiene los campos para ingresar
     los datos de :model:`database.Meta`.
 
-    **Template:**
+    Args:
+        q: ninguno
 
-    :template:`database/meta/registrarMeta.html`
+    Returns:
+       template:`database/meta/registrarMeta.html`
     """
+    
     if request.session["logueo"][1] =="admin":
         usuario = Usuario.objects.all()
         context = {"usuarios": usuario}
@@ -46,10 +50,15 @@ def formulario(request):
         return redirect("index")
 
 def ingresar(request):
-    """
-    Valida los datos enviados por el formulario, y asi poder
+    """Valida los datos enviados por el formulario, y asi poder
     hacer la insercion a :model:`database.Meta`. si todo esta correcto
     o redirecciona nuevamente al mismo formulario hasta ser valido
+
+    Args:
+        q: ninguno
+
+    Returns:
+       nada
     """
     if request.session["logueo"][1] =="admin":
         try:
@@ -76,9 +85,15 @@ def ingresar(request):
         return redirect("index")
 
 def eliminar(request, id):
+    """Filtra el registro que se quiere eliminar, y hace el borrado del :model:`database.Meta`.
+
+    Args:
+        q: recibe el id del usuario para eliminarlo
+
+    Returns:
+       nada
     """
-    Filtra el registro que se quiere eliminar, y hace el borrado del :model:`database.Meta`.
-    """
+    
     if request.session["logueo"][1] =="admin":
         meta = Meta.objects.get(pk=id)
         meta.delete()
@@ -88,14 +103,16 @@ def eliminar(request, id):
         return redirect("index")
 
 def encontrar(request, id):
-    """
-    Filtra el registro que se quiere modificar y renderiza un formulario 
+    """Filtra el registro que se quiere modificar y renderiza un formulario 
     para ingresar los campos del :model:`database.Meta`.
 
-    **Template:**
+    Args:
+        q: recibe el id del usuario para renderizarlo
 
-    :template:`database/meta/actualizarMeta.html`
+    Returns:
+       template:`database/meta/actualizarMeta.html`
     """
+    
     if request.session["logueo"][1] =="admin":
         meta = Meta.objects.get(pk=id)
         usuario = Usuario.objects.all()
@@ -107,9 +124,14 @@ def encontrar(request, id):
         return redirect("index")
 
 def actualizar(request):
-    """
-    Valida los datos enviados por el formulario, y asi poder
+    """Valida los datos enviados por el formulario, y asi poder
     hacer la actualizacion a :model:`database.Meta`. si todo esta correcto
+
+    Args:
+        q: ninguno
+
+    Returns:
+       nada
     """
     if request.session["logueo"][1] =="admin":
         usuarioP = request.POST["meta_usuario"]
@@ -129,14 +151,16 @@ def actualizar(request):
         return redirect("index")
 
 def buscar(request):
-    """
-    Filtra el registro que se quiere encontrar de :model:`database.Meta`. 
+    """Filtra el registro que se quiere encontrar de :model:`database.Meta`. 
     y se muestra sus datos en un template
 
-    **Template:**
+    Args:
+        q: ninguno
 
-    :template:`database/meta/listarMeta.html`
+    Returns:
+       template:`database/meta/listarMeta.html`
     """
+    
     if request.session["logueo"][1] =="admin":
         from django.db.models import Q
         

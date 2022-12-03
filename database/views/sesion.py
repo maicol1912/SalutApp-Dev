@@ -9,9 +9,14 @@ def loginFormulario(request):
     return render(request, 'database/login/login.html')  #Creo que aqui esta el error
 
 def login(request):
-    """
-    Valida que los datos ingresados si forman parte de :model:`database.Usuario`.
+    """Valida que los datos ingresados si forman parte de :model:`database.Usuario`.
     por lo tanto que si haya un usuario con esos datos
+
+    Args:
+        q: ninguno
+
+    Returns:
+       nada
     """
     if request.method == "POST":
         try:
@@ -45,9 +50,14 @@ def login(request):
         return redirect('sesion:loginFormulario')
 
 def logout(request):
-    """
-    Valida que la sesion del usuario este abierta y 
+    """Valida que la sesion del usuario este abierta y 
     realiza el borrado de la sesion
+
+    Args:
+        q: ninguno
+
+    Returns:
+       nada
     """
     try:
         del request.session["logueo"]

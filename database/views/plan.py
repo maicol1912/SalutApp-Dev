@@ -7,7 +7,15 @@ from django.core.paginator import Paginator
 
 
 def listar(request):
-    
+    """Lista todos los registros almacenados de :model:`database.Plan`.
+    en el template
+
+    Args:
+        q: ninguno
+
+    Returns:
+       template:`database/plan/listarPlan.html`
+    """
     if request.session["logueo"][1] =="admin":
         plan = Plan.objects.all()
         paginator = Paginator(plan, 5)
@@ -21,13 +29,14 @@ def listar(request):
         return redirect("index")
 
 def formulario(request):
-    """
-    Renderiza un template el cual contiene los campos para ingresar
+    """Renderiza un template el cual contiene los campos para ingresar
     los datos de :model:`database.Plan`.
 
-    **Template:**
+    Args:
+        q: ninguno
 
-    :template:`database/plan/registrarPlan.html`
+    Returns:
+       template:`database/plan/registrarPlan.html`
     """
     if request.session["logueo"][1] =="admin":
         especificacion = Especificacion.objects.all()
@@ -40,10 +49,15 @@ def formulario(request):
         return redirect("index")
 
 def ingresar(request):
-    """
-    Valida los datos enviados por el formulario, y asi poder
+    """Valida los datos enviados por el formulario, y asi poder
     hacer la insercion a :model:`database.Plan`. si todo esta correcto
     o redirecciona nuevamente al mismo formulario hasta ser valido
+
+    Args:
+        q: ninguno
+
+    Returns:
+       nada
     """
     if request.session["logueo"][1] =="admin":
         try:
@@ -75,8 +89,13 @@ def ingresar(request):
         return redirect("index")
 
 def eliminar(request, id):
-    """
-    Filtra el registro que se quiere eliminar, y hace el borrado del :model:`database.Plan`.
+    """Filtra el registro que se quiere eliminar, y hace el borrado del :model:`database.Plan`.
+
+    Args:
+        q: recibe el id del plan para poderlo eliminar
+
+    Returns:
+       nada
     """
     if request.session["logueo"][1] =="admin":
         plan = Plan.objects.get(pk=id)
@@ -87,13 +106,14 @@ def eliminar(request, id):
         return redirect("index")
 
 def encontrar(request, id):
-    """
-    Filtra el registro que se quiere modificar y renderiza un formulario 
+    """Filtra el registro que se quiere modificar y renderiza un formulario 
     para ingresar los campos del :model:`database.Plan`.
 
-    **Template:**
+    Args:
+        q: recibe el id del plan para renderizarlo
 
-    :template:`database/plan/actualizarPlan.html`
+    Returns:
+       template:`database/plan/actualizarPlan.html`
     """
     if request.session["logueo"][1] =="admin":
         plan = Plan.objects.get(pk=id)
@@ -107,9 +127,14 @@ def encontrar(request, id):
         return redirect("index")
 
 def actualizar(request):
-    """
-    Valida los datos enviados por el formulario, y asi poder
+    """Valida los datos enviados por el formulario, y asi poder
     hacer la actualizacion a :model:`database.Plan`. si todo esta correcto
+
+    Args:
+        q: ninguno
+
+    Returns:
+       nada
     """
     if request.session["logueo"][1] =="admin":
         especificacionP = request.POST["plan_especificacion"]
@@ -134,13 +159,14 @@ def actualizar(request):
         return redirect("index")
 
 def buscar(request):
-    """
-    Filtra el registro que se quiere encontrar de :model:`database.Plan`. 
+    """Filtra el registro que se quiere encontrar de :model:`database.Plan`. 
     y se muestra sus datos en un template
 
-    **Template:**
+    Args:
+        q: ninguno
 
-    :template:`database/plan/listarPlan.html`
+    Returns:
+       template:`database/plan/listarPlan.html`
     """
     if request.session["logueo"][1] =="admin":
         from django.db.models import Q

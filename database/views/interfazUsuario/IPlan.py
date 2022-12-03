@@ -6,14 +6,15 @@ from django.contrib import messages
 
 # Create your views here.
 def listar(request):
+    """Lista el plan y las recomendaciones dadas para el cliente :model: `database.Usuario` en el template
 
+    Args:
+        q: ninguno
+
+    Returns:
+        template:`database/interfaces/interfazPlan/listarPlan.html`
+        
     """
-    Lista el plan y las recomendaciones dadas para el cliente :model: `database.Usuario` en el template
-
-    **Template:**
-
-    """
-
     if request.session["logueo"][1] == "usuario" or request.session["logueo"][1] == "admin":
         usuario = Usuario.objects.get(pk=request.session["logueo"][2])
         if Meta.objects.filter(usuario_id=usuario):
@@ -37,13 +38,15 @@ def listar(request):
 
 
 def ingresar(request):
-    
-    """
-    Permite la creacion y almacenamiento en :model: `database.Plan` de un 
-    nuevo plan para el cliente  :model: `database.Usuario`
+    """Valida los datos enviados por el formulario, y asi poder
+    hacer la insercion a: model: `database.Plan`. si todo esta correcto
+    o redirecciona nuevamente al mismo formulario hasta ser valido
 
-    **Template:**
+    Args:
+        q: ninguno
 
+    Returns:
+        nada 
     """
 
     if request.session["logueo"][1] == "usuario" or request.session["logueo"][1] == "admin":
