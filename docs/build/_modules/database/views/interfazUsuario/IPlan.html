@@ -1,0 +1,307 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="es" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>database.views.interfazUsuario.IPlan &mdash; documentación de SalutApp - 1</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/custom.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/fonts.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
+        <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js"></script>
+        <script src="../../../../_static/jquery.js"></script>
+        <script src="../../../../_static/underscore.js"></script>
+        <script src="../../../../_static/doctools.js"></script>
+        <script src="../../../../_static/translations.js"></script>
+    
+    <script type="text/javascript" src="../../../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Índice" href="../../../../genindex.html" />
+    <link rel="search" title="Búsqueda" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../../index.html" class="icon icon-home"> SalutApp
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Buscar documentos" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <!-- Local TOC -->
+              <div class="local-toc"></div>
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">SalutApp</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+<div class="git-ribbon">
+  <a href="http://github.com/SwissDataScienceCenter" rel="me">Join us on GitHub</a>
+</div>
+
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../../../index.html">Código de módulo</a> &raquo;</li>
+        
+      <li>database.views.interfazUsuario.IPlan</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Código fuente para database.views.interfazUsuario.IPlan</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">django.shortcuts</span> <span class="kn">import</span> <span class="n">render</span><span class="p">,</span> <span class="n">redirect</span>
+<span class="kn">from</span> <span class="nn">django.contrib</span> <span class="kn">import</span> <span class="n">messages</span>
+<span class="kn">from</span> <span class="nn">database.models</span> <span class="kn">import</span> <span class="n">Usuario</span><span class="p">,</span><span class="n">Meta</span><span class="p">,</span><span class="n">Plan</span><span class="p">,</span><span class="n">Especificacion</span>
+<span class="kn">from</span> <span class="nn">django.contrib</span> <span class="kn">import</span> <span class="n">messages</span>
+
+
+<span class="c1"># Create your views here.</span>
+<div class="viewcode-block" id="listar"><a class="viewcode-back" href="../../../../index.html#database.views.interfazUsuario.IPlan.listar">[documentos]</a><span class="k">def</span> <span class="nf">listar</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Lista el plan y las recomendaciones dadas para el cliente :model: `database.Usuario` en el template</span>
+
+<span class="sd">    **Template:**</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">session</span><span class="p">[</span><span class="s2">&quot;logueo&quot;</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;usuario&quot;</span> <span class="ow">or</span> <span class="n">request</span><span class="o">.</span><span class="n">session</span><span class="p">[</span><span class="s2">&quot;logueo&quot;</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;admin&quot;</span><span class="p">:</span>
+        <span class="n">usuario</span> <span class="o">=</span> <span class="n">Usuario</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">pk</span><span class="o">=</span><span class="n">request</span><span class="o">.</span><span class="n">session</span><span class="p">[</span><span class="s2">&quot;logueo&quot;</span><span class="p">][</span><span class="mi">2</span><span class="p">])</span>
+        <span class="k">if</span> <span class="n">Meta</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">usuario_id</span><span class="o">=</span><span class="n">usuario</span><span class="p">):</span>
+            <span class="n">meta</span> <span class="o">=</span> <span class="n">Meta</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">usuario_id</span><span class="o">=</span><span class="n">usuario</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">Plan</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">meta_id</span><span class="o">=</span><span class="n">meta</span><span class="o">.</span><span class="n">id</span><span class="p">):</span>
+            
+                <span class="n">metaE</span> <span class="o">=</span> <span class="n">Meta</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">usuario_id</span> <span class="o">=</span> <span class="n">usuario</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+                <span class="n">plan</span> <span class="o">=</span> <span class="n">Plan</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">meta_id</span> <span class="o">=</span> <span class="n">metaE</span><span class="o">.</span><span class="n">id</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+            
+                <span class="n">context</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;datos&quot;</span><span class="p">:</span> <span class="n">plan</span><span class="p">}</span>
+                <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;database/interfaces/interfazPlan/listarPlan.html&#39;</span><span class="p">,</span> <span class="n">context</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="s2">&quot;IPlan:ingresar&quot;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            
+            <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="s2">&quot;IMeta:formulario&quot;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">messages</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s2">&quot;usted no tiene acceso a este modulo&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="s2">&quot;indexUsuario&quot;</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="ingresar"><a class="viewcode-back" href="../../../../index.html#database.views.interfazUsuario.IPlan.ingresar">[documentos]</a><span class="k">def</span> <span class="nf">ingresar</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Permite la creacion y almacenamiento en :model: `database.Plan` de un </span>
+<span class="sd">    nuevo plan para el cliente  :model: `database.Usuario`</span>
+
+<span class="sd">    **Template:**</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">session</span><span class="p">[</span><span class="s2">&quot;logueo&quot;</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;usuario&quot;</span> <span class="ow">or</span> <span class="n">request</span><span class="o">.</span><span class="n">session</span><span class="p">[</span><span class="s2">&quot;logueo&quot;</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;admin&quot;</span><span class="p">:</span>
+        <span class="n">idUsuario</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">session</span><span class="p">[</span><span class="s2">&quot;logueo&quot;</span><span class="p">][</span><span class="mi">2</span><span class="p">]</span>
+
+        <span class="k">if</span> <span class="p">(</span><span class="n">Usuario</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">pk</span><span class="o">=</span><span class="n">idUsuario</span><span class="p">)</span> <span class="ow">and</span> <span class="n">Meta</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">usuario_id</span><span class="o">=</span><span class="n">idUsuario</span><span class="p">)):</span>
+    
+            <span class="n">usuario</span> <span class="o">=</span> <span class="n">Usuario</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">pk</span><span class="o">=</span><span class="n">idUsuario</span><span class="p">)</span>
+            <span class="n">imc</span> <span class="o">=</span> <span class="p">(</span><span class="n">usuario</span><span class="o">.</span><span class="n">usuario_peso</span><span class="o">/</span><span class="p">((</span><span class="n">usuario</span><span class="o">.</span><span class="n">usuario_altura</span><span class="o">/</span><span class="mi">100</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">usuario</span><span class="o">.</span><span class="n">usuario_altura</span><span class="o">/</span><span class="mi">100</span><span class="p">)))</span>
+            
+            <span class="n">meta</span> <span class="o">=</span> <span class="n">Meta</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">usuario_id</span><span class="o">=</span><span class="n">idUsuario</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+            
+            <span class="k">if</span><span class="p">(</span><span class="n">meta</span><span class="o">.</span><span class="n">meta_tipo</span> <span class="o">==</span> <span class="s2">&quot;subir peso&quot;</span><span class="p">):</span>
+                <span class="n">textoBajoPeso</span> <span class="o">=</span> <span class="s2">&quot;Lo que debes realizar es un superavit calorico ya que estas  por debajo del peso deseado&quot;</span>
+                <span class="n">recomendacionesBajoPeso</span> <span class="o">=</span> <span class="s2">&quot;debes realizar ejercicios de hipertrofia, comer mas veces al dia ademas subir mucho el numero de calorias que ingieres&quot;</span>
+                <span class="n">especificacion</span> <span class="o">=</span> <span class="n">Especificacion</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">pk</span><span class="o">=</span><span class="s1">&#39;1131&#39;</span><span class="p">)</span>
+
+                <span class="n">plan</span> <span class="o">=</span> <span class="n">Plan</span><span class="p">(</span><span class="n">plan_desc</span><span class="o">=</span><span class="n">textoBajoPeso</span><span class="p">,</span>
+                            <span class="n">plan_recomendaciones</span><span class="o">=</span><span class="n">recomendacionesBajoPeso</span><span class="p">,</span>
+                            <span class="n">especificacion_id</span><span class="o">=</span><span class="n">especificacion</span><span class="p">,</span>
+                            <span class="n">meta_id</span><span class="o">=</span><span class="n">meta</span><span class="p">,</span>
+                            <span class="n">usuario_id</span><span class="o">=</span><span class="n">usuario</span> <span class="p">)</span>
+                <span class="n">plan</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+                <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="s2">&quot;IPlan:listar&quot;</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="p">(</span><span class="n">meta</span><span class="o">.</span><span class="n">meta_tipo</span> <span class="o">==</span> <span class="s2">&quot;bajar peso&quot;</span><span class="p">):</span>
+                <span class="n">textoPesoAlto</span> <span class="o">=</span> <span class="s2">&quot;Lo que debes realizar es un deficit calorico ya que estas  por encima del peso deseado&quot;</span>
+                <span class="n">recomendacionesAltoPeso</span> <span class="o">=</span> <span class="s2">&quot;debes realizar ejercicios de hipertrofia pero lo debes acompañar con bastante cardio y ejercicios de vascularidad, comer 3 o 4 veces al dia ademas bajar el numero de calorias que consumes en un dia para entrar en un deficit calorico&quot;</span>
+                <span class="n">especificacion</span> <span class="o">=</span> <span class="n">Especificacion</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">pk</span><span class="o">=</span><span class="s1">&#39;1132&#39;</span><span class="p">)</span>
+                <span class="n">plan</span> <span class="o">=</span> <span class="n">Plan</span><span class="p">(</span><span class="n">plan_desc</span><span class="o">=</span><span class="n">textoPesoAlto</span><span class="p">,</span>
+                            <span class="n">plan_recomendaciones</span><span class="o">=</span><span class="n">recomendacionesAltoPeso</span><span class="p">,</span>
+                            <span class="n">especificacion_id</span><span class="o">=</span><span class="n">especificacion</span><span class="p">,</span>
+                            <span class="n">meta_id</span><span class="o">=</span><span class="n">meta</span><span class="p">,</span>
+                            <span class="n">usuario_id</span><span class="o">=</span><span class="n">usuario</span><span class="p">)</span>
+                <span class="n">plan</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+                <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="s2">&quot;IPlan:listar&quot;</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="p">(</span><span class="n">meta</span><span class="o">.</span><span class="n">meta_tipo</span> <span class="o">==</span> <span class="s2">&quot;recomposicion&quot;</span><span class="p">):</span>
+                <span class="n">textoPesoNormal</span> <span class="o">=</span> <span class="s2">&quot;Lo que debes realizar es un mantenimiento calorico e ir remplazando poco a poco tu masa corporal por musculo ya que quiere mantener el peso deseado pero disminuir la grasa&quot;</span>
+                <span class="n">recomendacionesPesoNormal</span> <span class="o">=</span> <span class="s2">&quot;debes realizar ejercicios de hipertrofia, comer varias veces al dia, comer una cantidad de calorias considerable pero altas en proteinas&quot;</span>
+                <span class="n">especificacion</span> <span class="o">=</span> <span class="n">Especificacion</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">pk</span><span class="o">=</span><span class="s1">&#39;1133&#39;</span><span class="p">)</span>
+                <span class="n">plan</span> <span class="o">=</span> <span class="n">Plan</span><span class="p">(</span><span class="n">plan_desc</span><span class="o">=</span><span class="n">textoPesoNormal</span><span class="p">,</span>
+                            <span class="n">plan_recomendaciones</span><span class="o">=</span><span class="n">recomendacionesPesoNormal</span><span class="p">,</span>
+                            <span class="n">especificacion_id</span><span class="o">=</span><span class="n">especificacion</span><span class="p">,</span>
+                            <span class="n">meta_id</span><span class="o">=</span><span class="n">meta</span><span class="p">,</span>
+                            <span class="n">usuario_id</span><span class="o">=</span><span class="n">usuario</span><span class="p">)</span>
+                <span class="n">plan</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+                <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="s2">&quot;IPlan:listar&quot;</span><span class="p">)</span>
+                
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">messages</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s2">&quot;no has rellenado la meta&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="s2">&quot;IMeta:formulario&quot;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">messages</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s2">&quot;No tienes acceso a este modulo&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="s2">&quot;indexUsuario&quot;</span><span class="p">)</span></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Derechos de autor 2022, maicol.
+
+    </p>
+  </div>
+    
+    
+    
+    Construido con <a href="https://www.sphinx-doc.org/">Sphinx</a> usando un
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">tema</a>
+    
+    proporcionado por <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
