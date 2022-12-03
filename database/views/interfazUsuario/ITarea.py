@@ -46,22 +46,26 @@ def formulario(request):
     """
     try:
         if request.session["logueo"][1] == "usuario" or request.session["logueo"][1] == "admin":
-            fechaActual = datetime.now()
             usuario = Usuario.objects.get(pk=request.session["logueo"][2])
-            fechaUsuario = datetime.strptime(usuario.usuario_fecha_avance, "%d-%m-%Y")
+            if Meta.objects.filter(usuario_id=usuario):
+                fechaActual = datetime.now()
+                usuario = Usuario.objects.get(pk=request.session["logueo"][2])
+                fechaUsuario = datetime.strptime(usuario.usuario_fecha_avance, "%d-%m-%Y")
 
-            diferenciaFecha = fechaActual - timedelta(days=7)
+                diferenciaFecha = fechaActual - timedelta(days=7)
 
-            #if diferenciaFecha >= fechaUsuario:
+                #if diferenciaFecha >= fechaUsuario:
 
-            context = {"semana":usuario.usuario_nro_semanas}
-            return render(request, 'database/interfaces/interfazTarea/registrarTarea.html',context)
-            #else:
-                #messages.warning(request, "No han pasado los suficientes dias para marcar como realizada una tarea")
-                #return redirect("indexUsuario")
+                context = {"semana":usuario.usuario_nro_semanas}
+                return render(request, 'database/interfaces/interfazTarea/registrarTarea.html',context)
+                #else:
+                    #messages.warning(request, "No han pasado los suficientes dias para marcar como realizada una tarea")
+                    #return redirect("indexUsuario")
+            else:
 
+                return redirect("IMeta:formulario")
         else:
-            messages.warning(request, " No tienes acceso a este modulo")
+            messages.warning(request, "usted no tiene acceso a este modulo")
             return redirect("indexUsuario")
     except:
         messages.warning(request, " No tienes acceso a este modulo")
@@ -86,39 +90,60 @@ def ingresar(request):
         especificacion = Especificacion.objects.get(pk=plan.especificacion_id.especificacion_id)
             
         if usuario.usuario_nro_semanas == 0:
-            tareaId = str(request.session["logueo"][2]) + str(usuario.usuario_nro_tarea)
-            tareaCreada = Tarea(
-                        tarea_id=tareaId,
-                        tarea_check_1=request.POST["tarea_check"],
-                        peso_check_1=request.POST["nuevo_peso"],
-                        tarea_check_2=None,
-                        peso_check_2=None,
-                        tarea_check_3=None,
-                        peso_check_3=None,
-                        tarea_check_4=None,
-                        peso_check_4=None,
-                        especificacion_id=especificacion,
-                        usuario_id=usuario)
-                        
             tipoMeta = Meta.objects.filter(usuario_id=request.session["logueo"][2])[0].meta_tipo
             pesoMeta = Meta.objects.filter(usuario_id=request.session["logueo"][2])[0].meta_peso_ideal
-            if  tipoMeta== "subir peso" and Usuario.objects.get(pk=request.session["logueo"][2]).usuario_peso > int(request.POST["nuevo_peso"]):
-                messages.warning(request, "Tu peso no es verdadero, no haz llevado bien tu dieta")
+
+            if tipoMeta == "subir peso" and Usuario.objects.get(pk=request.session["logueo"][2]).usuario_peso > int(request.POST["nuevo_peso"]):
+                messages.warning(
+                    request, "Tu peso no es verdadero, no haz llevado bien tu dieta")
                 return redirect("indexUsuario")
-            if  tipoMeta == "bajar peso" and Usuario.objects.get(pk=request.session["logueo"][2]).usuario_peso < int(request.POST["nuevo_peso"]):
-                messages.warning(request, "Tu peso no es verdadero, no haz llevado bien tu dieta")
+
+            if tipoMeta == "bajar peso" and Usuario.objects.get(pk=request.session["logueo"][2]).usuario_peso < int(request.POST["nuevo_peso"]):
+                messages.warning(
+                    request, "Tu peso no es verdadero, no haz llevado bien tu dieta")
                 return redirect("indexUsuario")
 
-            if tipoMeta == "subir peso" and int(request.POST["nuevo_peso"]) >= pesoMeta:
-                return redirect("ITarea:finalizar")
-                
-            if tipoMeta == "bajar peso" and int(request.POST["nuevo_peso"]) <= pesoMeta:
-                return redirect("ITarea:finalizar")
+            if tipoMeta == "subir peso" and usuario.usuario_peso + 2 < int(request.POST["nuevo_peso"]):
+               messages.warning(
+                   request, "Subiste mucho peso en poco tiempo eso no se puede")
+               return redirect("indexUsuario")
+            else:
+                    tareaId = str(request.session["logueo"][2]) + str(usuario.usuario_nro_tarea)
+                    tareaCreada = Tarea(
+                    tarea_id=tareaId,
+                    tarea_check_1=request.POST["tarea_check"],
+                    peso_check_1=request.POST["nuevo_peso"],
+                    tarea_check_2=None,
+                    peso_check_2=None,
+                    tarea_check_3=None,
+                    peso_check_3=None,
+                    tarea_check_4=None,
+                    peso_check_4=None,
+                    especificacion_id=especificacion,
+                    usuario_id=usuario)
 
-
+            if tipoMeta == "bajar peso" and usuario.usuario_peso - 2 > int(request.POST["nuevo_peso"]):
+               messages.warning(request, "Bajaste mucho peso en poco tiempo eso no se puede")
+               return redirect("indexUsuario")
+            else:
+                    tareaId = str(request.session["logueo"][2]) + str(usuario.usuario_nro_tarea)
+                    tareaCreada = Tarea(
+                    tarea_id=tareaId,
+                    tarea_check_1=request.POST["tarea_check"],
+                    peso_check_1=request.POST["nuevo_peso"],
+                    tarea_check_2=None,
+                    peso_check_2=None,
+                    tarea_check_3=None,
+                    peso_check_3=None,
+                    tarea_check_4=None,
+                    peso_check_4=None,
+                    especificacion_id=especificacion,
+                    usuario_id=usuario)
+    
             tareaCreada.save()
             usuario.usuario_fecha_avance = datetime.strftime(datetime.now(), "%d-%m-%Y")
             usuario.usuario_nro_semanas = 1
+            usuario.usuario_peso = request.POST["nuevo_peso"]
             usuario.save()
             messages.warning(request, "Guardamos tu avance con exito")
             return redirect("indexUsuario")
@@ -126,20 +151,32 @@ def ingresar(request):
         if usuario.usuario_nro_semanas == 1:
             tareaIdEncontrar = str(request.session["logueo"][2]) + str(Usuario.objects.get(pk=request.session["logueo"][2]).usuario_nro_tarea)
             tareaEncontrada = Tarea.objects.get(pk=tareaIdEncontrar)
-            tareaEncontrada.tarea_check_2 = request.POST["tarea_check"]
-            tareaEncontrada.peso_check_2 = request.POST["nuevo_peso"]
-            
             tipoMeta = Meta.objects.filter(usuario_id=request.session["logueo"][2])[0].meta_tipo
             pesoMeta = Meta.objects.filter(usuario_id=request.session["logueo"][2])[0].meta_peso_ideal
-
+            
             if tipoMeta == "subir peso" and Usuario.objects.get(pk=request.session["logueo"][2]).usuario_peso > int(request.POST["nuevo_peso"]):
                 messages.warning(request, "Tu peso no es verdadero, no haz llevado bien tu dieta")
                 return redirect("indexUsuario")
-                
 
             if tipoMeta == "bajar peso" and Usuario.objects.get(pk=request.session["logueo"][2]).usuario_peso < int(request.POST["nuevo_peso"]):
                 messages.warning(request, "Tu peso no es verdadero, no haz llevado bien tu dieta")
                 return redirect("indexUsuario")
+
+
+            if tipoMeta == "subir peso" and usuario.usuario_peso + 2 < int(request.POST["nuevo_peso"]):
+               messages.warning(request, "Subiste mucho peso en poco tiempo eso no se puede")
+               return redirect("indexUsuario")
+            else:
+                tareaEncontrada.tarea_check_2 = request.POST["tarea_check"]
+                tareaEncontrada.peso_check_2 = request.POST["nuevo_peso"]
+
+            if tipoMeta == "bajar peso" and usuario.usuario_peso - 2 > int(request.POST["nuevo_peso"]):
+               messages.warning(request, "Bajaste mucho peso en poco tiempo eso no se puede")
+               return redirect("indexUsuario")
+            else:
+                tareaEncontrada.tarea_check_2 = request.POST["tarea_check"]
+                tareaEncontrada.peso_check_2 = request.POST["nuevo_peso"]
+            
 
             if tipoMeta == "subir peso" and int(request.POST["nuevo_peso"]) >= pesoMeta:
                 return redirect("ITarea:finalizar")
@@ -150,6 +187,7 @@ def ingresar(request):
             tareaEncontrada.save()
             usuario.usuario_fecha_avance = datetime.strftime(datetime.now(), "%d-%m-%Y")
             usuario.usuario_nro_semanas = 2
+            usuario.usuario_peso = request.POST["nuevo_peso"]
             usuario.save()
             messages.warning(request, "Guardamos tu avance con exito")
             return redirect("indexUsuario")
@@ -157,9 +195,6 @@ def ingresar(request):
         if usuario.usuario_nro_semanas == 2:
             tareaIdEncontrar = str(request.session["logueo"][2]) + str(Usuario.objects.get(pk=request.session["logueo"][2]).usuario_nro_tarea)
             tareaEncontrada = Tarea.objects.get(pk=tareaIdEncontrar)
-            tareaEncontrada.tarea_check_3 = request.POST["tarea_check"]
-            tareaEncontrada.peso_check_3 = request.POST["nuevo_peso"]
-            
             tipoMeta = Meta.objects.filter(usuario_id=request.session["logueo"][2])[0].meta_tipo
             pesoMeta = Meta.objects.filter(usuario_id=request.session["logueo"][2])[0].meta_peso_ideal
 
@@ -167,10 +202,26 @@ def ingresar(request):
                 messages.warning(
                     request, "Tu peso no es verdadero, no haz llevado bien tu dieta")
                 return redirect("indexUsuario")
+
             if tipoMeta == "bajar peso" and Usuario.objects.get(pk=request.session["logueo"][2]).usuario_peso < int(request.POST["nuevo_peso"]):
                 messages.warning(
                     request, "Tu peso no es verdadero, no haz llevado bien tu dieta")
                 return redirect("indexUsuario")
+
+            if tipoMeta == "subir peso" and usuario.usuario_peso + 2 < int(request.POST["nuevo_peso"]):
+               messages.warning(
+                   request, "Subiste mucho peso en poco tiempo eso no se puede")
+               return redirect("indexUsuario")
+            else:
+                tareaEncontrada.tarea_check_3 = request.POST["tarea_check"]
+                tareaEncontrada.peso_check_3 = request.POST["nuevo_peso"]
+
+            if tipoMeta == "bajar peso" and usuario.usuario_peso - 2 > int(request.POST["nuevo_peso"]):
+               messages.warning(request, "Bajaste mucho peso en poco tiempo eso no se puede")
+               return redirect("indexUsuario")
+            else:
+                tareaEncontrada.tarea_check_3 = request.POST["tarea_check"]
+                tareaEncontrada.peso_check_3 = request.POST["nuevo_peso"]
 
             if tipoMeta == "subir peso" and int(request.POST["nuevo_peso"]) >= pesoMeta:
                 return redirect("ITarea:finalizar")
@@ -181,6 +232,7 @@ def ingresar(request):
             tareaEncontrada.save()
             usuario.usuario_fecha_avance = datetime.strftime(datetime.now(), "%d-%m-%Y")
             usuario.usuario_nro_semanas = 3
+            usuario.usuario_peso = request.POST["nuevo_peso"]
             usuario.save()
             messages.warning(request, "Guardamos tu avance con exito")
             return redirect("indexUsuario")
@@ -188,30 +240,43 @@ def ingresar(request):
         if usuario.usuario_nro_semanas == 3:
             tareaIdEncontrar = str(request.session["logueo"][2]) + str(Usuario.objects.get(pk=request.session["logueo"][2]).usuario_nro_tarea)
             tareaEncontrada = Tarea.objects.get(pk=tareaIdEncontrar)
-            tareaEncontrada.tarea_check_4 = request.POST["tarea_check"]
-            tareaEncontrada.peso_check_4 = request.POST["nuevo_peso"]
-
-            tipoMeta = Meta.objects.filter(
-                usuario_id=request.session["logueo"][2])[0].meta_tipo
+            tipoMeta = Meta.objects.filter(usuario_id=request.session["logueo"][2])[0].meta_tipo
             pesoMeta = Meta.objects.filter(usuario_id=request.session["logueo"][2])[0].meta_peso_ideal
-            if tipoMeta == "subir peso" and Usuario.objects.get(pk=request.session["logueo"][2]).usuario_peso > int(request.POST["nuevo_peso"]):
-                messages.warning(request, "Tu peso no es verdadero, no haz llevado bien tu dieta")
-                return redirect("indexUsuario")
 
-            if tipoMeta == "bajar peso" and Usuario.objects.get(pk=request.session["logueo"][2]).usuario_peso < int(request.POST["nuevo_peso"]):
+            if tipoMeta == "subir peso" and Usuario.objects.get(pk=request.session["logueo"][2]).usuario_peso > int(request.POST["nuevo_peso"]):
                 messages.warning(
                     request, "Tu peso no es verdadero, no haz llevado bien tu dieta")
                 return redirect("indexUsuario")
 
+            if tipoMeta == "bajar peso" and Usuario.objects.get(pk=request.session["logueo"][2]).usuario_peso < int(request.POST["nuevo_peso"]):
+                messages.warning(request, "Tu peso no es verdadero, no haz llevado bien tu dieta")
+                return redirect("indexUsuario")
+
+            if tipoMeta == "subir peso" and usuario.usuario_peso + 2 < int(request.POST["nuevo_peso"]):
+               messages.warning(request, "Subiste mucho peso en poco tiempo eso no se puede")
+               return redirect("indexUsuario")
+            else:
+                tareaEncontrada.tarea_check_4 = request.POST["tarea_check"]
+                tareaEncontrada.peso_check_4 = request.POST["nuevo_peso"]
+
+            if tipoMeta == "bajar peso" and usuario.usuario_peso - 2 > int(request.POST["nuevo_peso"]):
+               messages.warning(request, "Bajaste mucho peso en poco tiempo eso no se puede")
+               return redirect("indexUsuario")
+            else:
+                tareaEncontrada.tarea_check_4 = request.POST["tarea_check"]
+                tareaEncontrada.peso_check_4 = request.POST["nuevo_peso"]
+
             if tipoMeta == "subir peso" and int(request.POST["nuevo_peso"]) >= pesoMeta:
                 return redirect("ITarea:finalizar")
+
             if tipoMeta == "bajar peso" and int(request.POST["nuevo_peso"]) <= pesoMeta:
                 return redirect("ITarea:finalizar")
 
             tareaEncontrada.save()
             usuario.usuario_fecha_avance = datetime.strftime(datetime.now(), "%d-%m-%Y")
             usuario.usuario_nro_semanas = 0
-            usuario.usuario_nro_tarea += 1 
+            usuario.usuario_nro_tarea += 1
+            usuario.usuario_peso = request.POST["nuevo_peso"]
             usuario.save()
             messages.warning(request, "Guardamos tu avance con exito")
             return redirect("indexUsuario")
