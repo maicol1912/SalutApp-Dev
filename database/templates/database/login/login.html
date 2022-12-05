@@ -42,10 +42,10 @@
         <form action="{% url 'sesion:login'%}" method="post">
             {% csrf_token %}
             <div class="mb-3 mt-3">
-                <input type="text" class="form-control" id="email" placeholder="Usuario" name="usuario">
+                <input type="text" class="form-control" id="email" placeholder="Usuario" name="usuario" required>
             </div>
             <div class="mb-3">
-                <input type="password" class="form-control" id="pwd" placeholder="Contraseña" name="clave">
+                <input type="password" class="form-control" id="pwd" placeholder="Contraseña" name="clave" required>
             </div>
             <button type="submit" id="iniciarsesion" class="btn btn-primary">Iniciar sesion</button>
             <div class="form-check mb-3">

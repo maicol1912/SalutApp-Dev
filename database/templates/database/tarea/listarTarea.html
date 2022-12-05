@@ -5,7 +5,6 @@
 
 {% block contenedor %}
 <h1>Tarea</h1>
-<a class="btn btn-warning" href="{% url 'tarea:formulario' %}">Agregar</a>
 <br>
 <br>
 {% if messages %}
@@ -32,7 +31,14 @@
         <thead>
             <tr>
                 <th>ID</th>
-                <th>Check</th>
+                <th>Check 1</th>
+                <th>peso 1</th>
+                <th>Check 2</th>
+                <th>peso 2</th>
+                <th>Check 3</th>
+                <th>peso 3</th>
+                <th>Check 4</th>
+                <th>peso 4</th>
                 <th>Especificacion</th>
                 <th>Usuario</th>
                 <th>Acciones</th>
@@ -41,8 +47,15 @@
 
         {% for i in datos %}
         <tr>
-            <td>{{i.i.tarea_id}}</td>
-            <td>{{i.tarea_check}}</td>
+            <td>{{i.tarea_id}}</td>
+            <td>{{i.tarea_check_1}}</td>
+            <td>{{i.peso_check_1}}</td>
+            <td>{{i.tarea_check_2}}</td>
+            <td>{{i.peso_check_2}}</td>
+            <td>{{i.tarea_check_3}}</td>
+            <td>{{i.peso_check_3}}</td>
+            <td>{{i.tarea_check_4}}</td>
+            <td>{{i.tarea_check_4}}</td>
             <td>{{i.especificacion_id}}</td>
             <td>{{i.usuario_id}}</td>
             <td><a type="button" class="btn btn-danger" href="{% url 'tarea:eliminar' i.tarea_id %}">Eliminar</a>

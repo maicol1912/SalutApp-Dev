@@ -18,17 +18,17 @@
 
     <div class="mb-3">
         <label for="">Descripcion Meta</label>
-        <textarea type="text" class="form-control" id="input-formulario" name="meta_desc">{{datos.meta_desc}}</textarea>
+        <textarea type="text" class="form-control" id="input-formulario" name="meta_desc" required>{{datos.meta_desc}}</textarea>
     </div>
 
     <div class="mb-3">
         <label for="">Peso Ideal</label>
-        <input type="text" class="form-control" name="meta_peso">
+        <input type="text" class="form-control" name="meta_peso" required>
     </div>
 
     <div class="mb-3">
         <label for="">Usuario</label>
-        <select class="form-control" name="meta_usuario">
+        <select class="form-control" name="meta_usuario" required>
 
             {% for i in usuarios%}
             <option value="{{i.usuario_id}}">{{i.usuario_nombre}}</option>

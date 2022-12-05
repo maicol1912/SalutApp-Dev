@@ -8,16 +8,16 @@
     {% csrf_token %}
     <div class="mb-3">
         <label for="">Descripcion</label>
-        <textarea type="text" class="form-control" id="input-formulario" name="plan_desc"></textarea>
+        <textarea type="text" class="form-control" id="input-formulario" name="plan_desc" required></textarea>
     </div>
     <div class="mb-3">
         <label for="">Recomendaciones</label>
-        <textarea type="text" class="form-control" id="input-formulario" name="plan_recomendacion"></textarea>
+        <textarea type="text" class="form-control" id="input-formulario" name="plan_recomendacion" required></textarea>
     </div>
 
     <div class="mb-3">
         <label for="">Especificacion</label>
-        <select class="form-control" name="plan_especificacion">
+        <select class="form-control" name="plan_especificacion" required>
 
             {% for i in especificaciones%}
             <option value="{{i.especificacion_id}}">{{i.especificacion_nombre}}</option>
@@ -27,7 +27,7 @@
     </div>
     <div class="mb-3">
         <label for="">Meta</label>
-        <select class="form-control" name="meta_especificacion">
+        <select class="form-control" name="meta_especificacion" required>
     
             {% for i in metas%}
             <option value="{{i.id}}">{{i.meta_desc}}</option>
@@ -37,7 +37,7 @@
     </div>
     <div class="mb-3">
         <label for="">Usuario</label>
-        <select class="form-control" name="usuario_especificacion">
+        <select class="form-control" name="usuario_especificacion" required>
     
             {% for i in usuarios%}
             <option value="{{i.usuario_id}}">{{i.usuario_nombre}}</option>

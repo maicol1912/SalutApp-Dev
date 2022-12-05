@@ -8,7 +8,7 @@
     {% csrf_token %}
     <div class="mb-3">
         <label for="">Tipo</label><br>
-        <select class="form-control" name="pqr_tipo">
+        <select class="form-control" name="pqr_tipo" required>
             <option value="reportar error">Reportar Error</option>
             <option value="sugerencia">Sugerencia</option>
             <option value="ayuda">Ayuda</option>
@@ -16,7 +16,7 @@
     </div>
     <div class="mb-3">
         <label for="">Descripcion</label>
-        <textarea type="text" class="form-control" id="input-formulario" name="pqr_desc"></textarea>
+        <textarea type="text" class="form-control" id="input-formulario" name="pqr_desc" required></textarea>
     </div>
     <button type="submit" class="btn btn-primary">Enviar</button>
 </form>

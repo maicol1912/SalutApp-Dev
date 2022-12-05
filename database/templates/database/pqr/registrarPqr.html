@@ -8,7 +8,7 @@
     {% csrf_token %}
     <div class="mb-3">
         <label for="">Tipo</label><br>
-        <select class="form-control" name="pqr_tipo">
+        <select class="form-control" name="pqr_tipo" required>
             <option value="reportar error">Reportar Error</option>
             <option value="sugerencia">Sugerencia</option>
             <option value="ayuda">Ayuda</option>
@@ -16,11 +16,11 @@
     </div>
     <div class="mb-3">
         <label for="">Descripcion</label>
-        <textarea type="text" class="form-control" id="input-formulario" name="pqr_desc"></textarea>
+        <textarea type="text" class="form-control" id="input-formulario" name="pqr_desc" required></textarea>
     </div>
     <div class="mb-3">
         <label for="">Usuario</label>
-        <select class="form-control" name="pqr_usuario">
+        <select class="form-control" name="pqr_usuario" required>
     
             {% for i in usuarios%}
             <option value="{{i.usuario_id}}">{{i.usuario_nombre}}</option>
