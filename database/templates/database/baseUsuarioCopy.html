@@ -1,0 +1,91 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="{% static 'database/css/bootstrap.min.css' %}" rel="stylesheet">
+  <link rel="apple-touch-icon" sizes="180x180" href="{% static 'database/favicon_io/apple-touch-icon.png' %}">
+  <link rel="icon" type="image/png" sizes="32x32" href="{% static 'database/favicon_io/favicon-32x32.png' %}">
+  <link rel="icon" type="image/png" sizes="16x16" href="{% static 'database/favicon_io/favicon-16x16.png' %}">
+  <link rel="manifest" href="{% static 'database/favicon_io/site.webmanifest' %}">
+
+  <link rel="stylesheet" href="{% static 'database/css/estilos.css' %}">
+
+
+  <!--  ----------------------------------------------------- -->
+  <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
+  <script src="https://kit.fontawesome.com/657c3a62ca.js" crossorigin="anonymous"></script>
+  <!--  ----------------------------------------------------- -->
+
+  <title>{% block titulo %} SalutApp {% endblock %}</title>
+</head>
+
+<body >
+  
+  {% block header %}
+  <img id="banner-listar" src="{% static 'database/img/banner1.png' %}" class="Banner SalutApp">
+  {% endblock %}
+
+  {% if request.session.logueo.1 == 'admin' or  request.session.logueo.1 == 'usuario'%}
+
+  {% else %}
+  <nav class="navbar navbar-expand-lg bg-light">
+    <div class="container-fluid">
+      <p class="navbar-brand" href="">Usted no tiene permisos para acceder a este modulo</p>
+    </div>
+    <a  id="btnSi" class="btn btn-primary" href="{% url 'sesion:loginFormulario' %}">Sign In</a>
+      <!-- crear cuenta -->
+    <a  id="btnSu" class="btn btn-primary" href="{% url 'sesion:loginFormulario' %}">Sign Up</a>
+  </nav>
+  {% endif %}
+  
+
+
+  {% block contenedor %}---------{% endblock %}
+
+  {% block footer %}
+  <!-- Footer -->
+  <div class="fooo">
+    <footer class="pie-pagina">
+      <div class="grupo-1">
+        <div class="box">
+          <figure>
+            <a href="">
+              <img id src="{% static 'database/img/Logov1.png' %}" class="Banner SalutApp">
+            </a>
+          </figure>
+        </div>
+
+        <div class="box">
+          <h2>SOBRE NOSOTROS</h2>
+          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Beatae, reprehenderit!</p>
+          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Beatae, reprehenderit!</p>
+        </div>
+
+        <div class="box">
+          <h2>SIGUENOS</h2>
+          <div class="red-social">
+            <a href="#" class="fa fa-facebook"></a>
+            <a href="#" class="fa fa-instagram"></a>
+            <a href="#" class="fa fa-twitter"></a>
+            <a href="#" class="fa fa-github"></a>
+          </div>
+        </div>
+      </div>
+      <div class="grupo-2">
+        <small>&copy; 2021-2022 <b>SalutApp</b> - Todos los derechos reservados.</small>
+      </div>
+    </footer>
+  </div>
+</body>
+</html>
+
+  <!-- +++++++++++++++++++++++++++++++++++++++++++++++++++++++++ +++++++ -->
+  {%endblock%}
+
+  <script src="{% static 'database/js/popper.min.js' %}"></script>
+  <script src="{% static 'database/js/bootstrap.min.js' %}"></script>
+  <script src="{% static 'database/js/libreria.js' %}"></script>

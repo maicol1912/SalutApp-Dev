@@ -218,7 +218,7 @@ strong{
     width: 22em;
     border-radius: 5px;
     margin-left: auto;
-    margin-left: -25%;
+    margin-left: -15%;
 }
 #iniciarsesion{
     margin-left: 3.55em;
@@ -227,7 +227,7 @@ strong{
     padding-top: .5em;
     padding-bottom: .5em;
     border-radius: 20px;
-    margin-left: -25%;
+    margin-left: -15%;
 }
 
 
@@ -529,6 +529,7 @@ strong{
     height: auto;
     margin-left: 20%;
 }
+
 
 
    
