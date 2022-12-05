@@ -24,7 +24,7 @@
   <title>{% block titulo %} SalutApp {% endblock %}</title>
 </head>
 
-<body >
+<body>
   
   {% block header %}
   <img id="banner-listar" src="{% static 'database/img/banner1.png' %}" class="Banner SalutApp">
@@ -85,130 +85,122 @@
 
   <!-- +++++++++++++++++++++ index de usuarios +++++++++++++++++++++-->
 
-  <!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="side.css">
-    <title>Document</title>
-</head>
-<body>
-    <div id="sidemenu" class="menu-collapsed">
-        <div id="header">
-            <div id="title"><span>Perfil</span></div>
-            <div id="menu-btn">
-                <div class="btn-hamburger"></div>
-                <div class="btn-hamburger"></div>
-                <div class="btn-hamburger"></div>
-            </div>
+
+
+  <div id="sidemenu" class="menu-collapsed">
+      <div id="header">
+          <div id="title"><span>Perfil</span></div>
+          <div id="menu-btn">
+              <div class="btn-hamburger"></div>
+              <div class="btn-hamburger"></div>
+              <div class="btn-hamburger"></div>
+          </div>
+      </div>
+      
+      <div id="profile">
+          <div id="photo"><img src={% static 'database/img/imgIndexClien/Logov1.png' %} alt=""></div>
+          <div id="name"><span>SalutApp</span></div>
+      </div>
+
+        <div id="menu-items">
+          <div class="item">
+              <a  href="{% url 'IMeta:listar' %}">
+                  <div class="icon"><img src={% static 'database/img/imgIndexClien/objetivo.png' %} alt=""></div>
+                  <div class="title"><span>Meta</span></div>
+              </a>
+          </div>
+
+          <div class="item separator">
+          </div>
         </div>
-        
-        <div id="profile">
-            <div id="photo"><img src={% static 'database/img/imgIndexClien/Logov1.png' %} alt=""></div>
-            <div id="name"><span>SalutApp</span></div>
+
+        <div id="menu-items">
+          <div class="item">
+              <a href="{% url 'IUsuario:listar' %}">
+                  <div class="icon"><img src={% static 'database/img/imgIndexClien/usuario.png' %} alt=""></div>
+                  <div class="title"><span>Usuario</span></div>
+              </a>
+          </div>
+
+          <div class="item separator">
+          </div>
         </div>
 
-         <div id="menu-items">
-            <div class="item">
-                <a  href="{% url 'IMeta:listar' %}">
-                    <div class="icon"><img src={% static 'database/img/imgIndexClien/objetivo.png' %} alt=""></div>
-                    <div class="title"><span>Meta</span></div>
+        <div id="menu-items">
+          <div class="item">
+              <a  href="{% url 'IPlan:listar' %}">
+                  <div class="icon"><img src={% static 'database/img/imgIndexClien/plan.png' %} alt=""></div>
+                  <div class="title"><span>Plan</span></div>
+              </a>
+          </div>
+
+          <div class="item separator">
+          </div>
+        </div>
+
+        <div id="menu-items">
+          <div class="item">
+              <a  href="{% url 'ITarea:listar' %}">
+                  <div class="icon"><img src={% static 'database/img/imgIndexClien/tarea.png' %} alt=""></div>
+                  <div class="title"><span>Tareas</span></div>
+              </a>
+          </div>
+
+          <div class="item separator">
+          </div>
+        </div>
+
+        <div id="menu-items">
+          <div class="item">
+              <a href="{% url 'IPqr:formulario' %}">
+                  <div class="icon"><img src={% static 'database/img/imgIndexClien/pqr.png' %} alt=""></div>
+                  <div class="title"><span>PQR</span></div>
+              </a>
+          </div>
+
+          <div class="item separator">
+          </div>
+        </div>
+
+        <div id="menu-items">
+          <div class="item">
+              <a href="{% url 'IEspecificacion:listar' %}">
+                  <div class="icon"><img src={% static 'database/img/imgIndexClien/dieta.png' %} alt=""></div>
+                  <div class="title"><span>Dieta-Ejercicio</span></div>
+              </a>
+          </div>
+
+          <div class="item separator">
+          </div>
+        </div>
+
+        <div id="menu-items">
+          <div class="item">
+              <a href="{% url 'ITip:listar' %}">
+                  <div class="icon"><img src={% static 'database/img/imgIndexClien/tip.png' %} alt=""></div>
+                  <div class="title"><span>Tip</span></div>
+              </a>
+          </div>
+
+          <div class="item separator">
+          </div>
+        </div>
+
+        {% if request.session.logueo %}
+        <div id="menu-items">
+          <div class="item">
+              <a href="{% url 'sesion:logout' %}">
+                  <div class="icon"><img src={% static 'database/img/imgIndexClien/hogar.png' %} alt=""></div>
+                  <div class="title"><span>Logout</span></div>
                 </a>
-            </div>
+          </div>
 
-            <div class="item separator">
-            </div>
-         </div>
-
-         <div id="menu-items">
-            <div class="item">
-                <a href="{% url 'IUsuario:listar' %}">
-                    <div class="icon"><img src={% static 'database/img/imgIndexClien/usuario.png' %} alt=""></div>
-                    <div class="title"><span>Usuario</span></div>
-                </a>
-            </div>
-
-            <div class="item separator">
-            </div>
-         </div>
-
-         <div id="menu-items">
-            <div class="item">
-                <a  href="{% url 'IPlan:listar' %}">
-                    <div class="icon"><img src={% static 'database/img/imgIndexClien/plan.png' %} alt=""></div>
-                    <div class="title"><span>Plan</span></div>
-                </a>
-            </div>
-
-            <div class="item separator">
-            </div>
-         </div>
-
-         <div id="menu-items">
-            <div class="item">
-                <a  href="{% url 'ITarea:listar' %}">
-                    <div class="icon"><img src={% static 'database/img/imgIndexClien/tarea.png' %} alt=""></div>
-                    <div class="title"><span>Tareas</span></div>
-                </a>
-            </div>
-
-            <div class="item separator">
-            </div>
-         </div>
-
-         <div id="menu-items">
-            <div class="item">
-                <a href="{% url 'IPqr:formulario' %}">
-                    <div class="icon"><img src={% static 'database/img/imgIndexClien/pqr.png' %} alt=""></div>
-                    <div class="title"><span>PQR</span></div>
-                </a>
-            </div>
-
-            <div class="item separator">
-            </div>
-         </div>
-
-         <div id="menu-items">
-            <div class="item">
-                <a href="{% url 'IEspecificacion:listar' %}">
-                    <div class="icon"><img src={% static 'database/img/imgIndexClien/dieta.png' %} alt=""></div>
-                    <div class="title"><span>Dieta-Ejercicio</span></div>
-                </a>
-            </div>
-
-            <div class="item separator">
-            </div>
-         </div>
-
-         <div id="menu-items">
-            <div class="item">
-                <a href="{% url 'ITip:listar' %}">
-                    <div class="icon"><img src={% static 'database/img/imgIndexClien/tip.png' %} alt=""></div>
-                    <div class="title"><span>Tip</span></div>
-                </a>
-            </div>
-
-            <div class="item separator">
-            </div>
-         </div>
-
-         {% if request.session.logueo %}
-         <div id="menu-items">
-            <div class="item">
-                <a href="{% url 'sesion:logout' %}">
-                    <div class="icon"><img src={% static 'database/img/imgIndexClien/hogar.png' %} alt=""></div>
-                    <div class="title"><span>Logout</span></div>
-                  </a>
-            </div>
-
-            <div class="item separator">
-            </div>
-         </div>
-         {% endif %}
-        
-    </div>
+          <div class="item separator">
+          </div>
+        </div>
+        {% endif %}
+      
+  </div>
     
     <!--<div id="banner-ola">
       Esto es una prueba
@@ -224,7 +216,7 @@
             document.querySelector('body').classList.toggle('body-expanded');
         });
     </script>
-</body>
+
 </html>
 
   <!-- +++++++++++++++++++++++++++++++++++++++++++++++++++++++++ +++++++ -->
