@@ -1,0 +1,9 @@
+Fonts used in this design:
+
+Font: Amaranth
+Author: Gesine Todt
+Url: http://www.fontsquirrel.com/fonts/amaranth
+
+Font: Bebas Neue
+Author: Fontfabric
+Url: http://www.fontsquirrel.com/fonts/bebas-neue

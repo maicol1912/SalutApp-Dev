@@ -1,0 +1,234 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="{% static 'database/css/bootstrap.min.css' %}" rel="stylesheet">
+
+    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'database/favicon_io/apple-touch-icon.png' %}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'database/favicon_io/favicon-32x32.png' %}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'database/favicon_io/favicon-16x16.png' %}">
+    <link rel="manifest" href="{% static 'database/favicon_io/site.webmanifest' %}">
+    <link rel="stylesheet" href="{% static 'database/css/estilos.css' %}">
+
+    <!--  ----------------------------------------------------- -->
+    <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
+    <script src="https://kit.fontawesome.com/657c3a62ca.js" crossorigin="anonymous"></script>
+    <!--  ----------------------------------------------------- -->
+
+
+    <title>{% block titulo %} SalutApp {% endblock %}</title>
+</head>
+
+<body class="landing-body">
+
+
+    <nav id="navPrimaria" class="navbar navbar-expand-sm navbar-dark bg-dark">
+        <div id="nav-bar" class="container-fluid">
+            <a class="navbar-brand" href="javascript:void(0)"><img class="imgLogoNav"
+                    src="{% static 'database/img/Logov1.png' %}" alt="Logotipo salut App"></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mynavbar">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="mynavbar">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a id="bt1" class="nav-link" href="javascript:void(0)"><strong>Inicio</strong></a>
+                    </li>
+                    <li class="nav-item">
+                        <a id="bt2" class="nav-link" href="javascript:void(0)"> <strong>Proyecto</strong> </a>
+                    </li>
+                    <li class="nav-item">
+                        <a id="bt3" class="nav-link" href="javascript:void(0)"><strong>Reseñas</strong></a>
+                    </li>
+                    <li class="nav-item">
+                        <a id="bt4" class="nav-link" href="javascript:void(0)"><strong>Planes</strong></a>
+                    </li>
+                </ul>
+                <div class="d-flex" > 
+                    <a  id="btnSi" class="btn btn-primary" href="{% url 'sesion:loginFormulario' %}">Sign In</a>
+                    <!-- crear cuenta -->
+                    <a  id="btnSu" class="btn btn-primary" href="{% url 'sesion:loginFormulario' %}">Sign Up</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <!-- Modal ingreso ingreso -->
+    <div class="modal fade" id="Ingresar" action="" method="post">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 id="TituloIngreso" class="modal-title">INICIAR SESION</h4>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <form action="/action_page.php">
+                        <div class="mb-3 mt-3">
+                            <input type="email" class="form-control" id="email" placeholder="Usuario" name="email">
+                        </div>
+                        <div class="mb-3">
+                            <input type="password" class="form-control" id="pwd" placeholder="Contraseña" name="pswd">
+                        </div>
+                        <button type="submit" id="iniciarsesion" class="btn btn-primary">Iniciar sesion</button>
+                        <div class="form-check mb-3">
+                            <label id="labelRecuerda" class="form-check-label"> Recuerdame
+                                <input id="recordatorio" class="form-check-input" type="checkbox" name="remember"> <a
+                                    href="#" class="pull-right">¿No puedes iniciar sesión?</a>
+                            </label>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal registro -->
+    <div class="modal fade" id="Crear">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 id="TituloRegistro" class="modal-title">REGISTRAR</h4>
+                </div>
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <form action="/action_page.php">
+                        <div class="mb-3 mt-3">
+                            <input type="email" class="form-control" id="email" placeholder="Nombre" name="email">
+                        </div>
+                        <div class="mb-3 mt-3">
+                            <input type="email" class="form-control" id="email" placeholder="Apellido" name="email">
+                        </div>
+                        <div class="mb-3 mt-3">
+                            <input type="email" class="form-control" id="email" placeholder="Dierreccion de correo"
+                                name="email">
+                        </div>
+                        <div class="mb-3 mt-3">
+                            <input type="email" class="form-control" id="email" placeholder="Usuario" name="email">
+                        </div>
+                        <div class="mb-3">
+                            <input type="password" class="form-control" id="pwd" placeholder="Contraseña" name="pswd">
+                        </div>
+                        <div class="mb-3">
+                            <input type="password" class="form-control" id="pwd" placeholder="Confirma tu Contraseña"
+                                name="pswd">
+                        </div>
+                        <button type="submit" id="iniciarsesion" class="btn btn-primary">Registrar</button>
+                        <div class="form-check mb-3">
+                            <label id="labelRecuerda" class="form-check-label"> Acepto terminos y condiciones
+                                <input id="recordatorio" class="form-check-input" type="checkbox" name="remember">
+                            </label>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Banner de ola -->
+    <div class="banner-ola">
+        <div class="cuerpo">
+            <div class="texto-primario">
+                <h2><b>El placer de vivir saludable, somos un proyecto enfocado en mejorar la calidad de vida y salud de
+                        las personas</b></h2>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Laborum veritatis beatae libero
+                    reprehenderit perferendis enim magnam fugit quasi asperiores modi.</p>
+                <button type="button" id="btnDescarga" class="btn btn-primary">¡Descarga ahora!</button>
+            </div>
+
+            <div class="celular">
+                <img src="{% static 'database/img/group.png' %}" alt="celular">
+            </div>
+        </div>
+    </div>
+
+    <div class="iconos-clientes">
+    </div>
+
+    <div class="testimonial">
+        <div class="Parrafono-testimonios">
+            <h1><b>Nuestros clientes son nuestros mayores admiradores</b></h1>
+        </div>
+        <div class="cartillas-testimoniales">
+            <div class="slider">
+                <ul>
+                    <li>
+                        <div class="divtetimonio">
+                            <img src="{% static 'database/img/testimonial1.jpg'%}" alt="">
+                            <h4>Jaime Perez</h4>
+                            <p class="corregir">Me encantó la app, es lo mejor del mundo</p>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="divtetimonio">
+                            <img src="{% static 'database/img/testimonial2.jpg'%}" alt="">
+                            <h4>Emanuel Rodriguez</h4>
+                            <p class="corregir">Gracias a salutApp pude mejorar mi alimentación y calidad de sueño, me
+                                encantó la app</p>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="divtetimonio">
+                            <img src="{% static 'database/img/testimonial3.jpg'%}" alt="">
+                            <h4>Joe Jimenez</h4>
+                            <p class="corregir">Me ayudó mucho en cuanto a mi salud, estoy muy agradecido con ellos</p>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="divtetimonio">
+                            <img src="{% static 'database/img/testimonial4.jpg'%}" alt="">
+                            <h4>Mario Galvar</h4>
+                            <p class="corregir">Gracias a SalutApp puedo mantener más energias siguiendo sus rutinas de
+                                entrenamiento y planes nutricionales.</p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- Footer -->
+    <footer class="pie-pagina">
+        <div class="grupo-1">
+            <div class="box">
+                <figure>
+                    <a href="">
+                        <img src="{% static 'database/img/Logov1.png' %}" alt="Logotipo">
+                    </a>
+                </figure>
+            </div>
+
+            <div class="box">
+                <h2>SOBRE NOSOTROS</h2>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Beatae, reprehenderit!</p>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Beatae, reprehenderit!</p>
+            </div>
+
+            <div class="box">
+                <h2>SIGUENOS</h2>
+                <div class="red-social">
+                    <a href="#" class="fa fa-facebook"></a>
+                    <a href="#" class="fa fa-instagram"></a>
+                    <a href="#" class="fa fa-twitter"></a>
+                    <a href="#" class="fa fa-github"></a>
+                </div>
+            </div>
+        </div>
+        <div class="grupo-2">
+            <small>&copy; 2021-2022 <b>SalutApp</b> - Todos los derechos reservados.</small>
+        </div>
+    </footer>
+    <script>
+        function mostrarModal(){
+            const modalOculta = document.querySelector("#Ingresar")
+            modalOculta.style.display = 'block';
+        }
+        
+    </script>
+</body>

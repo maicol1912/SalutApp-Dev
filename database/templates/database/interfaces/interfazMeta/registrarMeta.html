@@ -1,0 +1,31 @@
+{% extends "database/baseUsuario.html" %}
+{% load static %}
+
+{% block subtitulo %} Meta {% endblock %}
+
+{% block contenedor %}
+<form action="{% url 'IMeta:ingresar' %}" method="post">
+    {% csrf_token %}
+    <div class="mb-3">
+        <label for="">Tipo de meta</label><br>
+        <select class="form-control" name="meta_tipo">
+            <option value="subir peso">subir peso</option>
+            <option value="bajar peso" selected="">bajar peso</option>
+            <option value="recomponsicion">recomponsicion</option>
+        </select>
+    </div>
+
+    <div class="mb-3">
+        <label for="">Descripcion Meta</label>
+        <textarea type="text" class="form-control" id="input-formulario" name="meta_desc"></textarea>
+    </div>
+
+    <div class="mb-3">
+        <label for="">Peso Ideal</label>
+        <input type="number" class="form-control" name="meta_peso">
+    </div>
+
+    <input type="hidden" value="{{request.session.logueo.2}}" name="meta_usuario">
+    <button type="submit" class="btn btn-primary">Enviar</button>
+</form>
+{% endblock %}

@@ -1,0 +1,22 @@
+{% extends "database/base.html" %}
+{% load static %}
+
+{% block subtitulo %} Tip {% endblock %}
+
+{% block contenedor %}
+<form action="{% url 'tip:ingresar' %}" method="post">
+    {% csrf_token %}
+
+    <div class="mb-3">
+        <label for="">Encabezado</label>
+        <textarea type="text" class="form-control" id="input-formulario" name="tip_encabezado"></textarea>
+    </div>
+
+    <div class="mb-3">
+        <label for="">Descripcion</label>
+        <textarea type="text" class="form-control" id="input-formulario" name="tip_desc"></textarea>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Enviar</button>
+</form>
+{% endblock %}

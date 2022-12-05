@@ -1,0 +1,34 @@
+{% extends "database/base.html" %}
+{% load static %}
+
+{% block subtitulo %} Encuesta {% endblock %}
+
+{% block contenedor %}
+<form action="{% url 'pqr:actualizar' %}" method="post">
+    {% csrf_token %}
+    <input type="hidden" name="id" value="{{datos.id}}">
+    <div class="mb-3">
+        <label for="">Tipo</label><br>
+        <select class="form-control" name="pqr_tipo" value="{{datos.pqr_tipo}}">
+            <option value="1">Reportar Error</option>
+            <option value="2">Sugerencia</option>
+            <option value="3">Ayuda</option>
+        </select>
+    </div>
+    <div class="mb-3">
+        <label for="">Descripcion</label>
+        <textarea type="text" class="form-control" id="input-formulario" name="pqr_desc">{{datos.pqr_desc}}</textarea>
+    </div>
+    <div class="mb-3">
+        <label for="">Usuario</label>
+        <select class="form-control" name="pqr_usuario" value="{{datos.usuario_id}}">
+    
+            {% for i in usuarios%}
+            <option value="{{i.usuario_id}}">{{i.usuario_nombre}}</option>
+            {% endfor %}
+    
+        </select>
+    </div>
+    <button type="submit" class="btn btn-primary">Enviar</button>
+</form>
+{% endblock %}

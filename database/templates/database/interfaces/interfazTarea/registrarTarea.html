@@ -1,0 +1,26 @@
+{% extends "database/baseUsuario.html" %}
+{% load static %}
+
+{% block subtitulo %} Usuario {% endblock %}
+
+{% block contenedor %}
+
+<div id="formularioTarea">
+<form action="{% url 'ITarea:ingresar' %}" method="post">
+    {% csrf_token %}
+    <div class="mb-3">
+        <label for="">Realizaste las indicaciones dadas en la semana</label><br>
+        <select class="form-control" name="tarea_check" required>
+            <option value="T">Si las seguí</option>
+            <option value="F">No las seguí</option>
+        </select>
+    </div>
+    <div class="mb-3">
+        <label for="">Tu nuevo peso</label>
+        <input type="number" class="form-control" name="nuevo_peso" required>
+    </div>
+    <button type="submit" class="btn btn-primary">Enviar</button>
+</form>
+</div>
+
+{% endblock %}

@@ -1,0 +1,14 @@
+#pip install -r requirements.txt        contraseña 123 maicol123
+Django == 4.0.6
+
+python-decouple
+
+Pillow >= 9.0
+
+werkzeug
+
+mysqlclient
+
+sphinx
+
+renku-sphinx-theme

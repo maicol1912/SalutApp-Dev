@@ -1,0 +1,150 @@
+from django.shortcuts import render, redirect
+from django.contrib import messages
+from database.models import Usuario
+from django.contrib import messages
+from datetime import datetime
+from database.views.encriptacion import encriptador
+
+
+# Create your views here.
+def listar(request):
+    """Lista la infromacion del usuario de :model: `database.Usuario` en el template
+
+    Args:
+        q: ninguno
+
+    Returns:
+        template:`database/interfaces/interfazUsuario/listarUsuario.html`
+    """
+    try:
+        if request.session["logueo"][1] == "usuario" or request.session["logueo"][1] == "admin":
+            usuarioE = Usuario.objects.get(pk=request.session["logueo"][2])
+
+            imc = (usuarioE.usuario_peso/(usuarioE.usuario_altura /
+                100 * usuarioE.usuario_altura/100))
+            imcFormateado = ("%.1f" % imc)
+            print(usuarioE)
+            context = {"datos":usuarioE,"imc":imcFormateado}
+            return render(request, 'database/interfaces/interfazUsuario/listarUsuario.html',context)
+        else:
+            messages.warning(request, "usted no ha enviado datos...")
+            return("indexUsuario")
+    except:
+        messages.warning(request, " No tienes acceso a este modulo")
+        return redirect("indexUsuario")
+
+def formulario(request):
+    """Renderiza un template el cual contiene los campos para ingresar
+    los datos de :model:`database.Usuario`.
+
+    Args:
+        q: ninguno
+
+    Returns:
+        template:`database/interfaces/interfazUsuario/registrarUsuario.html`
+    """
+    return render(request, 'database/interfaces/interfazUsuario/registrarUsuario.html')
+
+def ingresar(request):
+    
+    """
+    Valida los datos enviados por el formulario, y asi poder
+    hacer la insercion a: model: `database.Usuario`
+
+    Args:
+        q: ninguno
+
+    Returns:
+        nada
+    """
+    
+    if request.method == "POST":
+            altura = int(request.POST["usuario_altura"])
+            peso = int(request.POST["usuario_peso"])
+            edad = int(request.POST["usuario_edad"])
+            password = request.POST["usuario_password"]
+            user = request.POST["usuario_nombre"]
+            if altura > 140 and peso > 40 and edad>=15 and len(password) >=6 and len(user)>=6:
+                
+                correo = request.POST["usuario_correo"]
+                id = request.POST["usuario_id"]
+                if (Usuario.objects.filter(usuario_nombre=user) or Usuario.objects.filter(usuario_correo=correo) or Usuario.objects.filter(usuario_id=id)):
+                    messages.warning(request, "Este usuario o correo ya esta en uso")
+                    return redirect("IUsuario:formulario")
+                else:
+                    passwordEncriptado = encriptador.encriptarPassword(password)
+                    fechaIngreso = datetime.strftime(datetime.now(), "%d-%m-%Y")
+                    usuario = Usuario(usuario_id=request.POST["usuario_id"],
+                                    usuario_nombre = user,
+                                    usuario_correo = correo,
+                                    usuario_password =passwordEncriptado ,
+                                    usuario_peso = peso,
+                                    usuario_altura = altura,
+                                    usuario_edad = edad,
+                                    usuario_rol = request.POST["usuario_rol"],
+                                    usuario_nro_semanas=0,
+                                    usuario_fecha_avance=fechaIngreso,
+                                    usuario_nro_tarea = 0
+                            )
+                    usuario.save()
+                    messages.success(request, "Usuario guardado Correctamente")
+            else:
+                messages.warning(request, "Los datos que ingresaste no son validos")
+    else:
+        messages.warning(request, "usted no ha enviado datos...")
+
+    return redirect("sesion:loginFormulario")
+
+    
+
+
+def encontrar(request):
+    """
+    Filtra el registro que se quiere modificar y renderiza un formulario 
+    para ingresar los campos del :model:`database.Usuario`.
+
+    Args:
+        q: ninguno
+
+    Returns:
+        template:`database/usuario/actualizarUsuario.html`
+    """
+    if request.session["logueo"][1] == "admin" or request.session["logueo"][1] == "usuario":
+        usuario = Usuario.objects.get(pk=request.session["logueo"][2])
+        context = {"datos": usuario}
+        return render(request, "database/interfaces/interfazUsuario/actualizarUsuario.html", context)
+    else:
+        messages.warning(request, "usted no tiene acceso a este campo")
+        return redirect("index")
+
+def actualizar(request): 
+    """
+    Valida los datos enviados por el formulario, y asi poder
+    hacer la actualizacion a :model:`database.Usuario`. si todo esta correcto
+
+    Args:
+        q: ninguno
+
+    Returns:
+        nada
+    """
+    if request.session["logueo"][1] == "admin" or request.session["logueo"][1] == "usuario":
+        id = request.session["logueo"][2]
+        password = request.POST["usuario_password"]
+        passwordEncriptado = encriptador.encriptarPassword(password)
+
+        usuarioActualizar = Usuario.objects.get(pk=id)
+        usuarioActualizar.usuario_id = id
+        usuarioActualizar.usuario_nombre = request.POST["usuario_nombre"]
+        usuarioActualizar.usuario_correo = request.POST["usuario_correo"]
+        usuarioActualizar.usuario_password = passwordEncriptado
+        usuarioActualizar.save()
+        return redirect('IUsuario:listar')
+    else:
+        messages.warning(request, "usted no tiene acceso a este campo")
+        return redirect("indexUsuario")
+
+
+
+    
+

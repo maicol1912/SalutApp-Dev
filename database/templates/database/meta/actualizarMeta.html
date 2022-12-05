@@ -1,0 +1,41 @@
+{% extends "database/base.html" %}
+{% load static %}
+
+{% block subtitulo %} Meta {% endblock %}
+
+{% block contenedor %}
+<form action="{% url 'meta:actualizar' %}" method="post">
+    {% csrf_token %}
+    <input type="hidden" name="id" value="{{datos.id}}">
+    <div class="mb-3">
+        <label for="">Tipo de meta</label><br>
+        <select class="form-control" name="meta_tipo">
+            <option value="subir peso">subir peso</option>
+            <option value="bajar peso" selected="">bajar peso</option>
+            <option value="recomponsicion">recomponsicion</option>
+        </select>
+    </div>
+
+    <div class="mb-3">
+        <label for="">Descripcion Meta</label>
+        <textarea type="text" class="form-control" id="input-formulario" name="meta_desc">{{datos.meta_desc}}</textarea>
+    </div>
+
+    <div class="mb-3">
+        <label for="">Peso Ideal</label>
+        <input type="text" class="form-control" name="meta_peso">
+    </div>
+
+    <div class="mb-3">
+        <label for="">Usuario</label>
+        <select class="form-control" name="meta_usuario">
+
+            {% for i in usuarios%}
+            <option value="{{i.usuario_id}}">{{i.usuario_nombre}}</option>
+            {% endfor %}
+
+        </select>
+    </div>
+    <button type="submit" class="btn btn-primary">Enviar</button>
+</form>
+{% endblock %}
