@@ -130,16 +130,23 @@ def actualizar(request):
     """
     if request.session["logueo"][1] == "admin" or request.session["logueo"][1] == "usuario":
         id = request.session["logueo"][2]
-        password = request.POST["usuario_password"]
-        passwordEncriptado = encriptador.encriptarPassword(password)
-
         usuarioActualizar = Usuario.objects.get(pk=id)
+        password = request.POST["usuario_password"]
+        if len(password) >=6:
+            passwordEncriptado = encriptador.encriptarPassword(password)
+            usuarioActualizar.usuario_password = passwordEncriptado
+        else:
+            usuarioActualizar.usuario_password = usuarioActualizar.usuario_password
+        
         usuarioActualizar.usuario_id = id
         usuarioActualizar.usuario_nombre = request.POST["usuario_nombre"]
         usuarioActualizar.usuario_correo = request.POST["usuario_correo"]
-        usuarioActualizar.usuario_password = passwordEncriptado
-        usuarioActualizar.save()
-        return redirect('IUsuario:listar')
+        if usuarioActualizar.usuario_altura > 140 and usuarioActualizar.usuario_peso > 40 and len(usuarioActualizar.usuario_nombre)>=6:
+            usuarioActualizar.save()
+            return redirect('IUsuario:listar')
+        else:
+            messages.warning(request, "Datos incorrectos")
+            return redirect("indexUsuario")
     else:
         messages.warning(request, "usted no tiene acceso a este campo")
         return redirect("indexUsuario")

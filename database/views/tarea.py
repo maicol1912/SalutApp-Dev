@@ -157,24 +157,48 @@ def actualizar(request):
     Returns:
        nada
     """
+    print("entre 1")
     try:
-        if request.session["logueo"][1] =="admin":
+        if request.session["logueo"][1] == "admin":
+            print("entre 2")
             usuarioP = request.POST["tarea_usuario"]
             usuario = Usuario.objects.get(pk=usuarioP)
+
 
             especificacionP = request.POST["tarea_especificacion"]
             especificacion = Especificacion.objects.get(pk=especificacionP)
             
-            if (request.POST["tarea_check"] == "falso"):
-                check = False
-            if (request.POST["tarea_check"] == "verdadero"):
-                check = True
 
             id = request.POST["id"]
+            tarea = Tarea.objects.get(tarea_id=id)
+            tarea.tarea_id = id
+            tarea.tarea_check_1 = request.POST["tarea_check_1"]
+            if len(request.POST["peso_check_1"]) <= 1:
+                tarea.peso_check_1 =  None
+            else:
+                tarea.peso_check_1 = request.POST["peso_check_1"]
 
-            tarea = Tarea.objects.get(pk=id)
-            tarea.id = id
-            tarea.tarea_check = check
+            tarea.tarea_check_2 = request.POST["tarea_check_2"]
+
+            if len(request.POST["peso_check_2"]) <= 1:
+                tarea.peso_check_2 = None
+            else:
+                tarea.peso_check_2 = request.POST["peso_check_1"]
+
+            tarea.tarea_check_3 = request.POST["tarea_check_3"]
+
+            if len(request.POST["peso_check_3"]) <= 1:
+                tarea.peso_check_3 = None
+            else:
+                tarea.peso_check_3 = request.POST["peso_check_3"]
+
+            tarea.tarea_check_4 = request.POST["tarea_check_4"]
+
+            if len(request.POST["peso_check_4"]) <= 1:
+                tarea.peso_check_4 = None
+            else:
+                tarea.peso_check_4 = request.POST["peso_check_4"]
+
             tarea.especificacion_id = especificacion
             tarea.usuario_id = usuario
             tarea.save()
@@ -183,7 +207,7 @@ def actualizar(request):
             messages.warning(request, "usted no tiene acceso a este campo")
             return redirect("index")
     except:
-        messages.warning(request, " No tienes acceso a este modulo")
+        messages.warning(request, "Hubo errores")
         return redirect("index")
 
 def buscar(request):

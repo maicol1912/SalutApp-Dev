@@ -212,7 +212,9 @@ strong{
     color: white;
     margin-left: -25%;
 }
-
+#div-blanco{
+    color: white;
+}
 #pwd,#email{
     height: 3.5em;
     width: 22em;
@@ -470,11 +472,11 @@ strong{
     margin-top: 5em;
     margin-bottom: 5em;
     width: 40em;
-    margin-left: 25em;
+    margin-left: 20em;
 }
 
 #cartaEspe{
-    margin-left: 50%;
+    margin-left: 38%;
     margin-top: 5em;
     width: 18em;
 }
@@ -490,7 +492,7 @@ strong{
 }
 
 #formularioTarea{
-    margin-left: -5%;
+    margin-left: -15%;
     margin-bottom: 10em;
 }
 

@@ -4,37 +4,67 @@
 {% block subtitulo %} Meta {% endblock %}
 
 {% block contenedor %}
-<form action="{% url 'tarea:ingresar' %}" method="post">
+<form action="{% url 'tarea:actualizar' %}" method="post">
     {% csrf_token %}
-    <input type="hidden" name="id" value="{{datos.id}}">
+    <input type="hidden" name="id" value="{{datos.tarea_id}}">
     <div class="mb-3">
-        <label for="">Tarea Check</label><br>
-        <select class="form-control" name="tarea_check">
-            <option value="falso">No se realizo</option>
-            <option value="verdadero" selected="">Si se realizo</option>
+        <label for="">Tarea Check 1</label><br>
+        <select class="form-control" name="tarea_check_1">
+            <option value="None">Aun nada</option>
+            <option value="F">No se realizo</option>
+            <option value="T" selected="">Si se realizo</option>
         </select>
+    </div>
+    <div class="mb-3">
+        <label for="">Peso 1</label><br>
+        <input class="form-control" type="number"name="peso_check_1" value="{{datos.peso_check_1}}">
     </div>
 
     <div class="mb-3">
-        <label for="">Usuario</label>
-        <select class="form-control" name="tarea_usuario">
-
-            {% for i in usuarios%}
-            <option value="{{i.usuario_id}}">{{i.usuario_nombre}}</option>
-            {% endfor %}
-
+        <label for="">Tarea Check 2</label><br>
+        <select class="form-control" name="tarea_check_2">
+            <option value="None">Aun nada</option>
+            <option value="F">No se realizo</option>
+            <option value="T" selected="">Si se realizo</option>
         </select>
+    </div>
+    <div class="mb-3">
+        <label for="">Peso 2</label><br>
+        <input class="form-control" type="number"name="peso_check_2" value="{{datos.peso_check_2}}">
     </div>
 
     <div class="mb-3">
-        <label for="">Usuario</label>
-        <select class="form-control" name="tarea_especificacion">
-
-            {% for i in especificaciones%}
-            <option value="{{i.especificacion_id}}">{{i.especificacion_nombre}}</option>
-            {% endfor %}
-
+        <label for="">Tarea Check 3</label><br>
+        <select class="form-control" name="tarea_check_3">
+            <option value="None">Aun nada</option>
+            <option value="F">No se realizo</option>
+            <option value="T" selected="">Si se realizo</option>
         </select>
+    </div>
+    <div class="mb-3">
+        <label for="">Peso 3</label><br>
+        <input class="form-control" type="number"name="peso_check_3" value="{{datos.peso_check_3}}">
+    </div>
+
+    <div class="mb-3">
+        <label for="">Tarea Check 4</label><br>
+        <select class="form-control" name="tarea_check_4">
+            <option value="None">Aun nada</option>
+            <option value="F">No se realizo</option>
+            <option value="T" selected="">Si se realizo</option>
+        </select>
+    </div>
+    <div class="mb-3">
+        <label for="">Peso 4</label><br>
+        <input class="form-control" type="number"name="peso_check_4" value="{{datos.peso_check_4}}">
+    </div>
+
+    <div class="mb-3">
+        <input  type="hidden" value="{{datos.usuario_id.usuario_id}}" name="tarea_usuario"></input>
+    </div>
+
+    <div class="mb-3">
+        <input  type="hidden" value="{{datos.especificacion_id.especificacion_id}}" name="tarea_especificacion"></input>
     </div>
     <button type="submit" class="btn btn-primary">Enviar</button>
 </form>

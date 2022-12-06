@@ -73,14 +73,14 @@ def ingresar(request):
                 altura = int(request.POST["usuario_altura"])
                 peso = int(request.POST["usuario_peso"])
                 edad = int(request.POST["usuario_edad"])
-                if altura > 140 and peso > 40 and edad >= 15:
-                    password = request.POST["usuario_password"]
-                    user = request.POST["usuario_nombre"]
+                user = request.POST["usuario_nombre"]
+                password = request.POST["usuario_password"]
+                if altura > 140 and peso > 40 and edad>=15 and len(password) >=6 and len(user)>=6:
                     correo = request.POST["usuario_correo"]
                     id = request.POST["usuario_id"]
                     if (Usuario.objects.filter(usuario_nombre=user) or Usuario.objects.filter(usuario_correo=correo) or Usuario.objects.filter(usuario_id=id)):
                         messages.warning(
-                            request, "Este usuario o correo ya esta en uso")
+                            request, "La informacion esta en uso")
                         return redirect("indexUsuario")
                     else:
                         passwordEncriptado = encriptador.encriptarPassword(password)
@@ -124,8 +124,12 @@ def eliminar(request, id):
     try:
         if request.session["logueo"][1] =="admin":
             usuario = Usuario.objects.get(pk=id)
-            usuario.delete()
-            return redirect('usuario:listar')
+            if usuario.usuario_rol == "admin":
+                messages.warning(request, "usted no puede eliminar un admin")
+                return redirect("index")
+            else:
+                usuario.delete()
+                return redirect('usuario:listar')
         else:
             messages.warning(request, "usted no tiene acceso a este campo")
             return redirect("index")
@@ -167,6 +171,7 @@ def actualizar(request):
     """
     try:
         if request.session["logueo"][1] =="admin":
+            
             id = request.POST["usuario_id"]
             password = request.POST["usuario_password"]
             passwordEncriptado = encriptador.encriptarPassword(password)
@@ -175,12 +180,20 @@ def actualizar(request):
             usuario.usuario_id = id
             usuario.usuario_nombre = request.POST["usuario_nombre"]
             usuario.usuario_correo = request.POST["usuario_correo"]
-            usuario.usuario_password = passwordEncriptado
+            if len(password) >=6:
+                usuario.usuario_password = passwordEncriptado
+            else:
+                usuario.usuario_password = usuario.usuario_password
+
             usuario.usuario_peso = int(request.POST["usuario_peso"])
             usuario.usuario_altura = int(request.POST["usuario_altura"])
             usuario.usuario_edad = int(request.POST["usuario_edad"])
             usuario.usuario_rol = request.POST["usuario_rol"]
-            usuario.save()
+            if usuario.usuario_altura > 140 and usuario.usuario_peso > 40 and usuario.usuario_edad>=15 and len(usuario.usuario_nombre)>=6:
+                usuario.save()
+            else:
+                messages.warning(request, "Datos incorrectos")
+                return redirect('usuario:listar')
             return redirect('usuario:listar')
         else:
             messages.warning(request, "usted no tiene acceso a este campo")

@@ -35,6 +35,8 @@
                 <th>Descripcion</th>
                 <th>Recomendaciones</th>
                 <th>Especificacion</th>
+                <th>Usuario</th>
+                <th>Meta</th>
                 <th>Acciones</th>
             </tr>
         </thead>
@@ -45,6 +47,8 @@
             <td>{{i.plan_desc}}</td>
             <td>{{i.plan_recomendaciones}}</td>
             <td>{{i.especificacion_id}}</td>
+            <td>{{i.usuario_id}}</td>
+            <td>{{i.meta_id}}</td>
             <td><a type="button" class="btn btn-danger" href="{% url 'plan:eliminar' i.id %}">Eliminar</a>
                 <a type="button" class="btn btn-success" href="{% url 'plan:encontrar' i.id %}">Actualizar</a>
             </td>
